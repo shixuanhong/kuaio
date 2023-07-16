@@ -1,16 +1,21 @@
+declare interface KuaioConfig {
+  sequenceTimeout?: number
+  preventDefault?: boolean
+  stopPropagation?: boolean
+  stopImmediatePropagation?: boolean
+}
 declare class Kuaio {
   readonly target: EventTarget
+  readonly config: KuaioConfig
   private _eventType
   private _sequence
-  private _sequenceTimeout
   private _curSequenceItem
-  private _prventDefault
-  private _stopPropagation
-  private _stopImmediatePropagation
   private _listener?
-  constructor(target: EventTarget)
+  constructor(target: EventTarget, config: KuaioConfig)
+  static create(): Kuaio
   static create(target: EventTarget): Kuaio
-  static global(): Kuaio
+  static create(config: KuaioConfig): Kuaio
+  static create(target: EventTarget, config: KuaioConfig): Kuaio
   private _pushSequenceItem
   private _getCurSequenceItem
   private _pushCurSequenceItem
@@ -39,7 +44,7 @@ declare class Kuaio {
   /**
    * Add `Ctrl` key to modifier list, which is the `Control` or `⌃` key on Mac keyboards.
    */
-  Ctrl(): this
+  Control(): this
   /**
    * Add `Meta` key to modifier list, which is the `Windows` or `⊞` key on Windows keyboards, or the `Command` or `⌘` key on Mac keyboards.
    */
@@ -486,6 +491,7 @@ declare enum ModifierKeys {
   ScrollLock = 'ScrollLock',
   Shift = 'Shift'
 }
+
 /**
  * @see https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#whitespace_keys
  */
@@ -651,6 +657,7 @@ declare enum KeyboardEventType {
 }
 
 export {
+  KuaioConfig,
   EditingKeys,
   FunctionKeys,
   KeyboardEventType,

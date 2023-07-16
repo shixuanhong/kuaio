@@ -9,36 +9,52 @@ import {
   GeneralKeys
 } from '../constants/index'
 import { KuaioSequenceItem, KuaioSequence } from './sequence'
-import { defaultConfig } from './config/index'
 import { createNativeEventListener } from './listener'
-import { getKeyMethodName } from '../utils/index'
 
 class Kuaio {
   target
+  config
   _eventType
   _sequence
-  _sequenceTimeout
   _curSequenceItem
-  _prventDefault
-  _stopPropagation
-  _stopImmediatePropagation
   _listener
 
-  constructor(target) {
+  constructor(target, config) {
+    if (!target || !(target instanceof EventTarget)) {
+      throw new Error(
+        'Parameter target cannot be empty or not an instance of EventTarget.'
+      )
+    }
     this.target = target
+    if (
+      typeof config !== 'object' ||
+      config === null ||
+      Array.isArray(config)
+    ) {
+      throw new Error(
+        'The parameter config cannot be empty and must be a plain object'
+      )
+    }
+    this.config = config
     this._eventType = KeyboardEventType.KeyDown
     this._sequence = new KuaioSequence()
-    this._sequenceTimeout = defaultConfig.sequenceTimeout
     this._curSequenceItem = null
-    this._prventDefault = defaultConfig.preventDefault
-    this._stopPropagation = defaultConfig.stopPropagation
-    this._stopImmediatePropagation = defaultConfig.stopImmediatePropagation
   }
-  static create(target) {
-    if (!target) {
-      return new Kuaio(window || globalThis)
+  static create(...args) {
+    const global = document || window
+    if (args.length === 0) {
+      return new Kuaio(global, {})
     }
-    return new Kuaio(target)
+    if (args.length === 1) {
+      if (args[0] instanceof EventTarget) {
+        return new Kuaio(args[0], {})
+      } else {
+        return new Kuaio(global, args[0])
+      }
+    }
+    if (args.length === 2) {
+      return new Kuaio(args[0], args[1])
+    }
   }
   _pushSequenceItem(sequenceItem) {
     this._sequence.push(sequenceItem)
@@ -51,11 +67,7 @@ class Kuaio {
   }
   _pushCurSequenceItem(timeout) {
     if (this._curSequenceItem) {
-      this._curSequenceItem.timeout = timeout ?? this._sequenceTimeout
-      this._curSequenceItem.preventDefault ??= this._prventDefault
-      this._curSequenceItem.stopPropagation ??= this._stopPropagation
-      this._curSequenceItem.stopImmediatePropagation ??=
-        this._stopImmediatePropagation
+      this._curSequenceItem.timeout = timeout
       this._pushSequenceItem(this._curSequenceItem)
       this._curSequenceItem = null
     }
@@ -74,22 +86,6 @@ class Kuaio {
    */
   keyup() {
     this._eventType = KeyboardEventType.KeyUp
-    return this
-  }
-  defaultSequenceTimeout(timeout) {
-    this._sequenceTimeout = timeout
-    return this
-  }
-  defaultPrventDefault(value) {
-    this._prventDefault = value
-    return this
-  }
-  defaultStopPropagation(value) {
-    this._stopPropagation = value
-    return this
-  }
-  defaultStopImmediatePropagation(value) {
-    this._stopImmediatePropagation = value
     return this
   }
   /**
@@ -127,6 +123,7 @@ class Kuaio {
     this._listener = createNativeEventListener(
       {
         target: this.target,
+        config: this.config,
         eventType: this._eventType,
         sequence: this._sequence
       },
@@ -142,17 +139,17 @@ class Kuaio {
 }
 
 const ignoreModifierKeys = [
-  ModifierKeys.CAPS_LOCK,
-  ModifierKeys.NUM_LOCK,
-  ModifierKeys.SCROLL_LOCK
+  ModifierKeys.CapsLock,
+  ModifierKeys.NumLock,
+  ModifierKeys.ScrollLock
 ]
 
-Object.values(ModifierKeys).forEach((key) => {
+Object.entries(ModifierKeys).forEach(([key, value]) => {
   if (ignoreModifierKeys.indexOf(key) > -1) {
     return
   }
   Kuaio.prototype[key] = function () {
-    return this.modifier(key)
+    return this.modifier(value)
   }
 })
 

@@ -1,26 +1,21 @@
 import { ModifierKeys } from '../constants/index'
+import { defaultConfig } from '../core/config/index'
 
 export function keyEqualTo(key1, key2) {
   return key1.toLowerCase() === key2.toLowerCase()
 }
 
-export function getKeyMethodName(key) {
-  const temp = Array.from(key)
-  temp[0] = temp[0].toLowerCase()
-  return temp.join('')
-}
-
 export function getModifierKeyPressed(modifier, e) {
-  if (keyEqualTo(modifier, ModifierKeys.ALT)) {
+  if (keyEqualTo(modifier, ModifierKeys.Alt)) {
     return e.altKey
-  } else if (keyEqualTo(modifier, ModifierKeys.CONTROL)) {
+  } else if (keyEqualTo(modifier, ModifierKeys.Control)) {
     return e.ctrlKey
-  } else if (keyEqualTo(modifier, ModifierKeys.META)) {
+  } else if (keyEqualTo(modifier, ModifierKeys.Meta)) {
     return e.metaKey
-  } else if (keyEqualTo(modifier, ModifierKeys.SHIFT)) {
+  } else if (keyEqualTo(modifier, ModifierKeys.Shift)) {
     return e.shiftKey
-  } else if (keyEqualTo(modifier, ModifierKeys.CAPS_LOCK)) {
-    return e.getModifierState(ModifierKeys.CAPS_LOCK)
+  } else if (keyEqualTo(modifier, ModifierKeys.CapsLock)) {
+    return e.getModifierState(ModifierKeys.CapsLock)
   } else {
     return e.getModifierState(modifier)
   }
