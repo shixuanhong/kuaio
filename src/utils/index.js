@@ -1,4 +1,4 @@
-import { ModifierKeys } from '../enums/index'
+import { ModifierKeys } from '../constants/index'
 
 export function keyEqualTo(key1, key2) {
   return key1.toLowerCase() === key2.toLowerCase()

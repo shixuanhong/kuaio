@@ -7,7 +7,7 @@ import {
   ModifierKeys,
   UIKeys,
   GeneralKeys
-} from '../enums/index'
+} from '../constants/index'
 import { KuaioSequenceItem, KuaioSequence } from './sequence'
 import { defaultConfig } from './config/index'
 import { createNativeEventListener } from './listener'
@@ -26,7 +26,7 @@ class Kuaio {
 
   constructor(target) {
     this.target = target
-    this._eventType = KeyboardEventType.KEY_DOWN
+    this._eventType = KeyboardEventType.KeyDown
     this._sequence = new KuaioSequence()
     this._sequenceTimeout = defaultConfig.sequenceTimeout
     this._curSequenceItem = null
@@ -65,7 +65,7 @@ class Kuaio {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
    */
   keydown() {
-    this._eventType = KeyboardEventType.KEY_DOWN
+    this._eventType = KeyboardEventType.KeyDown
     return this
   }
   /**
@@ -73,7 +73,7 @@ class Kuaio {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
    */
   keyup() {
-    this._eventType = KeyboardEventType.KEY_UP
+    this._eventType = KeyboardEventType.KeyUp
     return this
   }
   defaultSequenceTimeout(timeout) {
@@ -151,7 +151,7 @@ Object.values(ModifierKeys).forEach((key) => {
   if (ignoreModifierKeys.indexOf(key) > -1) {
     return
   }
-  Kuaio.prototype[getKeyMethodName(key)] = function () {
+  Kuaio.prototype[key] = function () {
     return this.modifier(key)
   }
 })
@@ -165,7 +165,7 @@ Object.entries(WhitespaceKeys)
     Object.entries(GeneralKeys)
   )
   .forEach(([key, value]) => {
-    Kuaio.prototype[getKeyMethodName(key)] = function () {
+    Kuaio.prototype[key] = function () {
       return this.key(value)
     }
   })

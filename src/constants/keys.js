@@ -21,7 +21,7 @@ export const ModifierKeys = {
 export const WhitespaceKeys = {
   Enter: 'Enter',
   Tab: 'Tab',
-  SPACE: ' '
+  Space: ' '
 }
 
 /**
@@ -120,33 +120,68 @@ export const GeneralKeys = {
   Digit7: '7',
   Digit8: '8',
   Digit9: '9',
+  /** `!` */
   ExclamationMark: '!',
+  /** `@` */
   AtSign: '@',
+  /** `#` */
+  NumberSign: '#',
+  /** `$` */
   DollarSign: '$',
+  /** `%` */
   PercentSign: '%',
+  /** `^` */
   Caret: '^',
+  /** `&` */
   Ampersand: '&',
+  /** `*` */
   Asterisk: '*',
+  /** `(` */
   LeftParenthesis: '(',
+  /** `)` */
   RightParenthesis: ')',
+  /** `-` */
   MinusSign: '-',
+  /** `_` */
   Underscore: '_',
+  /** `=` */
   EqualSign: '=',
+  /** `+` */
   PlusSign: '+',
+  /** `` ` `` */
   Backquote: '`',
+  /** `~` */
   Tilde: '~',
+  /** `[` */
   LeftSquareBracket: '[',
+  /** `]` */
   RightSquareBracket: ']',
+  /** { */
   LeftCurlyBracket: '{',
+  /** } */
   RightCurlyBracket: '}',
+  /** `\`*/
   Backslash: '\\',
+  /** `|`*/
   VerticalLine: '|',
+  /** `;`*/
   Semicolon: ';',
+  /** `:`*/
   Colon: ':',
+  /** `'`*/
   SingleQuote: "'",
+  /** `""`*/
   DoubleQuote: '"',
+  /** `,`*/
   Comma: ',',
+  /** `<`*/
+  LessThanSign: '<',
+  /** `.`*/
   Dot: '.',
+  /** `>`*/
+  GreaterThanSign: '>',
+  /** `/`*/
   Slash: '/',
+  /** `?`*/
   QuestionMark: '?'
 }

@@ -6,5 +6,6 @@ export {
   ModifierKeys,
   NavigationKeys,
   WhitespaceKeys,
+  GeneralKeys,
   KeyboardEventType
-} from './enums/index'
+} from './constants/index'
