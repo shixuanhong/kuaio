@@ -29,10 +29,6 @@ declare class Kuaio {
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
    */
   keyup(): this
-  defaultSequenceTimeout(timeout: number): this
-  defaultPrventDefault(value: boolean): this
-  defaultStopPropagation(value: boolean): this
-  defaultStopImmediatePropagation(value: boolean): this
   /**
    * Add a key to the modifier list
    */
