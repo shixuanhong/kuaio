@@ -1,4 +1,4 @@
-export class KuaioSequenceItem {
+export class KuaioCombination {
   modifiers = []
   key
   timeout

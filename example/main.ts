@@ -11,7 +11,7 @@ Kuaio.create()
     console.log('shixuanhong')
   })
 
-//sequence of key combinations
+// sequence of key combinations
 Kuaio.create({
   preventDefault: true
 })
@@ -22,4 +22,17 @@ Kuaio.create({
   .C()
   .bind(() => {
     console.log('Ctrl+K, Ctrl+C')
+  })
+
+// binding multiple sequences to the same callback
+Kuaio.create({
+  preventDefault: true
+})
+  .Control()
+  .A()
+  .or()
+  .Control()
+  .B()
+  .bind(() => {
+    console.log('Ctrl+A or Ctrl+B')
   })

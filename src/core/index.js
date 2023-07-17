@@ -8,16 +8,17 @@ import {
   UIKeys,
   GeneralKeys
 } from '../constants/index'
-import { KuaioSequenceItem, KuaioSequence } from './sequence'
-import { createNativeEventListener } from './listener'
+import { KuaioCombination, KuaioSequence } from './sequence'
+import { createNativeEventListeners } from './listener'
 
 class Kuaio {
   target
   config
   _eventType
-  _sequence
+  _curSequence
+  _sequenceList
   _curSequenceItem
-  _listener
+  _listeners
 
   constructor(target, config) {
     if (!target || !(target instanceof EventTarget)) {
@@ -37,7 +38,8 @@ class Kuaio {
     }
     this.config = config
     this._eventType = KeyboardEventType.KeyDown
-    this._sequence = new KuaioSequence()
+    this._curSequence = null
+    this._sequenceList = []
     this._curSequenceItem = null
   }
   static create(...args) {
@@ -57,11 +59,11 @@ class Kuaio {
     }
   }
   _pushSequenceItem(sequenceItem) {
-    this._sequence.push(sequenceItem)
+    this._getCurSequence().push(sequenceItem)
   }
   _getCurSequenceItem() {
     if (!this._curSequenceItem) {
-      this._curSequenceItem = new KuaioSequenceItem()
+      this._curSequenceItem = new KuaioCombination()
     }
     return this._curSequenceItem
   }
@@ -70,6 +72,22 @@ class Kuaio {
       this._curSequenceItem.timeout = timeout
       this._pushSequenceItem(this._curSequenceItem)
       this._curSequenceItem = null
+    }
+  }
+  _pushSequence(sequence) {
+    this._sequenceList.push(sequence)
+  }
+  _getCurSequence() {
+    if (!this._curSequence) {
+      this._curSequence = new KuaioSequence()
+    }
+    return this._curSequence
+  }
+  _pushCurSequence() {
+    this._pushCurSequenceItem()
+    if (this._curSequence) {
+      this._pushSequence(this._curSequence)
+      this._curSequence = null
     }
   }
   /**
@@ -95,45 +113,80 @@ class Kuaio {
     this._getCurSequenceItem().modifiers.push(key)
     return this
   }
+  /**
+   * Set a key as trigger key
+   */
   key(key) {
     this._getCurSequenceItem().key = key
     return this
   }
+  /**
+   * Whether to prevent the browser's default behavior when the sequence executes to the current combination.
+   * @param value
+   */
   prventDefault(value) {
     this._getCurSequenceItem().preventDefault = value
     return this
   }
+  /**
+   * Whether to prevent the event from propagating further when the sequence executes to the current combination.
+   * @param value
+   */
   stopPropagation(value) {
     this._getCurSequenceItem().stopPropagation = value
     return this
   }
+  /**
+   * Whether to prevent other event listeners on the event target listening to the same event from being called when the sequence executes to the current composition.
+   * @param value
+   */
   stopImmediatePropagation(value) {
     this._getCurSequenceItem().stopImmediatePropagation = value
     return this
   }
+  /**
+   * Create the next combination in the sequence.
+   * @param {number} [timeout] The timeout of the current combination in the sequence, which is the time to wait for the next combination in the sequence to be pressed.
+   */
   after(timeout) {
     this._pushCurSequenceItem(timeout)
     return this
   }
+  /**
+   * Create a new sequence, usually used to bind multiple sequences to the same callback.
+   */
+  or() {
+    this._pushCurSequence()
+    return this
+  }
+  /**
+   * Bind the callback to sequences
+   * @param callback
+   */
   bind(callback) {
     if (!callback) {
       throw new Error('callback')
     }
-    this._pushCurSequenceItem()
-    this._listener = createNativeEventListener(
+    this._pushCurSequence()
+    this._listeners = createNativeEventListeners(
       {
         target: this.target,
         config: this.config,
         eventType: this._eventType,
-        sequence: this._sequence
+        sequenceList: this._sequenceList
       },
       callback
     )
-    return this._listener
+    return this._listeners
   }
+  /**
+   * Unbind the callback and unbind all native event handlers
+   */
   unbind() {
-    if (this._listener) {
-      this.target.removeEventListener(this._eventType, this._listener)
+    if (this._listeners && this._listeners.length > 0) {
+      this._listeners.forEach((listener) => {
+        this.target.removeEventListener(this._eventType, listener)
+      })
     }
   }
 }

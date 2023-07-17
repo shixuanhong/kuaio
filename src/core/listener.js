@@ -86,9 +86,17 @@ export function createNativeEventListenerWrapper(
   }
 }
 
-export function createNativeEventListener(options, callback) {
-  const { target, config, eventType, sequence } = options
-  const listener = createNativeEventListenerWrapper(callback, sequence, config)
-  target.addEventListener(eventType, listener)
-  return listener
+export function createNativeEventListeners(options, callback) {
+  const { target, config, eventType, sequenceList } = options
+  const listeners = sequenceList.map((sequence) => {
+    const listener = createNativeEventListenerWrapper(
+      callback,
+      sequence,
+      config
+    )
+    target.addEventListener(eventType, listener)
+    return listener
+  })
+
+  return listeners
 }
