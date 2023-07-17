@@ -8,9 +8,10 @@ declare class Kuaio {
   readonly target: EventTarget
   readonly config: KuaioConfig
   private _eventType
-  private _sequence
-  private _curSequenceItem
-  private _listener?
+  private _curSequenceItem?
+  private _curSequence?
+  private _sequenceList
+  private _listeners?
   constructor(target: EventTarget, config: KuaioConfig)
   static create(): Kuaio
   static create(target: EventTarget): Kuaio
@@ -19,6 +20,9 @@ declare class Kuaio {
   private _pushSequenceItem
   private _getCurSequenceItem
   private _pushCurSequenceItem
+  private _pushSequence
+  private _getCurSequence
+  private _pushCurSequence
   /**
    * Use the `keydown` event.
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
@@ -461,11 +465,67 @@ declare class Kuaio {
    * Set `?` as trigger key
    */
   QuestionMark(): this
+  /**
+   * Whether to prevent the browser's default behavior when the sequence executes to the current combination.
+   * @param value
+   */
   prventDefault(value: boolean): this
+  /**
+   * Whether to prevent the event from propagating further when the sequence executes to the current combination.
+   * @param value
+   */
   stopPropagation(value: boolean): this
+  /**
+   * Whether to prevent other event listeners on the event target listening to the same event from being called when the sequence executes to the current composition.
+   * @param value
+   */
   stopImmediatePropagation(value: boolean): this
+  /**
+   * Create the next combination in the sequence.
+   * Example:
+   *  ``` javascript
+   * Kuaio.create({ preventDefault: true}).Control().K()
+   * .after()
+   * .Control().C()
+   * .bind(e => {})
+   * ```
+   * After pressing the combination `Ctrl+K`, press `Ctrl+C` again within the specified time to execute the callback.
+   * @param timeout  The timeout of the current combination in the sequence, which is the time to wait for the next combination in the sequence to be pressed.
+   */
   after(timeout?: number): this
-  bind(callback: Function): EventListener
+  /**
+   * Create a new sequence, usually used to bind multiple sequences to the same callback.
+   * Example:
+   * ``` javascript
+   * Kuaio.create({ preventDefault: true}).Control().A()
+   * .or()
+   * .Control().B()
+   * .bind(e => {})
+   * ```
+   * Pressing `Ctrl+A` or `Ctrl+B` will execute the callback.\
+   * Use with method `after`.
+   * Example:
+   * ``` javascript
+   * Kuaio.create({ preventDefault: true}).Control().K()
+   * .after()
+   * .Control().C()
+   * .or()
+   * .Control().A()
+   * .after()
+   * .Control().B()
+   * .bind(e => {})
+   * ```
+   * Pressing `Ctrl+K, Ctrl+C` or `Ctrl+A, Ctrl+B` will execute the callback.
+   */
+  or(): this
+  /**
+   * Bind the callback to sequences
+   * @param callback
+   */
+  bind(callback: (e: KeyboardEvent) => void): EventListener[]
+  /**
+   * Unbind the callback and unbind all native event handlers
+   */
   unbind(): void
 }
 
