@@ -1,17 +1,21 @@
 import { Kuaio } from 'kuaio'
-console.log(Kuaio.create())
-// single key sequence
+
+// sequence with multiple single keys
 Kuaio.create()
-  .S()
+  .K()
   .after()
-  .X()
+  .U()
   .after()
-  .H()
+  .A()
+  .after()
+  .I()
+  .after()
+  .O()
   .bind(() => {
-    console.log('shixuanhong')
+    console.log('Kuaio')
   })
 
-// sequence of key combinations
+// sequence with multiple key combinations
 Kuaio.create({
   preventDefault: true
 })
