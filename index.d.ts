@@ -344,19 +344,19 @@ declare class Kuaio {
   /**
    * Set `@` as trigger key
    */
-  AtSign(): this
+  At(): this
   /**
    * Set `#` as trigger key
    */
-  NumberSign(): this
+  Number(): this
   /**
    * Set `$` as trigger key
    */
-  DollarSign(): this
+  Dollar(): this
   /**
    * Set `%` as trigger key
    */
-  PercentSign(): this
+  Percent(): this
   /**
    * Set `^` as trigger key
    */
@@ -372,15 +372,15 @@ declare class Kuaio {
   /**
    * Set `(` as trigger key
    */
-  LeftParenthesis(): this
+  ParenthesisLeft(): this
   /**
    * Set `)` as trigger key
    */
-  RightParenthesis(): this
+  ParenthesisRight(): this
   /**
    * Set `-` as trigger key
    */
-  MinusSign(): this
+  Minus(): this
   /**
    * Set `_` as trigger key
    */
@@ -388,11 +388,11 @@ declare class Kuaio {
   /**
    * Set `=` as trigger key
    */
-  EqualSign(): this
+  Equal(): this
   /**
    * Set `+` as trigger key
    */
-  PlusSign(): this
+  Plus(): this
   /**
    * Set `` ` `` as trigger key
    */
@@ -404,19 +404,19 @@ declare class Kuaio {
   /**
    * Set `[` as trigger key
    */
-  LeftSquareBracket(): this
+  BracketLeft(): this
   /**
    * Set `]` as trigger key
    */
-  RightSquareBracket(): this
+  BracketRight(): this
   /**
    * Set `{` as trigger key
    */
-  LeftCurlyBracket(): this
+  CurlyBracketLeft(): this
   /**
    * Set `}` as trigger key
    */
-  RightCurlyBracket(): this
+  CurlyBracketRight(): this
   /**
    * Set `\` as trigger key
    */
@@ -436,11 +436,11 @@ declare class Kuaio {
   /**
    * Set `'` as trigger key
    */
-  SingleQuote(): this
+  Quote(): this
   /**
    * Set `"` as trigger key
    */
-  DoubleQuote(): this
+  DoubleQuotes(): this
   /**
    * Set `,` as trigger key
    */
@@ -448,15 +448,15 @@ declare class Kuaio {
   /**
    * Set `<` as trigger key
    */
-  LessThanSign(): this
+  LessThan(): this
   /**
    * Set `.` as trigger key
    */
-  Dot(): this
+  Period(): this
   /**
    * Set `>` as trigger key
    */
-  GreaterThanSign(): this
+  GreaterThan(): this
   /**
    * Set `/` as trigger key
    */
@@ -644,13 +644,13 @@ declare enum GeneralKeys {
   /** `!` */
   ExclamationMark = '!',
   /** `@` */
-  AtSign = '@',
+  At = '@',
   /** `#` */
-  NumberSign = '#',
+  Number = '#',
   /** `$` */
-  DollarSign = '$',
+  Dollar = '$',
   /** `%` */
-  PercentSign = '%',
+  Percent = '%',
   /** `^` */
   Caret = '^',
   /** `&` */
@@ -658,29 +658,29 @@ declare enum GeneralKeys {
   /** `*` */
   Asterisk = '*',
   /** `(` */
-  LeftParenthesis = '(',
+  ParenthesisLeft = '(',
   /** `)` */
-  RightParenthesis = ')',
+  ParenthesisRight = ')',
   /** `-` */
-  MinusSign = '-',
+  Minus = '-',
   /** `_` */
   Underscore = '_',
   /** `=` */
-  EqualSign = '=',
+  Equal = '=',
   /** `+` */
-  PlusSign = '+',
+  Plus = '+',
   /** `` ` `` */
   Backquote = '`',
   /** `~` */
   Tilde = '~',
   /** `[` */
-  LeftSquareBracket = '[',
+  BracketLeft = '[',
   /** `]` */
-  RightSquareBracket = ']',
+  BracketRight = ']',
   /** { */
-  LeftCurlyBracket = '{',
+  CurlyBracketLeft = '{',
   /** } */
-  RightCurlyBracket = '}',
+  CurlyBracketRight = '}',
   /** `\`*/
   Backslash = '\\',
   /** `|`*/
@@ -690,17 +690,17 @@ declare enum GeneralKeys {
   /** `=`*/
   Colon = '=',
   /** `'`*/
-  SingleQuote = "'",
+  Quote = "'",
   /** `""`*/
-  DoubleQuote = '"',
+  DoubleQuotes = '"',
   /** `,`*/
   Comma = ',',
   /** `<`*/
-  LessThanSign = '<',
+  LessThan = '<',
   /** `.`*/
-  Dot = '.',
+  Period = '.',
   /** `>`*/
-  GreaterThanSign = '>',
+  GreaterThan = '>',
   /** `/`*/
   Slash = '/',
   /** `?`*/

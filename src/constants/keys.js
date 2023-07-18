@@ -132,13 +132,13 @@ export const GeneralKeys = {
   /** `!` */
   ExclamationMark: '!',
   /** `@` */
-  AtSign: '@',
+  At: '@',
   /** `#` */
-  NumberSign: '#',
+  Number: '#',
   /** `$` */
-  DollarSign: '$',
+  Dollar: '$',
   /** `%` */
-  PercentSign: '%',
+  Percent: '%',
   /** `^` */
   Caret: '^',
   /** `&` */
@@ -146,29 +146,29 @@ export const GeneralKeys = {
   /** `*` */
   Asterisk: '*',
   /** `(` */
-  LeftParenthesis: '(',
+  ParenthesisLeft: '(',
   /** `)` */
-  RightParenthesis: ')',
+  ParenthesisRight: ')',
   /** `-` */
-  MinusSign: '-',
+  Minus: '-',
   /** `_` */
   Underscore: '_',
   /** `=` */
-  EqualSign: '=',
+  Equal: '=',
   /** `+` */
-  PlusSign: '+',
+  Plus: '+',
   /** `` ` `` */
   Backquote: '`',
   /** `~` */
   Tilde: '~',
   /** `[` */
-  LeftSquareBracket: '[',
+  BracketLeft: '[',
   /** `]` */
-  RightSquareBracket: ']',
+  BracketRight: ']',
   /** { */
-  LeftCurlyBracket: '{',
+  CurlyBracketLeft: '{',
   /** } */
-  RightCurlyBracket: '}',
+  CurlyBracketRight: '}',
   /** `\`*/
   Backslash: '\\',
   /** `|`*/
@@ -178,17 +178,17 @@ export const GeneralKeys = {
   /** `:`*/
   Colon: ':',
   /** `'`*/
-  SingleQuote: "'",
+  Quote: "'",
   /** `""`*/
-  DoubleQuote: '"',
+  DoubleQuotes: '"',
   /** `,`*/
   Comma: ',',
   /** `<`*/
-  LessThanSign: '<',
+  LessThan: '<',
   /** `.`*/
-  Dot: '.',
+  Period: '.',
   /** `>`*/
-  GreaterThanSign: '>',
+  GreaterThan: '>',
   /** `/`*/
   Slash: '/',
   /** `?`*/
