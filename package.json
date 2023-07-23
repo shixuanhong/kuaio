@@ -38,6 +38,10 @@
   "module": "./dist/kuaio.mjs",
   "types": "index.d.ts",
   "devDependencies": {
+    "@babel/core": "^7.22.9",
+    "@babel/preset-env": "^7.22.9",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-terser": "^0.4.3",
     "rollup": "^3.26.2"
   },
   "packageManager": "pnpm@8.0.0+"
