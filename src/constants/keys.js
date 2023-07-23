@@ -29,6 +29,7 @@ export const ModifierKeys = {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#whitespace_keys
  */
 export const WhitespaceKeys = {
+  /** This is the `Enter` key, which is the `Return` key on Mac keyboards. */
   Enter: 'Enter',
   Tab: 'Tab',
   Space: ' '
@@ -56,7 +57,7 @@ export const NavigationKeys = {
 export const EditingKeys = {
   /** This is the `Backspace` key, which is the `Delete` key on Mac keyboards. */
   Backspace: 'Backspace',
-  /** The Mac generates the "Delete" value when Fn is pressed in tandem with Delete. */
+  /** The Mac generates the "Delete" value when `Fn` key is pressed in tandem with `Delete` key. */
   Delete: 'Delete',
   Insert: 'Insert'
 }

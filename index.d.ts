@@ -45,7 +45,7 @@ declare class Kuaio {
    */
   keyup(): this
   /**
-   * Add a key to the modifier list
+   * Add a key to the modifier list.
    */
   modifier(key: string): this
   /**
@@ -53,427 +53,472 @@ declare class Kuaio {
    */
   Alt(): this
   /**
+   * Alias for method `Alt`.
+   */
+  Option(): this
+  /**
    * Add `Ctrl` key to modifier list, which is the `Control` or `⌃` key on Mac keyboards.
    */
   Control(): this
+  /**
+   * Alias for method `Control`.
+   */
+  Ctrl(): this
   /**
    * Add `Meta` key to modifier list, which is the `Windows` or `⊞` key on Windows keyboards, or the `Command` or `⌘` key on Mac keyboards.
    */
   Meta(): this
   /**
-   * Add `Shift` key to modifier list
+   * Alias for method `Meta`.
+   */
+  Command(): this
+  /**
+   * Alias for method `Meta`.
+   */
+  Windows(): this
+  /**
+   * This is a virtual key, inspired by Mousetrap. \
+   * It will be mapped to the `Command` key on Mac, and the `Ctrl` key on other operating systems.
+   */
+  Mod(): this
+  /**
+   * Add `Shift` key to modifier list.
    */
   Shift(): this
   /**
-   * Set a key as trigger key
+   * Set a key as trigger key.
    */
   key(key: string): this
   /**
-   * Set `F1` as trigger key
+   * Set `F1` as trigger key.
    */
   F1(): this
   /**
-   * Set `F2` as trigger key
+   * Set `F2` as trigger key.
    */
   F2(): this
   /**
-   * Set `F3` as trigger key
+   * Set `F3` as trigger key.
    */
   F3(): this
   /**
-   * Set `F4` as trigger key
+   * Set `F4` as trigger key.
    */
   F4(): this
   /**
-   * Set `F5` as trigger key
+   * Set `F5` as trigger key.
    */
   F5(): this
   /**
-   * Set `F6` as trigger key
+   * Set `F6` as trigger key.
    */
   F6(): this
   /**
-   * Set `F7` as trigger key
+   * Set `F7` as trigger key.
    */
   F7(): this
   /**
-   * Set `F8` as trigger key
+   * Set `F8` as trigger key.
    */
   F8(): this
   /**
-   * Set `F9` as trigger key
+   * Set `F9` as trigger key.
    */
   F9(): this
   /**
-   * Set `F10` as trigger key
+   * Set `F10` as trigger key.
    */
   F10(): this
   /**
-   * Set `F11` as trigger key
+   * Set `F11` as trigger key.
    */
   F11(): this
   /**
-   * Set `F12` as trigger key
+   * Set `F12` as trigger key.
    */
   F12(): this
   /**
-   * Set `F13` as trigger key
+   * Set `F13` as trigger key.
    */
   F13(): this
   /**
-   * Set `F14` as trigger key
+   * Set `F14` as trigger key.
    */
   F14(): this
   /**
-   * Set `F15` as trigger key
+   * Set `F15` as trigger key.
    */
   F15(): this
   /**
-   * Set `F16` as trigger key
+   * Set `F16` as trigger key.
    */
   F16(): this
   /**
-   * Set `F17` as trigger key
+   * Set `F17` as trigger key.
    */
   F17(): this
   /**
-   * Set `F18` as trigger key
+   * Set `F18` as trigger key.
    */
   F18(): this
   /**
-   * Set `F19` as trigger key
+   * Set `F19` as trigger key.
    */
   F19(): this
   /**
-   * Set `F20` as trigger key
+   * Set `F20` as trigger key.
    */
   F20(): this
   /**
-   * Set `Enter` as trigger key
+   * Set `Enter` as trigger key.
    */
   Enter(): this
   /**
-   * Set `Tab` as trigger key
+   * Alias for method `Enter`.
+   */
+  Return(): this
+  /**
+   * Set `Tab` as trigger key.
    */
   Tab(): this
   /**
-   * Set `Space` as trigger key
+   * Set `Space` as trigger key.
    */
   Space(): this
   /**
-   * Set `ArrowDown` as trigger key
+   * Set `ArrowDown` as trigger key.
    */
   ArrowDown(): this
   /**
-   * Set `ArrowLeft` as trigger key
+   * Set `ArrowLeft` as trigger key.
    */
   ArrowLeft(): this
   /**
-   * Set `ArrowRight` as trigger key
+   * Set `ArrowRight` as trigger key.
    */
   ArrowRight(): this
   /**
-   * Set `ArrowUp` as trigger key
+   * Set `ArrowUp` as trigger key.
    */
   ArrowUp(): this
   /**
-   * Set `End` as trigger key
+   * Set `End` as trigger key.
    */
   End(): this
   /**
-   * Set `Home` as trigger key
+   * Set `Home` as trigger key.
    */
   Home(): this
   /**
-   * Set `PageDown` as trigger key
+   * Set `PageDown` as trigger key.
    */
   PageDown(): this
   /**
-   * Set `PageUp` as trigger key
+   * Set `PageUp` as trigger key.
    */
   PageUp(): this
   /**
-   * Set `Backspace` as trigger key
+   * Set `Backspace` as trigger key, which is the `Delete` key on Mac keyboards.
    */
   Backspace(): this
   /**
-   * Set `Delete` as trigger key
+   * Alias for method `Backspace`.
+   */
+  MacDelete(): this
+  /**
+   * Set `Delete` as trigger key. The Mac generates the "Delete" value when `Fn` key is pressed in tandem with `Delete` key.
    */
   Delete(): this
   /**
-   * Set `Insert` as trigger key
+   * Set `Insert` as trigger key.
    */
   Insert(): this
   /**
-   * Set `A` as trigger key
+   * Set `ContextMenu` as trigger key.
+   */
+  ContextMenu(): this
+  /**
+   * Set `Escape` as trigger key.
+   */
+  Escape(): this
+  /**
+   * Alias for method `Escape`.
+   */
+  Esc(): this
+  /**
+   * Set `Pause` as trigger key.
+   */
+  Pause(): this
+  /**
+   * Set `A` as trigger key.
    */
   A(): this
   /**
-   * Set `B` as trigger key
+   * Set `B` as trigger key.
    */
   B(): this
   /**
-   * Set `C` as trigger key
+   * Set `C` as trigger key.
    */
   C(): this
   /**
-   * Set `D` as trigger key
+   * Set `D` as trigger key.
    */
   D(): this
   /**
-   * Set `E` as trigger key
+   * Set `E` as trigger key.
    */
   E(): this
   /**
-   * Set `F` as trigger key
+   * Set `F` as trigger key.
    */
   F(): this
   /**
-   * Set `G` as trigger key
+   * Set `G` as trigger key.
    */
   G(): this
   /**
-   * Set `H` as trigger key
+   * Set `H` as trigger key.
    */
   H(): this
   /**
-   * Set `I` as trigger key
+   * Set `I` as trigger key.
    */
   I(): this
   /**
-   * Set `J` as trigger key
+   * Set `J` as trigger key.
    */
   J(): this
   /**
-   * Set `K` as trigger key
+   * Set `K` as trigger key.
    */
   K(): this
   /**
-   * Set `L` as trigger key
+   * Set `L` as trigger key.
    */
   L(): this
   /**
-   * Set `M` as trigger key
+   * Set `M` as trigger key.
    */
   M(): this
   /**
-   * Set `N` as trigger key
+   * Set `N` as trigger key.
    */
   N(): this
   /**
-   * Set `O` as trigger key
+   * Set `O` as trigger key.
    */
   O(): this
   /**
-   * Set `P` as trigger key
+   * Set `P` as trigger key.
    */
   P(): this
   /**
-   * Set `Q` as trigger key
+   * Set `Q` as trigger key.
    */
   Q(): this
   /**
-   * Set `R` as trigger key
+   * Set `R` as trigger key.
    */
   R(): this
   /**
-   * Set `S` as trigger key
+   * Set `S` as trigger key.
    */
   S(): this
   /**
-   * Set `T` as trigger key
+   * Set `T` as trigger key.
    */
   T(): this
   /**
-   * Set `U` as trigger key
+   * Set `U` as trigger key.
    */
   U(): this
   /**
-   * Set `V` as trigger key
+   * Set `V` as trigger key.
    */
   V(): this
   /**
-   * Set `W` as trigger key
+   * Set `W` as trigger key.
    */
   W(): this
   /**
-   * Set `X` as trigger key
+   * Set `X` as trigger key.
    */
   X(): this
   /**
-   * Set `Y` as trigger key
+   * Set `Y` as trigger key.
    */
   Y(): this
   /**
-   * Set `Z` as trigger key
+   * Set `Z` as trigger key.
    */
   Z(): this
   /**
-   * Set `0` as trigger key
+   * Set `0` as trigger key.
    */
   Digit0(): this
   /**
-   * Set `1` as trigger key
+   * Set `1` as trigger key.
    */
   Digit1(): this
   /**
-   * Set `2` as trigger key
+   * Set `2` as trigger key.
    */
   Digit2(): this
   /**
-   * Set `3` as trigger key
+   * Set `3` as trigger key.
    */
   Digit3(): this
   /**
-   * Set `4` as trigger key
+   * Set `4` as trigger key.
    */
   Digit4(): this
   /**
-   * Set `5` as trigger key
+   * Set `5` as trigger key.
    */
   Digit5(): this
   /**
-   * Set `6` as trigger key
+   * Set `6` as trigger key.
    */
   Digit6(): this
   /**
-   * Set `7` as trigger key
+   * Set `7` as trigger key.
    */
   Digit7(): this
   /**
-   * Set `8` as trigger key
+   * Set `8` as trigger key.
    */
   Digit8(): this
   /**
-   * Set `9` as trigger key
+   * Set `9` as trigger key.
    */
   Digit9(): this
   /**
-   * Set `!` as trigger key
+   * Set `!` as trigger key.
    */
   ExclamationMark(): this
   /**
-   * Set `@` as trigger key
+   * Set `@` as trigger key.
    */
   At(): this
   /**
-   * Set `#` as trigger key
+   * Set `#` as trigger key.
    */
   Number(): this
   /**
-   * Set `$` as trigger key
+   * Set `$` as trigger key.
    */
   Dollar(): this
   /**
-   * Set `%` as trigger key
+   * Set `%` as trigger key.
    */
   Percent(): this
   /**
-   * Set `^` as trigger key
+   * Set `^` as trigger key.
    */
   Caret(): this
   /**
-   * Set `&` as trigger key
+   * Set `&` as trigger key.
    */
   Ampersand(): this
   /**
-   * Set `*` as trigger key
+   * Set `*` as trigger key.
    */
   Asterisk(): this
   /**
-   * Set `(` as trigger key
+   * Set `(` as trigger key.
    */
   ParenthesisLeft(): this
   /**
-   * Set `)` as trigger key
+   * Set `)` as trigger key.
    */
   ParenthesisRight(): this
   /**
-   * Set `-` as trigger key
+   * Set `-` as trigger key.
    */
   Minus(): this
   /**
-   * Set `_` as trigger key
+   * Set `_` as trigger key.
    */
   Underscore(): this
   /**
-   * Set `=` as trigger key
+   * Set `=` as trigger key.
    */
   Equal(): this
   /**
-   * Set `+` as trigger key
+   * Set `+` as trigger key.
    */
   Plus(): this
   /**
-   * Set `` ` `` as trigger key
+   * Set `` ` `` as trigger key.
    */
   Backquote(): this
   /**
-   * Set `~` as trigger key
+   * Set `~` as trigger key.
    */
   Tilde(): this
   /**
-   * Set `[` as trigger key
+   * Set `[` as trigger key.
    */
   BracketLeft(): this
   /**
-   * Set `]` as trigger key
+   * Set `]` as trigger key.
    */
   BracketRight(): this
   /**
-   * Set `{` as trigger key
+   * Set `{` as trigger key.
    */
   CurlyBracketLeft(): this
   /**
-   * Set `}` as trigger key
+   * Set `}` as trigger key.
    */
   CurlyBracketRight(): this
   /**
-   * Set `\` as trigger key
+   * Set `\` as trigger key.
    */
   Backslash(): this
   /**
-   * Set `|` as trigger key
+   * Set `|` as trigger key.
    */
   VerticalLine(): this
   /**
-   * Set `;` as trigger key
+   * Set `;` as trigger key.
    */
   Semicolon(): this
   /**
-   * Set `:` as trigger key
+   * Set `:` as trigger key.
    */
   Colon(): this
   /**
-   * Set `'` as trigger key
+   * Set `'` as trigger key.
    */
   Quote(): this
   /**
-   * Set `"` as trigger key
+   * Set `"` as trigger key.
    */
   DoubleQuotes(): this
   /**
-   * Set `,` as trigger key
+   * Set `,` as trigger key.
    */
   Comma(): this
   /**
-   * Set `<` as trigger key
+   * Set `<` as trigger key.
    */
   LessThan(): this
   /**
-   * Set `.` as trigger key
+   * Set `.` as trigger key.
    */
   Period(): this
   /**
-   * Set `>` as trigger key
+   * Set `>` as trigger key.
    */
   GreaterThan(): this
   /**
-   * Set `/` as trigger key
+   * Set `/` as trigger key.
    */
   Slash(): this
   /**
-   * Set `?` as trigger key
+   * Set `?` as trigger key.
    */
   QuestionMark(): this
   /**
@@ -569,6 +614,7 @@ declare enum ModifierKeys {
  * @see https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#whitespace_keys
  */
 declare enum WhitespaceKeys {
+  /** This is the `Enter` key, which is the `Return` key on Mac keyboards. */
   Enter = 'Enter',
   Tab = 'Tab',
   Space = ' '
@@ -592,7 +638,7 @@ declare enum NavigationKeys {
 declare enum EditingKeys {
   /** This is the `Backspace` key, which is the `Delete` key on Mac keyboards. */
   Backspace = 'Backspace',
-  /** The Mac generates the "Delete" value when Fn is pressed in tandem with Delete. */
+  /** The Mac generates the "Delete" value when `Fn` key is pressed in tandem with `Delete` key. */
   Delete = 'Delete',
   Insert = 'Insert'
 }

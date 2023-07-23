@@ -6,12 +6,13 @@ import {
   KeyboardEventType,
   CombinationModifierKeys,
   UIKeys,
-  GeneralKeys
+  GeneralKeys,
+  PlatformBrand
 } from '../constants/index'
 import { KuaioCombination, KuaioSequence } from './sequence'
 import { createNativeEventListeners } from './listener'
 import { registryLayout, unregistryLayout } from './layout/index'
-import { isCombinationModifierKey } from '../utils/index'
+import { getPlatform, isCombinationModifierKey } from '../utils/index'
 
 class Kuaio {
   target
@@ -203,6 +204,22 @@ const initModifierMethods = () => {
       return this.modifier(value)
     }
   })
+  // aliases
+  Kuaio.prototype.Ctrl = Kuaio.prototype[CombinationModifierKeys.Control]
+  Kuaio.prototype.Option = Kuaio.prototype[CombinationModifierKeys.Alt]
+  Kuaio.prototype.Command = Kuaio.prototype[CombinationModifierKeys.Meta]
+  Kuaio.prototype.Windows = Kuaio.prototype[CombinationModifierKeys.Meta]
+  /**
+   * This is a virtual key, inspired by Mousetrap. \
+   * It will be mapped to the `Command` key on MacOS, and the `Ctrl` key on other operating systems.
+   */
+  Kuaio.prototype.Mod = function () {
+    return this.modifier(
+      getPlatform() === PlatformBrand.MacOS
+        ? CombinationModifierKeys.Meta
+        : CombinationModifierKeys.Control
+    )
+  }
 }
 
 const initKeyMethods = () => {
@@ -219,6 +236,10 @@ const initKeyMethods = () => {
         return this.key(value)
       }
     })
+  // aliases
+  Kuaio.prototype.Esc = Kuaio.prototype[UIKeys.Escape]
+  Kuaio.prototype.Return = Kuaio.prototype[WhitespaceKeys.Enter]
+  Kuaio.prototype.MacDelete = Kuaio.prototype[EditingKeys.Backspace]
 }
 
 initModifierMethods()
