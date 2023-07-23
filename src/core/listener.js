@@ -1,5 +1,10 @@
-import { getModifierKeyPressed, keyEqualTo } from '../utils/index'
+import {
+  getGlyohModifierKeyState,
+  getCombinationModifierKeyMatched,
+  keyEqualTo
+} from '../utils/index'
 import { defaultConfig } from './config/index'
+import { getCachedLayout } from './layout/index'
 
 export function createNativeEventListenerWrapper(
   callback,
@@ -17,11 +22,11 @@ export function createNativeEventListenerWrapper(
     sequenceTimeout = defaultConfig.sequenceTimeout
   } = config
 
-  /** Record the index of the current sequence */
+  /** Record the index of the current sequence. */
   let sequenceIndex = 0
-  /** Store sequence timer */
+  /** Store sequence timer. */
   let timer = null
-  /** Used to reset the sequenceIndex when the sequence is ended or breaked */
+  /** Used to reset the sequenceIndex when the sequence is ended or breaked. */
   const resetSequenceIndex = () => {
     sequenceIndex = 0
   }
@@ -32,7 +37,7 @@ export function createNativeEventListenerWrapper(
   }
   /**
    * Press keys in the next element in the sequence before the specified timeout
-   * otherwise the current sequence is breaked
+   * otherwise the current sequence is breaked.
    */
   const createSequenceTimer = (timeout) => {
     timer = setTimeout(() => {
@@ -49,40 +54,44 @@ export function createNativeEventListenerWrapper(
         `The sequenceItem at position ${sequenceIndex} in the sequence does not specify the property: [key].`
       )
     }
-    const modifiersMatched =
-      sequenceItem.modifiers.length === 0 ||
-      sequenceItem.modifiers.every((modifier) =>
-        getModifierKeyPressed(modifier, event)
-      )
-    if (
-      keyEqualTo(event.key, sequenceItem.key, event.shiftKey) &&
-      modifiersMatched
-    ) {
-      /**
-       * After the conditions of the current sequence element are met, prevent the browser's default behavior,
-       * prevent event propagation, and prevent other event listeners on the current event target listening to the same event from being called.
-       */
-      if (sequenceItem.preventDefault ?? preventDefault) {
-        e.preventDefault()
-      }
-      if (sequenceItem.stopPropagation ?? stopPropagation) {
-        e.stopPropagation()
-      }
-      if (sequenceItem.stopImmediatePropagation ?? stopImmediatePropagation) {
-        e.stopImmediatePropagation()
-      }
-      if (sequenceIndex === sequence.length - 1) {
-        callback(event)
-        resetSequenceIndex()
+    /** Skip if the current key is one of the modifiers of the current sequenceItem. */
+    if (sequenceItem.modifiers.indexOf(event.key) > -1) return
+
+    const modifiersMatched = getCombinationModifierKeyMatched(
+      sequenceItem.modifiers,
+      event
+    )
+
+    getCachedLayout().then((layout) => {
+      const { glyphHandler } = layout.handlers
+      const newKey = glyphHandler(event.key, getGlyohModifierKeyState(event))
+      if (keyEqualTo(newKey, sequenceItem.key) && modifiersMatched) {
+        /**
+         * After the conditions of the current sequence element are met, prevent the browser's default behavior,
+         * prevent event propagation, and prevent other event listeners on the current event target listening to the same event from being called.
+         */
+        if (sequenceItem.preventDefault ?? preventDefault) {
+          e.preventDefault()
+        }
+        if (sequenceItem.stopPropagation ?? stopPropagation) {
+          e.stopPropagation()
+        }
+        if (sequenceItem.stopImmediatePropagation ?? stopImmediatePropagation) {
+          e.stopImmediatePropagation()
+        }
+        if (sequenceIndex === sequence.length - 1) {
+          callback(event)
+          resetSequenceIndex()
+        } else {
+          resetSequenceTimer()
+          sequenceIndex++
+          createSequenceTimer(sequenceItem.timeout)
+        }
       } else {
-        resetSequenceTimer()
-        sequenceIndex++
-        createSequenceTimer(sequenceItem.timeout)
+        /** sequence break. */
+        resetSequenceIndex()
       }
-    } else {
-      /** sequence break */
-      resetSequenceIndex()
-    }
+    })
   }
 }
 

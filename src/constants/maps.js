@@ -1,6 +1,6 @@
 import { GeneralKeys } from './keys'
 
-export const USKeyboardShiftKeyMap = {
+export const qwertyShiftMap = {
   [GeneralKeys.Tilde]: GeneralKeys.Backquote,
   [GeneralKeys.ExclamationMark]: GeneralKeys.Digit1,
   [GeneralKeys.At]: GeneralKeys.Digit2,

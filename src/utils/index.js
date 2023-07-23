@@ -1,8 +1,11 @@
-import { ModifierKeys, PlatformBrand } from '../constants/index'
-import { defaultConfig } from '../core/config/index'
+import {
+  CombinationModifierKeys,
+  ModifierKeys,
+  PlatformBrand
+} from '../constants/index'
 
 export function keyEqualTo(key1, key2) {
-  return key1.toLowerCase() === key2.toLowerCase()
+  return key1 === key2
 }
 
 export function getModifierKeyPressed(modifier, e) {
@@ -14,10 +17,39 @@ export function getModifierKeyPressed(modifier, e) {
     return e.metaKey
   } else if (keyEqualTo(modifier, ModifierKeys.Shift)) {
     return e.shiftKey
-  } else if (keyEqualTo(modifier, ModifierKeys.CapsLock)) {
-    return e.getModifierState(ModifierKeys.CapsLock)
   } else {
     return e.getModifierState(modifier)
+  }
+}
+
+/**
+ * Returns true if the key in modifiers is pressed and the other combination modifier keys are not pressed.
+ * @param {string[]} modifiers
+ * @param {KeyboardEvent} e
+ * @returns {boolean}
+ */
+export function getCombinationModifierKeyMatched(modifiers, e) {
+  return Object.values(CombinationModifierKeys).every(
+    (key) => getModifierKeyPressed(key, e) === modifiers.indexOf(key) > -1
+  )
+}
+
+/**
+ * @param {string} key
+ * @returns {boolean}
+ */
+export function isCombinationModifierKey(key) {
+  return Boolean(CombinationModifierKeys[key])
+}
+
+/**
+ * @param {KeyboardEvent} e
+ */
+export function getGlyohModifierKeyState(e) {
+  return {
+    [ModifierKeys.Shift]: e.shiftKey,
+    [ModifierKeys.CapsLock]: e.getModifierState(ModifierKeys.CapsLock),
+    [ModifierKeys.AltGraph]: e.getModifierState(ModifierKeys.AltGraph)
   }
 }
 

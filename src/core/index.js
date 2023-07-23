@@ -4,12 +4,14 @@ import {
   FunctionKeys,
   NavigationKeys,
   KeyboardEventType,
-  ModifierKeys,
+  CombinationModifierKeys,
   UIKeys,
   GeneralKeys
 } from '../constants/index'
 import { KuaioCombination, KuaioSequence } from './sequence'
 import { createNativeEventListeners } from './listener'
+import { registryLayout, unregistryLayout } from './layout/index'
+import { isCombinationModifierKey } from '../utils/index'
 
 class Kuaio {
   target
@@ -58,6 +60,8 @@ class Kuaio {
       return new Kuaio(args[0], args[1])
     }
   }
+  static registryLayout = registryLayout
+  static unregistryLayout = unregistryLayout
   _pushSequenceItem(sequenceItem) {
     this._getCurSequence().push(sequenceItem)
   }
@@ -110,6 +114,11 @@ class Kuaio {
    * Add a key to the modifier list
    */
   modifier(key) {
+    if (!isCombinationModifierKey(key)) {
+      throw new Error(
+        'The parameter key is not a modifier key that can be used in combination.'
+      )
+    }
     this._getCurSequenceItem().modifiers.push(key)
     return this
   }
@@ -121,27 +130,24 @@ class Kuaio {
     return this
   }
   /**
-   * Whether to prevent the browser's default behavior when the sequence executes to the current combination.
-   * @param value
+   * Prevent the browser's default behavior when the sequence executes to the current combination.
    */
-  prventDefault(value) {
-    this._getCurSequenceItem().preventDefault = value
+  prventDefault() {
+    this._getCurSequenceItem().preventDefault = true
     return this
   }
   /**
-   * Whether to prevent the event from propagating further when the sequence executes to the current combination.
-   * @param value
+   * Prevent the event from propagating further when the sequence executes to the current combination.alue
    */
-  stopPropagation(value) {
-    this._getCurSequenceItem().stopPropagation = value
+  stopPropagation() {
+    this._getCurSequenceItem().stopPropagation = true
     return this
   }
   /**
-   * Whether to prevent other event listeners on the event target listening to the same event from being called when the sequence executes to the current composition.
-   * @param value
+   * Prevent other event listeners on the event target listening to the same event from being called when the sequence executes to the current composition.
    */
-  stopImmediatePropagation(value) {
-    this._getCurSequenceItem().stopImmediatePropagation = value
+  stopImmediatePropagation() {
+    this._getCurSequenceItem().stopImmediatePropagation = true
     return this
   }
   /**
@@ -191,33 +197,31 @@ class Kuaio {
   }
 }
 
-const ignoreModifierKeys = [
-  ModifierKeys.CapsLock,
-  ModifierKeys.NumLock,
-  ModifierKeys.ScrollLock
-]
-
-Object.entries(ModifierKeys).forEach(([key, value]) => {
-  if (ignoreModifierKeys.indexOf(key) > -1) {
-    return
-  }
-  Kuaio.prototype[key] = function () {
-    return this.modifier(value)
-  }
-})
-
-Object.entries(WhitespaceKeys)
-  .concat(
-    Object.entries(NavigationKeys),
-    Object.entries(EditingKeys),
-    Object.entries(UIKeys),
-    Object.entries(FunctionKeys),
-    Object.entries(GeneralKeys)
-  )
-  .forEach(([key, value]) => {
+const initModifierMethods = () => {
+  Object.entries(CombinationModifierKeys).forEach(([key, value]) => {
     Kuaio.prototype[key] = function () {
-      return this.key(value)
+      return this.modifier(value)
     }
   })
+}
+
+const initKeyMethods = () => {
+  Object.entries(WhitespaceKeys)
+    .concat(
+      Object.entries(NavigationKeys),
+      Object.entries(EditingKeys),
+      Object.entries(UIKeys),
+      Object.entries(FunctionKeys),
+      Object.entries(GeneralKeys)
+    )
+    .forEach(([key, value]) => {
+      Kuaio.prototype[key] = function () {
+        return this.key(value)
+      }
+    })
+}
+
+initModifierMethods()
+initKeyMethods()
 
 export default Kuaio

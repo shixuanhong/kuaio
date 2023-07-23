@@ -1,19 +1,27 @@
 /**
+ * @enum {string}
+ */
+export const CombinationModifierKeys = {
+  /** This is the `Alt` key, which is the `Option` or `⌥` key on Mac keyboards. */
+  Alt: 'Alt',
+  /** This is the `Ctrl` key, which is the `Control` or `⌃` key on Mac keyboards. */
+  Control: 'Control',
+  /** This is the `Windows` or `⊞` key, which is the `Command` or `⌘` key on Mac keyboards. */
+  Meta: 'Meta',
+  Shift: 'Shift'
+}
+
+/**
  * Modifiers are special keys which are used to generate special characters or cause special actions when used in combination with other keys.
  * @enum {string}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#whitespace_keys
  */
 export const ModifierKeys = {
-  /** This is the `Alt` key, which is the `Option` or `⌥` key on Mac keyboards. */
-  Alt: 'Alt',
+  AltGraph: 'AltGraph',
   CapsLock: 'CapsLock',
-  /** This is the `Ctrl` key, which is the `Control` or `⌃` key on Mac keyboards. */
-  Control: 'Control',
-  /** This is the `Windows` or `⊞` key, which is the `Command` or `⌘` key on Mac keyboards. */
-  Meta: 'Meta',
   NumLock: 'NumLock',
   ScrollLock: 'ScrollLock',
-  Shift: 'Shift'
+  ...CombinationModifierKeys
 }
 
 /**

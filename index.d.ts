@@ -4,6 +4,15 @@ declare interface KuaioConfig {
   stopPropagation?: boolean
   stopImmediatePropagation?: boolean
 }
+
+declare interface KuaioLayoutHandlers {
+  validator: (layoutMap: Map<string, string>, langTag: string) => boolean
+  glyphHandler: (
+    key: string,
+    glyphModifierState: Record<string, boolean>
+  ) => string
+}
+
 declare class Kuaio {
   readonly target: EventTarget
   readonly config: KuaioConfig
@@ -17,6 +26,8 @@ declare class Kuaio {
   static create(target: EventTarget): Kuaio
   static create(config: KuaioConfig): Kuaio
   static create(target: EventTarget, config: KuaioConfig): Kuaio
+  static registryLayout(name: string, handlers: KuaioLayoutHandlers)
+  static unregistryLayout(name: string)
   private _pushSequenceItem
   private _getCurSequenceItem
   private _pushCurSequenceItem
@@ -466,20 +477,17 @@ declare class Kuaio {
    */
   QuestionMark(): this
   /**
-   * Whether to prevent the browser's default behavior when the sequence executes to the current combination.
-   * @param value
+   * Prevent the browser's default behavior when the sequence executes to the current combination.
    */
-  prventDefault(value: boolean): this
+  prventDefault(): this
   /**
-   * Whether to prevent the event from propagating further when the sequence executes to the current combination.
-   * @param value
+   * Prevent the event from propagating further when the sequence executes to the current combination.
    */
-  stopPropagation(value: boolean): this
+  stopPropagation(): this
   /**
-   * Whether to prevent other event listeners on the event target listening to the same event from being called when the sequence executes to the current composition.
-   * @param value
+   * Prevent other event listeners on the event target listening to the same event from being called when the sequence executes to the current composition.
    */
-  stopImmediatePropagation(value: boolean): this
+  stopImmediatePropagation(): this
   /**
    * Create the next combination in the sequence.
    * Example:
@@ -529,7 +537,15 @@ declare class Kuaio {
   unbind(): void
 }
 
-declare function keyEqualTo(key1: string, key2: string): boolean
+declare enum CombinationModifierKeys {
+  /** This is the `Alt` key, which is the `Option` or `⌥` key on Mac keyboards. */
+  Alt = 'Alt',
+  /** This is the `Ctrl` key, which is the `Control` or `⌃` key on Mac keyboards. */
+  Control = 'Control',
+  /** This is the `Windows` or `⊞` key, which is the `Command` or `⌘` key on Mac keyboards. */
+  Meta = 'Meta',
+  Shift = 'Shift'
+}
 
 /**
  * Modifiers are special keys which are used to generate special characters or cause special actions when used in combination with other keys.
@@ -538,6 +554,7 @@ declare function keyEqualTo(key1: string, key2: string): boolean
 declare enum ModifierKeys {
   /** This is the `Alt` key, which is the `Option` or `⌥` key on Mac keyboards. */
   Alt = 'Alt',
+  AltGraph = 'AltGraph',
   CapsLock = 'CapsLock',
   /** This is the `Ctrl` key, which is the `Control` or `⌃` key on Mac keyboards. */
   Control = 'Control',
@@ -718,9 +735,9 @@ export {
   FunctionKeys,
   KeyboardEventType,
   Kuaio,
+  CombinationModifierKeys,
   ModifierKeys,
   NavigationKeys,
   WhitespaceKeys,
-  GeneralKeys,
-  keyEqualTo
+  GeneralKeys
 }
