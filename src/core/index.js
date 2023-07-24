@@ -26,7 +26,7 @@ class Kuaio {
   constructor(target, config) {
     if (!target || !(target instanceof EventTarget)) {
       throw new Error(
-        'Parameter target cannot be empty or not an instance of EventTarget.'
+        'Parameter [target] cannot be empty or not an instance of EventTarget.'
       )
     }
     this.target = target
@@ -36,7 +36,7 @@ class Kuaio {
       Array.isArray(config)
     ) {
       throw new Error(
-        'The parameter config cannot be empty and must be a plain object'
+        'Parameter [config] cannot be empty and must be a plain object'
       )
     }
     this.config = config
@@ -66,6 +66,9 @@ class Kuaio {
   _pushSequenceItem(sequenceItem) {
     this._getCurSequence().push(sequenceItem)
   }
+  /**
+   * @returns {KuaioCombination}
+   */
   _getCurSequenceItem() {
     if (!this._curSequenceItem) {
       this._curSequenceItem = new KuaioCombination()
@@ -82,6 +85,9 @@ class Kuaio {
   _pushSequence(sequence) {
     this._sequenceList.push(sequence)
   }
+  /**
+   * @returns {KuaioSequence}
+   */
   _getCurSequence() {
     if (!this._curSequence) {
       this._curSequence = new KuaioSequence()
@@ -112,19 +118,19 @@ class Kuaio {
     return this
   }
   /**
-   * Add a key to the modifier list
+   * Add a key to the modifier list.
    */
   modifier(key) {
     if (!isCombinationModifierKey(key)) {
       throw new Error(
-        'The parameter key is not a modifier key that can be used in combination.'
+        'Parameter [key] is not a modifier key that can be used in combination.'
       )
     }
     this._getCurSequenceItem().modifiers.push(key)
     return this
   }
   /**
-   * Set a key as trigger key
+   * Set a key as trigger key.
    */
   key(key) {
     this._getCurSequenceItem().key = key
@@ -167,12 +173,12 @@ class Kuaio {
     return this
   }
   /**
-   * Bind the callback to sequences
+   * Bind the callback to sequences.
    * @param callback
    */
   bind(callback) {
-    if (!callback) {
-      throw new Error('callback')
+    if (typeof callback !== 'function') {
+      throw new Error('Parameter [callback] must be a function.')
     }
     this._pushCurSequence()
     this._listeners = createNativeEventListeners(
@@ -187,7 +193,7 @@ class Kuaio {
     return this._listeners
   }
   /**
-   * Unbind the callback and unbind all native event handlers
+   * Unbind the callback and unbind all native event handlers.
    */
   unbind() {
     if (this._listeners && this._listeners.length > 0) {

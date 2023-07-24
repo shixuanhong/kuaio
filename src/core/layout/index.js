@@ -7,11 +7,16 @@ let cachedLayout = null
 /**
  * Register a keyboard layout related handler.
  * @param {string} name
- * @param {object} handlers
+ * @param {import('index').KuaioLayoutHandlers} handlers
  */
 export function registryLayout(name, handlers) {
   if (typeof name !== 'string') {
-    throw new Error('')
+    throw new Error('Parameter [name] must be a string.')
+  }
+  if (!handlers || typeof handlers.validator !== 'function') {
+    throw new Error(
+      'The registered layout is missing method: validator, or it is not a function.'
+    )
   }
   keyboardLayoutMap.set(name, {
     name,

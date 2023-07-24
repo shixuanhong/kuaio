@@ -572,12 +572,12 @@ declare class Kuaio {
    */
   or(): this
   /**
-   * Bind the callback to sequences
+   * Bind the callback to sequences.
    * @param callback
    */
   bind(callback: (e: KeyboardEvent) => void): EventListener[]
   /**
-   * Unbind the callback and unbind all native event handlers
+   * Unbind the callback and unbind all native event handlers.
    */
   unbind(): void
 }
@@ -777,6 +777,7 @@ declare enum KeyboardEventType {
 
 export {
   KuaioConfig,
+  KuaioLayoutHandlers,
   EditingKeys,
   FunctionKeys,
   KeyboardEventType,
