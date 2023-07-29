@@ -13,6 +13,8 @@ declare interface KuaioLayoutHandlers {
   ) => string
 }
 
+declare type KuaioCallback = (e: KeyboardEvent) => void
+
 declare class Kuaio {
   readonly target: EventTarget
   readonly config: KuaioConfig
@@ -26,6 +28,7 @@ declare class Kuaio {
   static create(target: EventTarget): Kuaio
   static create(config: KuaioConfig): Kuaio
   static create(target: EventTarget, config: KuaioConfig): Kuaio
+  static bindFromKeyString(keyStr: string | string[], callback: KuaioCallback)
   static registryLayout(name: string, handlers: KuaioLayoutHandlers)
   static unregistryLayout(name: string)
   private _pushSequenceItem
@@ -575,7 +578,7 @@ declare class Kuaio {
    * Bind the callback to sequences.
    * @param callback
    */
-  bind(callback: (e: KeyboardEvent) => void): EventListener[]
+  bind(callback: KuaioCallback): EventListener[]
   /**
    * Unbind the callback and unbind all native event handlers.
    */

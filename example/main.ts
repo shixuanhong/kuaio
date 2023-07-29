@@ -1,6 +1,6 @@
 import { Kuaio } from 'kuaio'
 
-// sequence with multiple single keys
+// sequence with multiple single keys.
 Kuaio.create()
   .K()
   .after()
@@ -15,7 +15,7 @@ Kuaio.create()
     console.log('Kuaio')
   })
 
-// sequence with multiple key combinations
+// sequence with multiple key combinations.
 Kuaio.create({
   preventDefault: true
 })
@@ -28,7 +28,7 @@ Kuaio.create({
     console.log('Ctrl+K, Ctrl+C')
   })
 
-// binding multiple sequences to the same callback
+// binding multiple sequences to the same callback.
 Kuaio.create({
   preventDefault: true
 })
@@ -40,3 +40,8 @@ Kuaio.create({
   .bind(() => {
     console.log('Ctrl+A or Ctrl+B')
   })
+
+// Create a shortcut key based on a string and bind a callback.
+Kuaio.bindFromKeyString('Control+q, a', (e) => {
+  console.log(e)
+})

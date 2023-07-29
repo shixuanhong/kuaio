@@ -13,6 +13,7 @@ import { KuaioCombination, KuaioSequence } from './sequence'
 import { createNativeEventListeners } from './listener'
 import { registryLayout, unregistryLayout } from './layout/index'
 import { getPlatform, isCombinationModifierKey } from '../utils/index'
+import { stringParser } from './parser/index'
 
 class Kuaio {
   target
@@ -60,6 +61,17 @@ class Kuaio {
     if (args.length === 2) {
       return new Kuaio(args[0], args[1])
     }
+  }
+  static bindFromKeyString(str, callback) {
+    let strArr = str
+    if (!Array.isArray(str)) {
+      strArr = [str]
+    }
+    const result = Kuaio.create()
+    strArr.forEach((item) => {
+      result._sequenceList.push(stringParser(item))
+    })
+    return result.bind(callback)
   }
   static registryLayout = registryLayout
   static unregistryLayout = unregistryLayout
