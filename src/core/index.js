@@ -250,8 +250,14 @@ const initKeyMethods = () => {
       Object.entries(GeneralKeys)
     )
     .forEach(([key, value]) => {
-      Kuaio.prototype[key] = function () {
-        return this.key(value)
+      if (/^A-Z$/.test(key)) {
+        Kuaio.prototype[key] = function (upperCase = false) {
+          return this.key(upperCase ? value.toUpperCase() : value)
+        }
+      } else {
+        Kuaio.prototype[key] = function () {
+          return this.key(value)
+        }
       }
     })
   // aliases

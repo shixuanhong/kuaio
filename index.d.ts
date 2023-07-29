@@ -253,107 +253,133 @@ declare class Kuaio {
    */
   Pause(): this
   /**
-   * Set `A` as trigger key.
+   * Set `a` as trigger key.
+   * @param {boolean} [upperCase=false] `A`
    */
-  A(): this
+  A(upperCase?: boolean): this
   /**
-   * Set `B` as trigger key.
+   * Set `b` as trigger key.
+   * @param {boolean} [upperCase=false] `B`
    */
   B(): this
   /**
-   * Set `C` as trigger key.
+   * Set `c` as trigger key.
+   * @param {boolean} [upperCase=false] `C`
    */
   C(): this
   /**
-   * Set `D` as trigger key.
+   * Set `d` as trigger key.
+   * @param {boolean} [upperCase=false] `D`
    */
   D(): this
   /**
-   * Set `E` as trigger key.
+   * Set `e` as trigger key.
+   * @param {boolean} [upperCase=false] `E`
    */
   E(): this
   /**
-   * Set `F` as trigger key.
+   * Set `f` as trigger key.
+   * @param {boolean} [upperCase=false] `F`
    */
   F(): this
   /**
-   * Set `G` as trigger key.
+   * Set `g` as trigger key.
+   * @param {boolean} [upperCase=false] `G`
    */
   G(): this
   /**
-   * Set `H` as trigger key.
+   * Set `h` as trigger key.
+   * @param {boolean} [upperCase=false] `H`
    */
   H(): this
   /**
-   * Set `I` as trigger key.
+   * Set `i` as trigger key.
+   * @param {boolean} [upperCase=false] `I`
    */
   I(): this
   /**
-   * Set `J` as trigger key.
+   * Set `j` as trigger key.
+   * @param {boolean} [upperCase=false] `J`
    */
   J(): this
   /**
-   * Set `K` as trigger key.
+   * Set `k` as trigger key.
+   * @param {boolean} [upperCase=false] `K`
    */
   K(): this
   /**
-   * Set `L` as trigger key.
+   * Set `l` as trigger key.
+   * @param {boolean} [upperCase=false] `L`
    */
   L(): this
   /**
-   * Set `M` as trigger key.
+   * Set `m` as trigger key.
+   * @param {boolean} [upperCase=false] `M`
    */
   M(): this
   /**
-   * Set `N` as trigger key.
+   * Set `n` as trigger key.
+   * @param {boolean} [upperCase=false] `N`
    */
   N(): this
   /**
-   * Set `O` as trigger key.
+   * Set `o` as trigger key.
+   * @param {boolean} [upperCase=false] `O`
    */
   O(): this
   /**
-   * Set `P` as trigger key.
+   * Set `p` as trigger key.
+   * @param {boolean} [upperCase=false] `P`
    */
   P(): this
   /**
-   * Set `Q` as trigger key.
+   * Set `q` as trigger key.
+   * @param {boolean} [upperCase=false] `Q`
    */
   Q(): this
   /**
-   * Set `R` as trigger key.
+   * Set `r` as trigger key.
+   * @param {boolean} [upperCase=false] `R`
    */
   R(): this
   /**
-   * Set `S` as trigger key.
+   * Set `s` as trigger key.
+   * @param {boolean} [upperCase=false] `S`
    */
   S(): this
   /**
-   * Set `T` as trigger key.
+   * Set `t` as trigger key.
+   * @param {boolean} [upperCase=false] `T`
    */
   T(): this
   /**
-   * Set `U` as trigger key.
+   * Set `u` as trigger key.
+   * @param {boolean} [upperCase=false] `U`
    */
   U(): this
   /**
-   * Set `V` as trigger key.
+   * Set `v` as trigger key.
+   * @param {boolean} [upperCase=false] `V`
    */
   V(): this
   /**
-   * Set `W` as trigger key.
+   * Set `w` as trigger key.
+   * @param {boolean} [upperCase=false] `W`
    */
   W(): this
   /**
-   * Set `X` as trigger key.
+   * Set `x` as trigger key.
+   * @param {boolean} [upperCase=false] `X`
    */
   X(): this
   /**
-   * Set `Y` as trigger key.
+   * Set `y` as trigger key.
+   * @param {boolean} [upperCase=false] `Y`
    */
   Y(): this
   /**
-   * Set `Z` as trigger key.
+   * Set `z` as trigger key.
+   * @param {boolean} [upperCase=false] `Z`
    */
   Z(): this
   /**
