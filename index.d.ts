@@ -30,8 +30,9 @@ declare class Kuaio {
   static create(config: KuaioConfig): Kuaio
   static create(target: EventTarget, config: KuaioConfig): Kuaio
   static bindFromKeyString(keyStr: string | string[], callback: KuaioCallback)
-  static registryLayout(name: string, handlers: KuaioLayoutHandlers)
-  static unregistryLayout(name: string)
+  static setGlobalConfig(config: KuaioConfig): void
+  static registryLayout(name: string, handlers: KuaioLayoutHandlers): void
+  static unregistryLayout(name: string): void
   private _pushSequenceItem
   private _getCurSequenceItem
   private _pushCurSequenceItem

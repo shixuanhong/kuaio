@@ -3,7 +3,7 @@ import {
   getCombinationModifierKeyMatched,
   keyEqualTo
 } from '../utils/index'
-import { defaultConfig } from './config/index'
+import { getDefaultConfig } from './config/index'
 import { getCachedLayout } from './layout/index'
 
 export function createNativeEventListenerWrapper(
@@ -14,14 +14,6 @@ export function createNativeEventListenerWrapper(
   if (sequence.length === 0) {
     throw new Error('Sequence cannot be empty.')
   }
-
-  const {
-    preventDefault = defaultConfig.preventDefault,
-    stopPropagation = defaultConfig.stopPropagation,
-    stopImmediatePropagation = defaultConfig.stopImmediatePropagation,
-    sequenceTimeout = defaultConfig.sequenceTimeout,
-    disableGlyphHandler = defaultConfig.disableGlyphHandler
-  } = config
 
   /** Record the index of the current sequence. */
   let sequenceIndex = 0
@@ -44,10 +36,19 @@ export function createNativeEventListenerWrapper(
     timer = setTimeout(() => {
       resetSequenceIndex()
       resetSequenceTimer()
-    }, timeout ?? sequenceTimeout)
+    }, timeout)
   }
 
   return (event) => {
+    const defaultConfig = getDefaultConfig()
+    const {
+      preventDefault = defaultConfig.preventDefault,
+      stopPropagation = defaultConfig.stopPropagation,
+      stopImmediatePropagation = defaultConfig.stopImmediatePropagation,
+      sequenceTimeout = defaultConfig.sequenceTimeout,
+      disableGlyphHandler = defaultConfig.disableGlyphHandler
+    } = config
+
     const sequenceItem = sequence[sequenceIndex]
     if (!sequenceItem.key) {
       throw new Error(
@@ -89,7 +90,7 @@ export function createNativeEventListenerWrapper(
         } else {
           resetSequenceTimer()
           sequenceIndex++
-          createSequenceTimer(sequenceItem.timeout)
+          createSequenceTimer(sequenceItem.timeout ?? sequenceTimeout)
         }
       } else {
         /** sequence break. */

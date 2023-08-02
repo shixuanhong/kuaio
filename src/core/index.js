@@ -14,6 +14,7 @@ import { createNativeEventListeners } from './listener'
 import { registryLayout, unregistryLayout } from './layout/index'
 import { getPlatform, isCombinationModifierKey } from '../utils/index'
 import { stringParser } from './parser/index'
+import { setDefaultConfig } from './config/index'
 
 class Kuaio {
   target
@@ -73,6 +74,7 @@ class Kuaio {
     })
     return result.bind(callback)
   }
+  static setGlobalConfig = setDefaultConfig
   static registryLayout = registryLayout
   static unregistryLayout = unregistryLayout
   _pushSequenceItem(sequenceItem) {
