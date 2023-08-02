@@ -19,7 +19,8 @@ export function createNativeEventListenerWrapper(
     preventDefault = defaultConfig.preventDefault,
     stopPropagation = defaultConfig.stopPropagation,
     stopImmediatePropagation = defaultConfig.stopImmediatePropagation,
-    sequenceTimeout = defaultConfig.sequenceTimeout
+    sequenceTimeout = defaultConfig.sequenceTimeout,
+    disableGlyphHandler = defaultConfig.disableGlyphHandler
   } = config
 
   /** Record the index of the current sequence. */
@@ -46,16 +47,16 @@ export function createNativeEventListenerWrapper(
     }, timeout ?? sequenceTimeout)
   }
 
-  return (e) => {
-    const event = e
+  return (event) => {
     const sequenceItem = sequence[sequenceIndex]
     if (!sequenceItem.key) {
       throw new Error(
         `The sequenceItem at position ${sequenceIndex} in the sequence does not specify the property: [key].`
       )
     }
+    let triggerKey = event.key
     /** Skip if the current key is one of the modifiers of the current sequenceItem. */
-    if (sequenceItem.modifiers.indexOf(event.key) > -1) return
+    if (sequenceItem.modifiers.indexOf(triggerKey) > -1) return
 
     const modifiersMatched = getCombinationModifierKeyMatched(
       sequenceItem.modifiers,
@@ -63,21 +64,24 @@ export function createNativeEventListenerWrapper(
     )
 
     getCachedLayout().then((layout) => {
-      const { glyphHandler } = layout.handlers
-      const newKey = glyphHandler(event.key, getGlyohModifierKeyState(event))
-      if (keyEqualTo(newKey, sequenceItem.key) && modifiersMatched) {
+      if (!disableGlyphHandler) {
+        const { glyphHandler } = layout.handlers
+        triggerKey = glyphHandler(event.key, getGlyohModifierKeyState(event))
+      }
+
+      if (keyEqualTo(triggerKey, sequenceItem.key) && modifiersMatched) {
         /**
          * After the conditions of the current sequence element are met, prevent the browser's default behavior,
          * prevent event propagation, and prevent other event listeners on the current event target listening to the same event from being called.
          */
         if (sequenceItem.preventDefault ?? preventDefault) {
-          e.preventDefault()
+          event.preventDefault()
         }
         if (sequenceItem.stopPropagation ?? stopPropagation) {
-          e.stopPropagation()
+          event.stopPropagation()
         }
         if (sequenceItem.stopImmediatePropagation ?? stopImmediatePropagation) {
-          e.stopImmediatePropagation()
+          event.stopImmediatePropagation()
         }
         if (sequenceIndex === sequence.length - 1) {
           callback(event)

@@ -3,6 +3,7 @@ declare interface KuaioConfig {
   preventDefault?: boolean
   stopPropagation?: boolean
   stopImmediatePropagation?: boolean
+  disableGlyphHandler?: boolean
 }
 
 declare interface KuaioLayoutHandlers {
