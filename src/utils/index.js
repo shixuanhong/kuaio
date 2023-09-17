@@ -29,6 +29,9 @@ export function getModifierKeyPressed(modifier, e) {
  * @returns {boolean}
  */
 export function getCombinationModifierKeyMatched(modifiers, e) {
+  if (modifiers.length === 0) {
+    return true
+  }
   return Object.values(CombinationModifierKeys).every(
     (key) => getModifierKeyPressed(key, e) === modifiers.indexOf(key) > -1
   )
