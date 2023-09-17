@@ -263,127 +263,127 @@ declare class Kuaio {
    * Set `b` as trigger key.
    * @param {boolean} [upperCase=false] `B`
    */
-  B(): this
+  B(upperCase?: boolean): this
   /**
    * Set `c` as trigger key.
    * @param {boolean} [upperCase=false] `C`
    */
-  C(): this
+  C(upperCase?: boolean): this
   /**
    * Set `d` as trigger key.
    * @param {boolean} [upperCase=false] `D`
    */
-  D(): this
+  D(upperCase?: boolean): this
   /**
    * Set `e` as trigger key.
    * @param {boolean} [upperCase=false] `E`
    */
-  E(): this
+  E(upperCase?: boolean): this
   /**
    * Set `f` as trigger key.
    * @param {boolean} [upperCase=false] `F`
    */
-  F(): this
+  F(upperCase?: boolean): this
   /**
    * Set `g` as trigger key.
    * @param {boolean} [upperCase=false] `G`
    */
-  G(): this
+  G(upperCase?: boolean): this
   /**
    * Set `h` as trigger key.
    * @param {boolean} [upperCase=false] `H`
    */
-  H(): this
+  H(upperCase?: boolean): this
   /**
    * Set `i` as trigger key.
    * @param {boolean} [upperCase=false] `I`
    */
-  I(): this
+  I(upperCase?: boolean): this
   /**
    * Set `j` as trigger key.
    * @param {boolean} [upperCase=false] `J`
    */
-  J(): this
+  J(upperCase?: boolean): this
   /**
    * Set `k` as trigger key.
    * @param {boolean} [upperCase=false] `K`
    */
-  K(): this
+  K(upperCase?: boolean): this
   /**
    * Set `l` as trigger key.
    * @param {boolean} [upperCase=false] `L`
    */
-  L(): this
+  L(upperCase?: boolean): this
   /**
    * Set `m` as trigger key.
    * @param {boolean} [upperCase=false] `M`
    */
-  M(): this
+  M(upperCase?: boolean): this
   /**
    * Set `n` as trigger key.
    * @param {boolean} [upperCase=false] `N`
    */
-  N(): this
+  N(upperCase?: boolean): this
   /**
    * Set `o` as trigger key.
    * @param {boolean} [upperCase=false] `O`
    */
-  O(): this
+  O(upperCase?: boolean): this
   /**
    * Set `p` as trigger key.
    * @param {boolean} [upperCase=false] `P`
    */
-  P(): this
+  P(upperCase?: boolean): this
   /**
    * Set `q` as trigger key.
    * @param {boolean} [upperCase=false] `Q`
    */
-  Q(): this
+  Q(upperCase?: boolean): this
   /**
    * Set `r` as trigger key.
    * @param {boolean} [upperCase=false] `R`
    */
-  R(): this
+  R(upperCase?: boolean): this
   /**
    * Set `s` as trigger key.
    * @param {boolean} [upperCase=false] `S`
    */
-  S(): this
+  S(upperCase?: boolean): this
   /**
    * Set `t` as trigger key.
    * @param {boolean} [upperCase=false] `T`
    */
-  T(): this
+  T(upperCase?: boolean): this
   /**
    * Set `u` as trigger key.
    * @param {boolean} [upperCase=false] `U`
    */
-  U(): this
+  U(upperCase?: boolean): this
   /**
    * Set `v` as trigger key.
    * @param {boolean} [upperCase=false] `V`
    */
-  V(): this
+  V(upperCase?: boolean): this
   /**
    * Set `w` as trigger key.
    * @param {boolean} [upperCase=false] `W`
    */
-  W(): this
+  W(upperCase?: boolean): this
   /**
    * Set `x` as trigger key.
    * @param {boolean} [upperCase=false] `X`
    */
-  X(): this
+  X(upperCase?: boolean): this
   /**
    * Set `y` as trigger key.
    * @param {boolean} [upperCase=false] `Y`
    */
-  Y(): this
+  Y(upperCase?: boolean): this
   /**
    * Set `z` as trigger key.
    * @param {boolean} [upperCase=false] `Z`
    */
-  Z(): this
+  Z(upperCase?: boolean): this
   /**
    * Set `0` as trigger key.
    */
