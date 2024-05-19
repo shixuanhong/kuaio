@@ -29,7 +29,10 @@ declare class Kuaio {
   static create(target: EventTarget): Kuaio
   static create(config: KuaioConfig): Kuaio
   static create(target: EventTarget, config: KuaioConfig): Kuaio
-  static bindFromKeyString(keyStr: string | string[], callback: KuaioCallback)
+  static bindFromKeyString(
+    keyStr: string | string[],
+    callback: KuaioCallback
+  ): EventListener[]
   static setGlobalConfig(config: KuaioConfig): void
   static registryLayout(name: string, handlers: KuaioLayoutHandlers): void
   static unregistryLayout(name: string): void

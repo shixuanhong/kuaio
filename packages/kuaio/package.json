@@ -26,17 +26,18 @@
   },
   "files": [
     "dist",
-    "src/index.d.ts"
+    "index.d.ts"
   ],
   "exports": {
     ".": {
       "import": "./dist/kuaio.mjs",
-      "require": "./dist/kuaio.cjs"
+      "require": "./dist/kuaio.cjs",
+      "types":"./index.d.ts"
     }
   },
   "main": "./dist/kuaio.cjs",
   "module": "./dist/kuaio.mjs",
-  "types": "./dist/index.d.ts",
+  "types": "./index.d.ts",
   "devDependencies": {
     "@babel/core": "^7.22.9",
     "@babel/preset-env": "^7.22.9",

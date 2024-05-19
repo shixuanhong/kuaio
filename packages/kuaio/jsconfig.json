@@ -3,6 +3,7 @@
     "target": "ESNext"
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "index.d.ts"
   ]
 }

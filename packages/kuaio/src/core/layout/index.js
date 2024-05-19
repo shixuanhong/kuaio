@@ -7,7 +7,7 @@ let cachedLayout = null
 /**
  * Register a keyboard layout related handler.
  * @param {string} name
- * @param {import('index').KuaioLayoutHandlers} handlers
+ * @param {import('../../../index').KuaioLayoutHandlers} handlers
  */
 export function registryLayout(name, handlers) {
   if (typeof name !== 'string') {
