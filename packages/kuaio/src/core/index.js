@@ -51,15 +51,13 @@ class Kuaio {
     const global = document || window
     if (args.length === 0) {
       return new Kuaio(global, {})
-    }
-    if (args.length === 1) {
+    } else if (args.length === 1) {
       if (args[0] instanceof EventTarget) {
         return new Kuaio(args[0], {})
       } else {
         return new Kuaio(global, args[0])
       }
-    }
-    if (args.length === 2) {
+    } else {
       return new Kuaio(args[0], args[1])
     }
   }

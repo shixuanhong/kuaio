@@ -1,48 +1,19 @@
 {
-  "name": "kuaio",
-  "author": {
-    "name": "shixuanhong"
-  },
-  "description": "A modern shortcut JavaScript library.",
-  "version": "0.0.0",
-  "keywords": [
-    "kuaio",
-    "shortcut",
-    "keyboard"
-  ],
-  "license": "MIT",
-  "homepage": "https://github.com/shixuanhong/kuaio#readme",
-  "bugs": {
-    "url": "https://github.com/shixuanhong/kuaio/issues"
+  "name": "@kuaio/kuaio-monorepo",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/shixuanhong/kuaio.git"
+    "url": "git+https://github.com/shixuanhong/kuaio.git"
   },
-  "type": "module",
+  "keywords": [],
   "scripts": {
-    "dev": "pnpm build && cd example && pnpm dev",
-    "build": "rollup -c"
+    "dev": "pnpm -r --parallel --filter='./packages/*' dev",
+    "build": "pnpm -r --filter='./packages/*' build"
   },
-  "files": [
-    "dist",
-    "index.d.ts"
-  ],
-  "exports": {
-    ".": {
-      "import": "./dist/kuaio.mjs",
-      "require": "./dist/kuaio.cjs"
-    }
-  },
-  "main": "./dist/kuaio.cjs",
-  "module": "./dist/kuaio.mjs",
-  "types": "index.d.ts",
-  "devDependencies": {
-    "@babel/core": "^7.22.9",
-    "@babel/preset-env": "^7.22.9",
-    "@rollup/plugin-babel": "^6.0.3",
-    "@rollup/plugin-terser": "^0.4.3",
-    "rollup": "^3.26.2"
-  },
+  "devDependencies": {},
   "packageManager": "pnpm@8.0.0+"
 }
