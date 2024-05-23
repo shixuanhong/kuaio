@@ -815,10 +815,11 @@ export {
   EditingKeys,
   FunctionKeys,
   KeyboardEventType,
-  Kuaio,
   CombinationModifierKeys,
   ModifierKeys,
   NavigationKeys,
   WhitespaceKeys,
   GeneralKeys
 }
+
+export default Kuaio

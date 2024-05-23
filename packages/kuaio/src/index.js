@@ -14,4 +14,4 @@ import qwerty from './core/layout/qwerty'
 
 Kuaio.registryLayout(qwerty.name, qwerty.handlers)
 
-export { Kuaio }
+export default Kuaio
