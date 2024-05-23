@@ -1,16 +1,16 @@
 # Kuaio
 
-A modern shortcut JavaScript library.
+一个现代的用于创建快捷键的 JavaScript 库。
 
-**Note: This library is under development, please do not use it in a production environment.**
+**Note: 该库正在开发中，请勿在生产环境中使用。**
 
-## Getting Started
+## 入门
 
-### Browser Support
+### 浏览器支持
 
 TODO
 
-### Installation
+### 安装
 
 ```shell
 npm install kuaio
@@ -28,12 +28,12 @@ or
 pnpm add kuaio
 ```
 
-### Quick Start
+### 快速开始
 
 ```javascript
 import Kuaio from 'kuaio'
 
-// Chain call
+// 链式调用
 Kuaio.create()
   .Ctrl()
   .A()
@@ -41,19 +41,19 @@ Kuaio.create()
     console.log('Ctrl + a', e)
   })
 
-// Use string definition
+// 使用字符串定义
 Kuaio.bindFromKeyString('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
 ```
 
-## Usage
+## 使用方法
 
-### Create Instance
+### 创建实例
 
-There are two ways to create an instance:
+有两种方式可以用于创建实例:
 
-1\. **[Recommend] Create via the `create` method.**
+1\. **[推荐] 通过`create` 方法创建**
 
 ```javascript
 // 1. Create a global instance.
@@ -76,7 +76,7 @@ const instance = Kuaio.create(config)
 // const instance = Kuaio.create(target, config)
 ```
 
-2\. **Create via the `new` operator.**
+2\. **通过 `new` 操作符创建**
 
 ```javascript
 const target = document
@@ -84,11 +84,11 @@ const config = {}
 const instance = new Kuaio(target, config)
 ```
 
-### Create Listener
+### 创建侦听器
 
-There are two ways to create an listener:
+有两种方式可以用于创建侦听器:
 
-1\. **Chain Call**
+1\. **链式调用**
 
 ```javascript
 Kuaio.create()
@@ -99,9 +99,9 @@ Kuaio.create()
   })
 ```
 
-2\. **String Definition**
+2\. **字符串定义**
 
-Created through the static method `Kuaio.bindFromKeyString`.
+通过静态方法 `Kuaio.bindFromKeyString` 创建。
 
 ```javascript
 Kuaio.bindFromKeyString('Ctrl + a', (e) => {
@@ -109,13 +109,13 @@ Kuaio.bindFromKeyString('Ctrl + a', (e) => {
 })
 ```
 
-> NOTE: `Kuaio.bindFromKeyString('Ctrl + A')` will not work, you may need to read [TODO](#TODO).
+> 注意: `Kuaio.bindFromKeyString('Ctrl + A')` 不会生效, 你可能需要阅读 [TODO](#TODO).
 
-### Trigger
+### 触发器
 
-#### Single Key
+#### 单键触发
 
-Kuaio provides built-in methods for efficient key selection from the standard US keyboard. When these methods are called, the specified key, excluding modifier keys, will serve as the trigger.
+Kuaio 提供了内置方法，可以从标准美式键盘中进行高效的按键选择。 当调用这些方法时，指定的键（不包括修饰键）将作为触发器。
 
 ```javascript
 // General keys
@@ -144,9 +144,9 @@ Kuaio.create()
   .bind((e) => {})
 ```
 
-In addition, you can also use the `key` method to specify the trigger key, but it must be a valid value of [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key).
+另外，你还可以使用`key`方法指定触发键，但必须是 [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) 的一个有效值.
 
-You can easily get it with [JavaScript Key Code Event Tool](https://www.toptal.com/developers/keycode).
+你可以很轻松的通过这个工具来获取这些值：[JavaScript Key Code Event Tool](https://www.toptal.com/developers/keycode).
 
 ```javascript
 Kuaio.create()
@@ -154,13 +154,13 @@ Kuaio.create()
   .bind((e) => {})
 ```
 
-> NOTE: You can use this method to set a modifier key as a trigger key, but this is not recommended.
+> 注意: 你可以使用这个方法将一个修饰键指定为一个触发键，但这并不推荐。
 
-#### Key Combination
+#### 组合键
 
-Use a combination of modifier keys (`Ctrl`, `Shift`, etc.) with other trigger keys as triggers.
+你可以使用修饰键和其它触发键的组合来作为触发器
 
-1\. **Chain Call**
+1\. **链式调用**
 
 ```javascript
 // 1. Use built-in modifier methods.
@@ -190,9 +190,9 @@ Kuaio.create()
   })
 ```
 
-> NOTE: You can use this method to set a trigger key as a modifier key, but this is not recommended.
+> 注意: 你可以使用这个方法将一个触发键指定为一个修饰键，但这并不推荐。
 
-2\. **String Definition**
+2\. **字符串定义**
 
 ```javascript
 Kuaio.bindFromKeyString('Ctrl + a', (e) => {
@@ -203,11 +203,11 @@ Kuaio.bindFromKeyString('Ctrl + Alt + a', (e) => {
 })
 ```
 
-#### Sequence
+#### 序列
 
-You can define an sequence containing `Single Key` or `Key Combination` as a trigger, which will be triggered when the keyboard is pressed in a specified order. In fact this can also be called a key combination, but it is more powerful.
+你可以定义一个包含`单键`或`组合键`的序列来作为触发器，当按指定顺序按下键盘时将触发该序列。其实这也是一种组合键，但是功能更强大。
 
-1\. **Chain Call**
+1\. **链式调用**
 
 ```javascript
 Kuaio.create()
@@ -235,7 +235,7 @@ Kuaio.create()
   })
 ```
 
-2\. **String Definition**
+2\. **字符串定义**
 
 ```javascript
 Kuaio.bindFromKeyString('q, w, e, r', (e) => {
@@ -253,7 +253,7 @@ Kuaio.bindFromKeyString(
 )
 ```
 
-### Keyboard Layout and Glyph Modifiers
+### 键盘布局和字形修饰符
 
 TODO
 
