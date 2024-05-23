@@ -2,7 +2,7 @@ import './style.css'
 import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
-import { Kuaio } from 'kuaio'
+import Kuaio from 'kuaio'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -24,6 +24,27 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
-  console.log('Ctrl + A', e)
+// Single Key
+Kuaio.bindFromKeyString('a', (e) => {
+  console.log('a', e)
 })
+
+// Key Combination
+Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+  console.log('Ctrl + a', e)
+})
+Kuaio.bindFromKeyString('Ctrl + Alt + a', (e) => {
+  console.log('Ctrl + Alt + a', e)
+})
+Kuaio.bindFromKeyString('q, w, e, r', (e) => {
+  console.log('q, w, e, r', e)
+})
+Kuaio.bindFromKeyString(
+  'Ctrl + k, Ctrl + c',
+  (e) => {
+    console.log('Ctrl + k, Ctrl + c', e)
+  },
+  {
+    preventDefault: true
+  }
+)

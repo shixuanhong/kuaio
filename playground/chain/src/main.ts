@@ -2,7 +2,7 @@ import './style.css'
 import typescriptLogo from './typescript.svg'
 import viteLogo from '/vite.svg'
 import { setupCounter } from './counter.ts'
-import { Kuaio } from 'kuaio'
+import Kuaio from 'kuaio'
 
 document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
   <div>
@@ -24,9 +24,49 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 
+// Single Key
+Kuaio.create()
+  .A()
+  .bind((e) => {
+    console.log('a', e)
+  })
+
+// Key Combination
 Kuaio.create()
   .Ctrl()
   .A()
   .bind((e) => {
-    console.log('Ctrl + A', e)
+    console.log('Ctrl + a', e)
+  })
+
+Kuaio.create()
+  .Ctrl()
+  .Alt()
+  .A()
+  .bind((e) => {
+    console.log('Ctrl + Alt + a', e)
+  })
+
+Kuaio.create()
+  .Q()
+  // Set timeout. Pressing the next key within this time will continue listening to the sequence, otherwise it will stop.
+  .after(1000)
+  .W()
+  .after()
+  .E()
+  .after()
+  .R()
+  .bind((e) => {
+    console.log('q, w, e, r', e)
+  })
+
+Kuaio.create()
+  .prventDefault()
+  .Ctrl()
+  .K()
+  .after()
+  .Ctrl()
+  .C()
+  .bind((e) => {
+    console.log('Ctrl + k, Ctrl + c', e)
   })
