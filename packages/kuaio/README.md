@@ -42,7 +42,7 @@ Kuaio.create()
   })
 
 // Use string definition
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+Kuaio.on('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
 ```
@@ -101,15 +101,15 @@ Kuaio.create()
 
 2\. **String Definition**
 
-Created through the static method `Kuaio.bindFromKeyString`.
+Created through the static method `Kuaio.on`.
 
 ```javascript
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+Kuaio.on('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
 ```
 
-> NOTE: `Kuaio.bindFromKeyString('Ctrl + A')` will not work, you may need to read [TODO](#TODO).
+> NOTE: `Kuaio.on('Ctrl + A')` will not work, you may need to read [TODO](#TODO).
 
 ### Trigger
 
@@ -195,10 +195,10 @@ Kuaio.create()
 2\. **String Definition**
 
 ```javascript
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+Kuaio.on('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
-Kuaio.bindFromKeyString('Ctrl + Alt + a', (e) => {
+Kuaio.on('Ctrl + Alt + a', (e) => {
   console.log('Ctrl + Alt + a', e)
 })
 ```
@@ -238,11 +238,11 @@ Kuaio.create()
 2\. **String Definition**
 
 ```javascript
-Kuaio.bindFromKeyString('q, w, e, r', (e) => {
+Kuaio.on('q, w, e, r', (e) => {
   console.log('q, w, e, r', e)
 })
 
-Kuaio.bindFromKeyString(
+Kuaio.on(
   'Ctrl + k, Ctrl + c',
   (e) => {
     console.log('Ctrl + k, Ctrl + c', e)

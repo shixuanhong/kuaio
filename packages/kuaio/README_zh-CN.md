@@ -42,7 +42,7 @@ Kuaio.create()
   })
 
 // 使用字符串定义
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+Kuaio.on('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
 ```
@@ -101,15 +101,15 @@ Kuaio.create()
 
 2\. **字符串定义**
 
-通过静态方法 `Kuaio.bindFromKeyString` 创建。
+通过静态方法 `Kuaio.on` 创建。
 
 ```javascript
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+Kuaio.on('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
 ```
 
-> 注意: `Kuaio.bindFromKeyString('Ctrl + A')` 不会生效, 你可能需要阅读 [TODO](#TODO).
+> 注意: `Kuaio.on('Ctrl + A')` 不会生效, 你可能需要阅读 [TODO](#TODO).
 
 ### 触发器
 
@@ -195,10 +195,10 @@ Kuaio.create()
 2\. **字符串定义**
 
 ```javascript
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+Kuaio.on('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
-Kuaio.bindFromKeyString('Ctrl + Alt + a', (e) => {
+Kuaio.on('Ctrl + Alt + a', (e) => {
   console.log('Ctrl + Alt + a', e)
 })
 ```
@@ -238,11 +238,11 @@ Kuaio.create()
 2\. **字符串定义**
 
 ```javascript
-Kuaio.bindFromKeyString('q, w, e, r', (e) => {
+Kuaio.on('q, w, e, r', (e) => {
   console.log('q, w, e, r', e)
 })
 
-Kuaio.bindFromKeyString(
+Kuaio.on(
   'Ctrl + k, Ctrl + c',
   (e) => {
     console.log('Ctrl + k, Ctrl + c', e)

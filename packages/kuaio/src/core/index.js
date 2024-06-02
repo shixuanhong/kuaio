@@ -62,7 +62,7 @@ class Kuaio {
       return new Kuaio(args[0], args[1])
     }
   }
-  static bindFromKeyString(str, callback) {
+  static on(str, callback) {
     let strArr = str
     if (!Array.isArray(str)) {
       strArr = [str]

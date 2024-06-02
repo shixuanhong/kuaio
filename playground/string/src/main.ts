@@ -25,21 +25,21 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 
 // Single Key
-Kuaio.bindFromKeyString('a', (e) => {
+Kuaio.on('a', (e) => {
   console.log('a', e)
 })
 
 // Key Combination
-Kuaio.bindFromKeyString('Ctrl + a', (e) => {
+Kuaio.on('Ctrl + a', (e) => {
   console.log('Ctrl + a', e)
 })
-Kuaio.bindFromKeyString('Ctrl + Alt + a', (e) => {
+Kuaio.on('Ctrl + Alt + a', (e) => {
   console.log('Ctrl + Alt + a', e)
 })
-Kuaio.bindFromKeyString('q, w, e, r', (e) => {
+Kuaio.on('q, w, e, r', (e) => {
   console.log('q, w, e, r', e)
 })
-Kuaio.bindFromKeyString(
+Kuaio.on(
   'Ctrl + k, Ctrl + c',
   (e) => {
     console.log('Ctrl + k, Ctrl + c', e)
