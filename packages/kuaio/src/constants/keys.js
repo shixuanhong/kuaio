@@ -1,3 +1,6 @@
+import { getPlatform } from '../utils/index'
+import { PlatformBrand } from './index'
+
 /**
  * @enum {string}
  */
@@ -9,6 +12,28 @@ export const CombinationModifierKeys = {
   /** This is the `Windows` or `⊞` key, which is the `Command` or `⌘` key on Mac keyboards. */
   Meta: 'Meta',
   Shift: 'Shift'
+}
+
+/**
+ * @enum {string}
+ */
+export const CombinationModifierKeyAlias = {
+  Ctrl: CombinationModifierKeys.Control,
+  Option: CombinationModifierKeys.Alt,
+  Command: CombinationModifierKeys.Meta,
+  Windows: CombinationModifierKeys.Meta
+}
+
+export const VirtualKeys = {
+  /**
+   * This is a virtual key, inspired by Mousetrap. \
+   * It will be mapped to the `Command` key on MacOS, and the `Ctrl` key on other operating systems.
+   */
+  get Mod() {
+    return getPlatform() === PlatformBrand.MacOS
+      ? CombinationModifierKeys.Meta
+      : CombinationModifierKeys.Control
+  }
 }
 
 /**

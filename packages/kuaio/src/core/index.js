@@ -7,7 +7,8 @@ import {
   CombinationModifierKeys,
   UIKeys,
   GeneralKeys,
-  PlatformBrand
+  CombinationModifierKeyAlias,
+  VirtualKeys
 } from '../constants/index'
 import { KuaioCombination, KuaioSequence } from './sequence'
 import { createNativeEventListeners } from './listener'
@@ -223,21 +224,18 @@ const initModifierMethods = () => {
     }
   })
   // aliases
-  Kuaio.prototype.Ctrl = Kuaio.prototype[CombinationModifierKeys.Control]
-  Kuaio.prototype.Option = Kuaio.prototype[CombinationModifierKeys.Alt]
-  Kuaio.prototype.Command = Kuaio.prototype[CombinationModifierKeys.Meta]
-  Kuaio.prototype.Windows = Kuaio.prototype[CombinationModifierKeys.Meta]
-  /**
-   * This is a virtual key, inspired by Mousetrap. \
-   * It will be mapped to the `Command` key on MacOS, and the `Ctrl` key on other operating systems.
-   */
-  Kuaio.prototype.Mod = function () {
-    return this.modifier(
-      getPlatform() === PlatformBrand.MacOS
-        ? CombinationModifierKeys.Meta
-        : CombinationModifierKeys.Control
-    )
-  }
+  Object.entries(CombinationModifierKeyAlias).forEach(([key, value]) => {
+    Kuaio.prototype[key] = function () {
+      return this.modifier(value)
+    }
+  })
+
+  // virtual keys
+  Object.entries(VirtualKeys).forEach(([key, value]) => {
+    Kuaio.prototype[key] = function () {
+      return this.modifier(value)
+    }
+  })
 }
 
 const initKeyMethods = () => {

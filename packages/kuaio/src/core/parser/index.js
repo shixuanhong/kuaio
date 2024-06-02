@@ -1,4 +1,4 @@
-import { isCombinationModifierKey } from '../../utils/index'
+import { getRealKey, isCombinationModifierKey } from '../../utils/index'
 import { KuaioCombination, KuaioSequence } from '../sequence'
 
 const COMBINATION_SEPARATOR = ','
@@ -19,10 +19,11 @@ export function stringParser(inputStr) {
     }
     const combination = new KuaioCombination()
     combinationStr.split(COMBINATION_JOIN).forEach((key) => {
-      if (isCombinationModifierKey(key)) {
-        combination.modifiers.push(key)
+      const realKey = getRealKey(key)
+      if (isCombinationModifierKey(realKey)) {
+        combination.modifiers.push(realKey)
       } else {
-        combination.key = key
+        combination.key = realKey
       }
     })
     sequence.push(combination)

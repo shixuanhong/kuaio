@@ -1,7 +1,9 @@
 import {
+  CombinationModifierKeyAlias,
   CombinationModifierKeys,
   ModifierKeys,
-  PlatformBrand
+  PlatformBrand,
+  VirtualKeys
 } from '../constants/index'
 
 export function keyEqualTo(key1, key2) {
@@ -29,9 +31,6 @@ export function getModifierKeyPressed(modifier, e) {
  * @returns {boolean}
  */
 export function getCombinationModifierKeyMatched(modifiers, e) {
-  if (modifiers.length === 0) {
-    return true
-  }
   return Object.values(CombinationModifierKeys).every(
     (key) => getModifierKeyPressed(key, e) === modifiers.indexOf(key) > -1
   )
@@ -83,5 +82,20 @@ export function getPlatform() {
     } else {
       return PlatformBrand.Unknown
     }
+  }
+}
+
+/**
+ *
+ * @export string
+ * @param {string} key
+ */
+export function getRealKey(key) {
+  if (CombinationModifierKeyAlias[key]) {
+    return CombinationModifierKeyAlias[key]
+  } else if (VirtualKeys[key]) {
+    return VirtualKeys[key]
+  } else {
+    return key
   }
 }

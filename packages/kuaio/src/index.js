@@ -7,6 +7,7 @@ export {
   NavigationKeys,
   WhitespaceKeys,
   GeneralKeys,
+  VirtualKeys,
   KeyboardEventType
 } from './constants/index'
 

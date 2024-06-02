@@ -804,6 +804,10 @@ declare enum GeneralKeys {
   QuestionMark = '?'
 }
 
+declare const VirtualKeys: {
+  Mod: CombinationModifierKeys.Meta | CombinationModifierKeys.Control
+}
+
 declare enum KeyboardEventType {
   KeyDown = 'keydown',
   KeyUp = 'keyup'
@@ -819,7 +823,8 @@ export {
   ModifierKeys,
   NavigationKeys,
   WhitespaceKeys,
-  GeneralKeys
+  GeneralKeys,
+  VirtualKeys
 }
 
 export default Kuaio
