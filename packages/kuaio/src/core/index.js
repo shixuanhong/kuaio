@@ -62,16 +62,16 @@ class Kuaio {
       return new Kuaio(args[0], args[1])
     }
   }
-  static on(str, callback) {
+  static on(str, callback, config = {}) {
     let strArr = str
     if (!Array.isArray(str)) {
       strArr = [str]
     }
-    const result = Kuaio.create()
+    const result = Kuaio.create(config)
     strArr.forEach((item) => {
       result._sequenceList.push(stringParser(item))
     })
-    return result.bind(callback)
+    return result.on(callback)
   }
   static setGlobalConfig = setDefaultConfig
   static registryLayout = registryLayout
@@ -189,7 +189,7 @@ class Kuaio {
    * Bind the callback to sequences.
    * @param callback
    */
-  bind(callback) {
+  on(callback) {
     if (typeof callback !== 'function') {
       throw new Error('Parameter [callback] must be a function.')
     }
@@ -208,7 +208,7 @@ class Kuaio {
   /**
    * Unbind the callback and unbind all native event handlers.
    */
-  unbind() {
+  off() {
     if (this._listeners && this._listeners.length > 0) {
       this._listeners.forEach((listener) => {
         this.target.removeEventListener(this._eventType, listener)

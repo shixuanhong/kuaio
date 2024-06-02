@@ -29,7 +29,11 @@ declare class Kuaio {
   static create(target: EventTarget): Kuaio
   static create(config: KuaioConfig): Kuaio
   static create(target: EventTarget, config: KuaioConfig): Kuaio
-  static on(keyStr: string | string[], callback: KuaioCallback): EventListener[]
+  static on(
+    keyStr: string | string[],
+    callback: KuaioCallback,
+    config?: KuaioConfig
+  ): EventListener[]
   static setGlobalConfig(config: KuaioConfig): void
   static registryLayout(name: string, handlers: KuaioLayoutHandlers): void
   static unregistryLayout(name: string): void
@@ -571,7 +575,7 @@ declare class Kuaio {
    * Kuaio.create({ preventDefault: true}).Control().K()
    * .after()
    * .Control().C()
-   * .bind(e => {})
+   * .on(e => {})
    * ```
    * After pressing the combination `Ctrl+K`, press `Ctrl+C` again within the specified time to execute the callback.
    * @param timeout  The timeout of the current combination in the sequence, which is the time to wait for the next combination in the sequence to be pressed.
@@ -584,7 +588,7 @@ declare class Kuaio {
    * Kuaio.create({ preventDefault: true}).Control().A()
    * .or()
    * .Control().B()
-   * .bind(e => {})
+   * .on(e => {})
    * ```
    * Pressing `Ctrl+A` or `Ctrl+B` will execute the callback.\
    * Use with method `after`.
@@ -597,7 +601,7 @@ declare class Kuaio {
    * .Control().A()
    * .after()
    * .Control().B()
-   * .bind(e => {})
+   * .on(e => {})
    * ```
    * Pressing `Ctrl+K, Ctrl+C` or `Ctrl+A, Ctrl+B` will execute the callback.
    */
@@ -606,11 +610,11 @@ declare class Kuaio {
    * Bind the callback to sequences.
    * @param callback
    */
-  bind(callback: KuaioCallback): EventListener[]
+  on(callback: KuaioCallback): EventListener[]
   /**
    * Unbind the callback and unbind all native event handlers.
    */
-  unbind(): void
+  off(): void
 }
 
 declare enum CombinationModifierKeys {

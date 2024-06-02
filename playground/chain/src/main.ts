@@ -27,7 +27,7 @@ setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
 // Single Key
 Kuaio.create()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('a', e)
   })
 
@@ -35,7 +35,7 @@ Kuaio.create()
 Kuaio.create()
   .Ctrl()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + a', e)
   })
 
@@ -43,7 +43,7 @@ Kuaio.create()
   .Ctrl()
   .Alt()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + Alt + a', e)
   })
 
@@ -56,7 +56,7 @@ Kuaio.create()
   .E()
   .after()
   .R()
-  .bind((e) => {
+  .on((e) => {
     console.log('q, w, e, r', e)
   })
 
@@ -67,6 +67,6 @@ Kuaio.create()
   .after()
   .Ctrl()
   .C()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + k, Ctrl + c', e)
   })

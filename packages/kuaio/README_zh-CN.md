@@ -37,7 +37,7 @@ import Kuaio from 'kuaio'
 Kuaio.create()
   .Ctrl()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + a', e)
   })
 
@@ -94,7 +94,7 @@ const instance = new Kuaio(target, config)
 Kuaio.create()
   .Ctrl()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + a', e)
   })
 ```
@@ -121,27 +121,27 @@ Kuaio 提供了内置方法，可以从标准美式键盘中进行高效的按�
 // General keys
 Kuaio.create()
   .A()
-  .bind((e) => {})
+  .on((e) => {})
 // Function keys
 Kuaio.create()
   .F1()
-  .bind((e) => {})
+  .on((e) => {})
 // Whitespace keys
 Kuaio.create()
   .Enter()
-  .bind((e) => {})
+  .on((e) => {})
 // Navigation keys
 Kuaio.create()
   .PageDown()
-  .bind((e) => {})
+  .on((e) => {})
 // Editing keys
 Kuaio.create()
   .Backspace()
-  .bind((e) => {})
+  .on((e) => {})
 // UI keys
 Kuaio.create()
   .Escape()
-  .bind((e) => {})
+  .on((e) => {})
 ```
 
 另外，你还可以使用`key`方法指定触发键，但必须是 [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) 的一个有效值.
@@ -151,7 +151,7 @@ Kuaio.create()
 ```javascript
 Kuaio.create()
   .key('a')
-  .bind((e) => {})
+  .on((e) => {})
 ```
 
 > 注意: 你可以使用这个方法将一个修饰键指定为一个触发键，但这并不推荐。
@@ -167,7 +167,7 @@ Kuaio.create()
 Kuaio.create()
   .Ctrl()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + a', e)
   })
 
@@ -175,7 +175,7 @@ Kuaio.create()
   .Ctrl()
   .Alt()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + Alt + a', e)
   })
 ```
@@ -185,7 +185,7 @@ Kuaio.create()
 Kuaio.create()
   .modifier('Shift')
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Shift + a', e)
   })
 ```
@@ -219,7 +219,7 @@ Kuaio.create()
   .E()
   .after()
   .R()
-  .bind((e) => {
+  .on((e) => {
     console.log('q, w, e, r', e)
   })
 
@@ -230,7 +230,7 @@ Kuaio.create()
   .after()
   .Ctrl()
   .C()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + k, Ctrl + c', e)
   })
 ```

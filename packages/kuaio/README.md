@@ -37,7 +37,7 @@ import Kuaio from 'kuaio'
 Kuaio.create()
   .Ctrl()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + a', e)
   })
 
@@ -94,7 +94,7 @@ There are two ways to create an listener:
 Kuaio.create()
   .Ctrl()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + a', e)
   })
 ```
@@ -121,27 +121,27 @@ Kuaio provides built-in methods for efficient key selection from the standard US
 // General keys
 Kuaio.create()
   .A()
-  .bind((e) => {})
+  .on((e) => {})
 // Function keys
 Kuaio.create()
   .F1()
-  .bind((e) => {})
+  .on((e) => {})
 // Whitespace keys
 Kuaio.create()
   .Enter()
-  .bind((e) => {})
+  .on((e) => {})
 // Navigation keys
 Kuaio.create()
   .PageDown()
-  .bind((e) => {})
+  .on((e) => {})
 // Editing keys
 Kuaio.create()
   .Backspace()
-  .bind((e) => {})
+  .on((e) => {})
 // UI keys
 Kuaio.create()
   .Escape()
-  .bind((e) => {})
+  .on((e) => {})
 ```
 
 In addition, you can also use the `key` method to specify the trigger key, but it must be a valid value of [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key).
@@ -151,7 +151,7 @@ You can easily get it with [JavaScript Key Code Event Tool](https://www.toptal.c
 ```javascript
 Kuaio.create()
   .key('a')
-  .bind((e) => {})
+  .on((e) => {})
 ```
 
 > NOTE: You can use this method to set a modifier key as a trigger key, but this is not recommended.
@@ -167,7 +167,7 @@ Use a combination of modifier keys (`Ctrl`, `Shift`, etc.) with other trigger ke
 Kuaio.create()
   .Ctrl()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + a', e)
   })
 
@@ -175,7 +175,7 @@ Kuaio.create()
   .Ctrl()
   .Alt()
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + Alt + a', e)
   })
 ```
@@ -185,7 +185,7 @@ Kuaio.create()
 Kuaio.create()
   .modifier('Shift')
   .A()
-  .bind((e) => {
+  .on((e) => {
     console.log('Shift + a', e)
   })
 ```
@@ -219,7 +219,7 @@ Kuaio.create()
   .E()
   .after()
   .R()
-  .bind((e) => {
+  .on((e) => {
     console.log('q, w, e, r', e)
   })
 
@@ -230,7 +230,7 @@ Kuaio.create()
   .after()
   .Ctrl()
   .C()
-  .bind((e) => {
+  .on((e) => {
     console.log('Ctrl + k, Ctrl + c', e)
   })
 ```
