@@ -23,7 +23,7 @@
   "scripts": {
     "dev": "rollup -c --watch",
     "build": "rollup -c",
-    "publish": "pnpm build && npm publish"
+    "publish:lib": "pnpm build && npm publish"
   },
   "files": [
     "dist",
