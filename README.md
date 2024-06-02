@@ -7,3 +7,7 @@ A modern shortcut JavaScript library.
 <p align="left">
   <a href="https://npmjs.com/package/kuaio"><img src="https://img.shields.io/npm/v/kuaio" alt="npm package"></a>
 </p>
+
+## Document
+
+[中文](https://github.com/shixuanhong/kuaio/blob/main/packages/kuaio/README_zh-CN.md) | [English](https://github.com/shixuanhong/kuaio/blob/main/packages/kuaio/README.md)
