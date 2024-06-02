@@ -21,8 +21,9 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "pnpm build && cd example && pnpm dev",
-    "build": "rollup -c"
+    "dev": "rollup -c --watch",
+    "build": "rollup -c",
+    "publish": "pnpm build && npm publish"
   },
   "files": [
     "dist",
@@ -32,7 +33,7 @@
     ".": {
       "import": "./dist/kuaio.mjs",
       "require": "./dist/kuaio.cjs",
-      "types":"./index.d.ts"
+      "types": "./index.d.ts"
     }
   },
   "main": "./dist/kuaio.cjs",

@@ -1,8 +1,14 @@
 # Kuaio
 
-一个现代的用于创建快捷键的 JavaScript 库。
+**一个现代的用于创建快捷键的 JavaScript 库。**
 
-**Note: 该库正在开发中，请勿在生产环境中使用。**
+[中文](https://github.com/shixuanhong/kuaio/blob/main/packages/kuaio/README_zh-CN.md) | [English](https://github.com/shixuanhong/kuaio/blob/main/packages/kuaio/README.md)
+
+> Note: 该库正在开发中，请勿在生产环境中使用。
+
+<p align="left">
+  <a href="https://npmjs.com/package/kuaio"><img src="https://img.shields.io/npm/v/kuaio" alt="npm package"></a>
+</p>
 
 ## 入门
 
