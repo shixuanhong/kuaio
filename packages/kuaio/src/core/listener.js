@@ -1,19 +1,31 @@
 import {
-  getGlyohModifierKeyState,
+  getGlyphModifierKeyState,
   getCombinationModifierKeyMatched,
   keyEqualTo
 } from '../utils/index'
 import { getDefaultConfig } from './config/index'
 import { getCachedLayout } from './layout/index'
 
-export function createNativeEventListenerWrapper(
+const assertSequenceValid = (sequence) => {
+  if (sequence.length === 0) {
+    throw new Error('Sequence cannot be empty.')
+  }
+
+  sequence.forEach((sequenceItem, index) => {
+    if (!sequenceItem?.key) {
+      throw new Error(
+        `The sequenceItem at position ${index} in the sequence does not specify the property: [key].`
+      )
+    }
+  })
+}
+
+export function createNativeEventListener(
   callback,
   sequence,
   config = {}
 ) {
-  if (sequence.length === 0) {
-    throw new Error('Sequence cannot be empty.')
-  }
+  assertSequenceValid(sequence)
 
   /** Record the index of the current sequence. */
   let sequenceIndex = 0
@@ -26,35 +38,32 @@ export function createNativeEventListenerWrapper(
   const resetSequenceTimer = () => {
     if (timer) {
       clearTimeout(timer)
+      timer = null
     }
+  }
+  const resetSequenceState = () => {
+    resetSequenceTimer()
+    resetSequenceIndex()
   }
   /**
    * Press keys in the next element in the sequence before the specified timeout
    * otherwise the current sequence is breaked.
    */
   const createSequenceTimer = (timeout) => {
-    timer = setTimeout(() => {
-      resetSequenceIndex()
-      resetSequenceTimer()
-    }, timeout)
+    timer = setTimeout(resetSequenceState, timeout)
   }
 
-  return (event) => {
+  return async (event) => {
     const defaultConfig = getDefaultConfig()
     const {
-      preventDefault = defaultConfig.preventDefault,
-      stopPropagation = defaultConfig.stopPropagation,
-      stopImmediatePropagation = defaultConfig.stopImmediatePropagation,
-      sequenceTimeout = defaultConfig.sequenceTimeout,
-      disableGlyphHandler = defaultConfig.disableGlyphHandler
-    } = config
+      preventDefault,
+      stopPropagation,
+      stopImmediatePropagation,
+      sequenceTimeout,
+      disableGlyphHandler
+    } = { ...defaultConfig, ...config }
 
     const sequenceItem = sequence[sequenceIndex]
-    if (!sequenceItem.key) {
-      throw new Error(
-        `The sequenceItem at position ${sequenceIndex} in the sequence does not specify the property: [key].`
-      )
-    }
     let triggerKey = event.key
     /** Skip if the current key is one of the modifiers of the current sequenceItem. */
     if (sequenceItem.modifiers.indexOf(triggerKey) > -1) return
@@ -64,46 +73,45 @@ export function createNativeEventListenerWrapper(
       event
     )
 
-    getCachedLayout().then((layout) => {
-      if (!disableGlyphHandler) {
-        const { glyphHandler } = layout.handlers
-        triggerKey = glyphHandler(event.key, getGlyohModifierKeyState(event))
-      }
+    const layout = await getCachedLayout()
+    if (!disableGlyphHandler) {
+      const { glyphHandler } = layout.handlers
+      triggerKey = glyphHandler(event.key, getGlyphModifierKeyState(event))
+    }
 
-      if (keyEqualTo(triggerKey, sequenceItem.key) && modifiersMatched) {
-        /**
-         * After the conditions of the current sequence element are met, prevent the browser's default behavior,
-         * prevent event propagation, and prevent other event listeners on the current event target listening to the same event from being called.
-         */
-        if (sequenceItem.preventDefault ?? preventDefault) {
-          event.preventDefault()
-        }
-        if (sequenceItem.stopPropagation ?? stopPropagation) {
-          event.stopPropagation()
-        }
-        if (sequenceItem.stopImmediatePropagation ?? stopImmediatePropagation) {
-          event.stopImmediatePropagation()
-        }
-        if (sequenceIndex === sequence.length - 1) {
-          callback(event)
-          resetSequenceIndex()
-        } else {
-          resetSequenceTimer()
-          sequenceIndex++
-          createSequenceTimer(sequenceItem.timeout ?? sequenceTimeout)
-        }
-      } else {
-        /** sequence break. */
-        resetSequenceIndex()
+    if (keyEqualTo(triggerKey, sequenceItem.key) && modifiersMatched) {
+      /**
+       * After the conditions of the current sequence element are met, prevent the browser's default behavior,
+       * prevent event propagation, and prevent other event listeners on the current event target listening to the same event from being called.
+       */
+      if (sequenceItem.preventDefault ?? preventDefault) {
+        event.preventDefault()
       }
-    })
+      if (sequenceItem.stopPropagation ?? stopPropagation) {
+        event.stopPropagation()
+      }
+      if (sequenceItem.stopImmediatePropagation ?? stopImmediatePropagation) {
+        event.stopImmediatePropagation()
+      }
+      if (sequenceIndex === sequence.length - 1) {
+        callback(event)
+        resetSequenceState()
+      } else {
+        resetSequenceTimer()
+        sequenceIndex++
+        createSequenceTimer(sequenceItem.timeout ?? sequenceTimeout)
+      }
+    } else {
+      /** sequence break. */
+      resetSequenceState()
+    }
   }
 }
 
 export function createNativeEventListeners(options, callback) {
   const { target, config, eventType, sequenceList } = options
   const listeners = sequenceList.map((sequence) => {
-    const listener = createNativeEventListenerWrapper(
+    const listener = createNativeEventListener(
       callback,
       sequence,
       config
