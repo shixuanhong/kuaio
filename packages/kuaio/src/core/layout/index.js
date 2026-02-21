@@ -37,7 +37,7 @@ export function unregistryLayout(name) {
  * @param {string} name
  */
 export function getLayout(name) {
-  keyboardLayoutMap.get(name)
+  return keyboardLayoutMap.get(name)
 }
 
 /**

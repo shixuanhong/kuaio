@@ -6,7 +6,7 @@ import {
   KeyboardLayout
 } from '../../constants/index'
 
-const qwertyLangTagSet = new Set(['zh-CN', 'en-US ', 'zh', 'en'])
+const qwertyLangTagSet = new Set(['zh-CN', 'en-US', 'zh', 'en'])
 
 /**
  * Verify that the current keyboard layout is QWERTY.

@@ -152,7 +152,7 @@ class Kuaio {
   /**
    * Prevent the browser's default behavior when the sequence executes to the current combination.
    */
-  prventDefault() {
+  preventDefault() {
     this._getCurSequenceItem().preventDefault = true
     return this
   }

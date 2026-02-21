@@ -47,7 +47,7 @@ export function isCombinationModifierKey(key) {
 /**
  * @param {KeyboardEvent} e
  */
-export function getGlyohModifierKeyState(e) {
+export function getGlyphModifierKeyState(e) {
   return {
     [ModifierKeys.Shift]: e.shiftKey,
     [ModifierKeys.CapsLock]: e.getModifierState(ModifierKeys.CapsLock),
