@@ -10,6 +10,11 @@ export function keyEqualTo(key1, key2) {
   return key1 === key2
 }
 
+/**
+ * Check if a modifier key is pressed from a keyboard event
+ * @param {string} modifier
+ * @param {KeyboardEvent} e
+ */
 export function getModifierKeyPressed(modifier, e) {
   if (keyEqualTo(modifier, ModifierKeys.Alt)) {
     return e.altKey
@@ -45,13 +50,19 @@ export function isCombinationModifierKey(key) {
 }
 
 /**
+ * Get the state of the modifier keys that can be used to generate the glyph.
  * @param {KeyboardEvent} e
  */
 export function getGlyphModifierKeyState(e) {
   return {
     [ModifierKeys.Shift]: e.shiftKey,
     [ModifierKeys.CapsLock]: e.getModifierState(ModifierKeys.CapsLock),
-    [ModifierKeys.AltGraph]: e.getModifierState(ModifierKeys.AltGraph)
+    [ModifierKeys.AltGraph]: e.getModifierState(ModifierKeys.AltGraph),
+    [ModifierKeys.NumLock]: e.getModifierState(ModifierKeys.NumLock),
+    // In macOS, the Option key also changes the glyph
+    [CombinationModifierKeyAlias.Option]: e.getModifierState(
+      CombinationModifierKeyAlias.Option
+    )
   }
 }
 

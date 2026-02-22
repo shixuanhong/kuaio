@@ -559,7 +559,7 @@ declare class Kuaio {
   /**
    * Prevent the browser's default behavior when the sequence executes to the current combination.
    */
-  prventDefault(): this
+  preventDefault(): this
   /**
    * Prevent the event from propagating further when the sequence executes to the current combination.
    */
@@ -615,6 +615,10 @@ declare class Kuaio {
    * Unbind the callback and unbind all native event handlers.
    */
   off(): void
+  /**
+   * Dispatch the first sequence.
+   */
+  dispatchFirst(): void
 }
 
 declare enum CombinationModifierKeys {
@@ -825,7 +829,22 @@ export {
   NavigationKeys,
   WhitespaceKeys,
   GeneralKeys,
-  VirtualKeys
+  VirtualKeys,
+  KuaioCombination,
+  KuaioSequence
+}
+
+export class KuaioCombination {
+  modifiers: string[]
+  key: string
+  timeout?: number
+  preventDefault?: boolean
+  stopPropagation?: boolean
+  stopImmediatePropagation?: boolean
+}
+
+export class KuaioSequence extends Array<KuaioCombination> {
+  getAllModifiers(): Set<string>
 }
 
 export default Kuaio

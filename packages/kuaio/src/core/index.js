@@ -13,9 +13,10 @@ import {
 import { KuaioCombination, KuaioSequence } from './sequence'
 import { createNativeEventListeners } from './listener'
 import { registryLayout, unregistryLayout } from './layout/index'
-import { getPlatform, isCombinationModifierKey } from '../utils/index'
-import { stringParser } from './parser/index'
+import { isCombinationModifierKey } from '../utils/index'
+import { stringDefinitionParser } from './parser/index'
 import { setDefaultConfig } from './config/index'
+import { dispatchSequence } from './dispatcher'
 
 class Kuaio {
   target
@@ -69,7 +70,7 @@ class Kuaio {
     }
     const result = Kuaio.create(config)
     strArr.forEach((item) => {
-      result._sequenceList.push(stringParser(item))
+      result._sequenceList.push(stringDefinitionParser(item))
     })
     return result.on(callback)
   }
@@ -214,6 +215,19 @@ class Kuaio {
         this.target.removeEventListener(this._eventType, listener)
       })
     }
+  }
+  /**
+   * Dispatch the first sequence.
+   */
+  dispatchFirst() {
+    this._pushCurSequence()
+    if (this._sequenceList.length === 0) {
+      throw new Error('No sequence to dispatch.')
+    }
+    dispatchSequence({
+      target: this.target,
+      sequence: this._sequenceList[0]
+    })
   }
 }
 
