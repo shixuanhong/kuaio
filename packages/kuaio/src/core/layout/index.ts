@@ -1,35 +1,23 @@
-import { KeyboardLayout } from '../../constants/index'
+import { KeyboardLayout } from '../../enums'
 
-export interface KuaioLayoutHandlers {
-  validator: (layoutMap: Map<string, string> | null, langTag: string) => boolean
-  glyphHandler: (key: string, glyphModifierState: Record<string, boolean>) => string
-}
-
-interface LayoutEntry {
+export interface KuaioLayout {
   name: string
-  handlers: KuaioLayoutHandlers
+  validator: (layoutMap: Map<string, string> | null, langTag: string) => boolean
+  glyphHandler: (
+    key: string,
+    glyphModifierState: Record<string, boolean>
+  ) => string
 }
 
-const keyboardLayoutMap = new Map<string, LayoutEntry>()
+const keyboardLayoutMap = new Map<string, KuaioLayout>()
 
-let cachedLayout: LayoutEntry | null = null
+let cachedLayout: KuaioLayout | null = null
 
 /**
  * Register a keyboard layout related handler.
  */
-export function registryLayout(name: string, handlers: KuaioLayoutHandlers): void {
-  if (typeof name !== 'string') {
-    throw new Error('Parameter [name] must be a string.')
-  }
-  if (!handlers || typeof handlers.validator !== 'function') {
-    throw new Error(
-      'The registered layout is missing method: validator, or it is not a function.'
-    )
-  }
-  keyboardLayoutMap.set(name, {
-    name,
-    handlers
-  })
+export function registryLayout(layout: KuaioLayout): void {
+  keyboardLayoutMap.set(layout.name, layout)
 }
 
 /**
@@ -42,21 +30,21 @@ export function unregistryLayout(name: string): void {
 /**
  * Get the registered keyboard layout.
  */
-export function getLayout(name: string): LayoutEntry | undefined {
+export function getLayout(name: string): KuaioLayout | undefined {
   return keyboardLayoutMap.get(name)
 }
 
 /**
  * Get user current keyboard layout.
  */
-export async function getCurrentLayout(): Promise<LayoutEntry | undefined> {
+export async function getCurrentLayout(): Promise<KuaioLayout | undefined> {
   let layoutMap: Map<string, string> | null = null
   if (navigator.keyboard) {
     layoutMap = await navigator.keyboard.getLayoutMap()
   }
 
   for (const layout of keyboardLayoutMap.values()) {
-    const { validator } = layout.handlers
+    const { validator } = layout
     if (validator(layoutMap, navigator.language)) {
       return layout
     }
@@ -64,11 +52,11 @@ export async function getCurrentLayout(): Promise<LayoutEntry | undefined> {
   return getLayout(KeyboardLayout.QWERTY)
 }
 
-export function setCachedLayout(layout: LayoutEntry): void {
+export function setCachedLayout(layout: KuaioLayout): void {
   cachedLayout = layout
 }
 
-export async function getCachedLayout(): Promise<LayoutEntry> {
+export async function getCachedLayout(): Promise<KuaioLayout> {
   if (!cachedLayout) {
     const layout = await getCurrentLayout()
     if (layout) {

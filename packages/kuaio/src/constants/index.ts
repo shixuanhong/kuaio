@@ -1,28 +1,14 @@
-export * from './keys'
-export * from './codes'
-export * from './maps'
+import { getPlatform } from '../utils/index'
+import { CombinationModifierKeys, PlatformBrand } from '../enums/index'
 
-export enum KeyboardEventType {
-  KeyDown = 'keydown',
-  KeyUp = 'keyup'
-}
-
-/**
- * @see https://developer.mozilla.org/en-US/docs/Web/API/NavigatorUAData/platform
- */
-export enum PlatformBrand {
-  Windows = 'Windows',
-  MacOS = 'macOS',
-  IOS = 'iOS',
-  IPadOS = 'iPadOS',
-  Linux = 'Linux',
-  Android = 'Android',
-  Unknown = 'Unknown'
-}
-
-export enum KeyboardLayout {
-  QWERTY = 'QWERTY',
-  AZERTY = 'AZERTY',
-  QWERTZ = 'QWERTZ',
-  DVORAK = 'Dvorak'
+export const VirtualKeys = {
+  /**
+   * This is a virtual key, inspired by Mousetrap. \
+   * It will be mapped to the `Command` key on MacOS, and the `Ctrl` key on other operating systems.
+   */
+  get Mod() {
+    return getPlatform() === PlatformBrand.MacOS
+      ? CombinationModifierKeys.Meta
+      : CombinationModifierKeys.Control
+  }
 }

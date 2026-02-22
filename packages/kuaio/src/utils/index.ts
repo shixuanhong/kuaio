@@ -1,10 +1,10 @@
+import { VirtualKeys } from '../constants/index'
 import {
-  CombinationModifierKeyAlias,
   CombinationModifierKeys,
+  CombinationModifierKeyAlias,
   ModifierKeys,
-  PlatformBrand,
-  VirtualKeys
-} from '../constants/index'
+  PlatformBrand
+} from '../enums'
 
 export function keyEqualTo(key1: string, key2: string): boolean {
   return key1 === key2
@@ -13,7 +13,10 @@ export function keyEqualTo(key1: string, key2: string): boolean {
 /**
  * Check if a modifier key is pressed from a keyboard event
  */
-export function getModifierKeyPressed(modifier: string, e: KeyboardEvent): boolean {
+export function getModifierKeyPressed(
+  modifier: string,
+  e: KeyboardEvent
+): boolean {
   if (keyEqualTo(modifier, ModifierKeys.Alt)) {
     return e.altKey
   } else if (keyEqualTo(modifier, ModifierKeys.Control)) {
@@ -30,7 +33,10 @@ export function getModifierKeyPressed(modifier: string, e: KeyboardEvent): boole
 /**
  * Returns true if the key in modifiers is pressed and the other combination modifier keys are not pressed.
  */
-export function getCombinationModifierKeyMatched(modifiers: string[], e: KeyboardEvent): boolean {
+export function getCombinationModifierKeyMatched(
+  modifiers: string[],
+  e: KeyboardEvent
+): boolean {
   return Object.values(CombinationModifierKeys).every(
     (key) => getModifierKeyPressed(key, e) === modifiers.indexOf(key) > -1
   )
@@ -43,7 +49,9 @@ export function isCombinationModifierKey(key: string): boolean {
 /**
  * Get the state of the modifier keys that can be used to generate the glyph.
  */
-export function getGlyphModifierKeyState(e: KeyboardEvent): Record<string, boolean> {
+export function getGlyphModifierKeyState(
+  e: KeyboardEvent
+): Record<string, boolean> {
   return {
     [ModifierKeys.Shift]: e.shiftKey,
     [ModifierKeys.CapsLock]: e.getModifierState(ModifierKeys.CapsLock),
@@ -86,10 +94,10 @@ export function getPlatform(): string {
 }
 
 export function getRealKey(key: string): string {
-  if (CombinationModifierKeyAlias[key]) {
-    return CombinationModifierKeyAlias[key]
-  } else if (VirtualKeys[key]) {
-    return VirtualKeys[key]
+  if (key in CombinationModifierKeyAlias) {
+    return CombinationModifierKeyAlias[key as keyof typeof CombinationModifierKeyAlias]
+  } else if (key in VirtualKeys) {
+    return VirtualKeys[key as keyof typeof VirtualKeys]
   } else {
     return key
   }

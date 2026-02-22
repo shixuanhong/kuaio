@@ -1,6 +1,6 @@
-import { GeneralKeys } from './keys'
+import { GeneralKeys } from "../../../../enums"
 
-export const qwertyShiftMap: Record<string, string> = {
+export const qwertyShiftMap = {
   [GeneralKeys.Tilde]: GeneralKeys.Backquote,
   [GeneralKeys.ExclamationMark]: GeneralKeys.Digit1,
   [GeneralKeys.At]: GeneralKeys.Digit2,
@@ -23,3 +23,5 @@ export const qwertyShiftMap: Record<string, string> = {
   [GeneralKeys.GreaterThan]: GeneralKeys.Period,
   [GeneralKeys.QuestionMark]: GeneralKeys.Slash
 }
+
+export type QwertyShiftKey = keyof typeof qwertyShiftMap

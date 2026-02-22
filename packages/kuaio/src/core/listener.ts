@@ -79,7 +79,7 @@ export function createNativeEventListener(
 
     const layout = await getCachedLayout()
     if (!disableGlyphHandler) {
-      const { glyphHandler } = layout.handlers
+      const { glyphHandler } = layout
       triggerKey = glyphHandler(keyboardEvent.key, getGlyphModifierKeyState(keyboardEvent))
     }
 

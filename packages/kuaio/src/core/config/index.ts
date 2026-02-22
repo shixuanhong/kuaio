@@ -24,7 +24,7 @@ export function setDefaultConfig(config: Partial<KuaioConfig> = {}): void {
   )
 }
 
-export function getDefaultConfig(): Required<KuaioConfig> {
+export function getDefaultConfig() {
   return {
     ...defaultConfig,
     ...userDefaultConfig

@@ -1,4 +1,4 @@
-import { CombinationModifierKeys, ModifierKeys } from '../constants/index'
+import { CombinationModifierKeys, ModifierKeys } from '../enums'
 import { KuaioSequence } from './sequence'
 
 interface ModifierState {

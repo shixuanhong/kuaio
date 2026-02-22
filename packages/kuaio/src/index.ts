@@ -1,21 +1,23 @@
 import Kuaio from './core/index'
+export { VirtualKeys } from './constants/index'
+
 export {
   EditingKeys,
   FunctionKeys,
   CombinationModifierKeys,
+  CombinationModifierKeyAlias,
   ModifierKeys,
   NavigationKeys,
   WhitespaceKeys,
   GeneralKeys,
-  VirtualKeys,
   KeyboardEventType
-} from './constants/index'
+} from './enums'
 
 export { KuaioCombination, KuaioSequence } from './core/sequence'
-export type { KuaioConfig, KuaioLayoutHandlers, KuaioCallback } from './core/index'
+export type { KuaioConfig, KuaioLayout, KuaioCallback } from './core/index'
 
-import qwerty from './core/layout/qwerty'
+import qwerty from './core/layout/presets/qwerty'
 
-Kuaio.registryLayout(qwerty.name, qwerty.handlers)
+Kuaio.registryLayout(qwerty)
 
 export default Kuaio
