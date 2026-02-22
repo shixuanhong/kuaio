@@ -217,17 +217,34 @@ class Kuaio {
     }
   }
   /**
-   * Dispatch the first sequence.
+   * Dispatch a sequence from the sequence list based on a picker function.
+   * This will generate keyboard events and dispatch them to the target element.
+   * @param {function(KuaioSequence, number): boolean} picker A function that receives a sequence and its index, returns true to dispatch that sequence.
    */
-  dispatchFirst() {
+  async dispatchAny(picker) {
     this._pushCurSequence()
     if (this._sequenceList.length === 0) {
       throw new Error('No sequence to dispatch.')
     }
-    dispatchSequence({
-      target: this.target,
-      sequence: this._sequenceList[0]
-    })
+    if (typeof picker !== 'function') {
+      throw new Error('Parameter [picker] must be a function.')
+    }
+    for (let i = 0; i < this._sequenceList.length; i++) {
+      const sequence = this._sequenceList[i]
+      if (picker(sequence, i)) {
+        await dispatchSequence({
+          target: this.target,
+          sequence
+        })
+      }
+    }
+  }
+  /**
+   * Dispatch the first sequence in the sequence list.
+   * This will generate keyboard events and dispatch them to the target element.
+   */
+  async dispatchFirst() {
+    await this.dispatch((sequence, i) => i === 0)
   }
 }
 

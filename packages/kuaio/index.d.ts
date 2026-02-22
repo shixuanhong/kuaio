@@ -616,9 +616,16 @@ declare class Kuaio {
    */
   off(): void
   /**
-   * Dispatch the first sequence.
+   * Dispatch a sequence from the sequence list based on a picker function.
+   * This will generate keyboard events and dispatch them to the target element.
+   * @param {function(KuaioSequence, number): boolean} picker A function that receives a sequence and its index, returns true to dispatch that sequence.
    */
-  dispatchFirst(): void
+  async dispatchAny(picker: (sequence: KuaioSequence, index: number) => boolean): Promise<void>
+  /**
+   * Dispatch the first sequence in the sequence list.
+   * This will generate keyboard events and dispatch them to the target element.
+   */
+  async dispatchFirst(): Promise<void>
 }
 
 declare enum CombinationModifierKeys {
