@@ -23,7 +23,8 @@
   "scripts": {
     "dev": "rollup -c --watch",
     "build": "rollup -c",
-    "publish:lib": "pnpm build && npm publish"
+    "publish:lib": "pnpm build && npm publish",
+    "test": "vitest"
   },
   "files": [
     "dist",
@@ -44,7 +45,9 @@
     "@babel/preset-env": "^7.22.9",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-terser": "^0.4.3",
-    "rollup": "^3.26.2"
+    "rollup": "^3.26.2",
+    "jsdom": "^24.0.0",
+    "vitest": "^1.2.2"
   },
   "packageManager": "pnpm@8.0.0+"
 }
