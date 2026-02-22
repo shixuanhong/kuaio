@@ -4,7 +4,7 @@ import { KuaioCombination, KuaioSequence } from '../sequence'
 const COMBINATION_SEPARATOR = ','
 const COMBINATION_JOIN = '+'
 
-export function stringDefinitionParser(inputStr) {
+export function stringDefinitionParser(inputStr: string): KuaioSequence {
   if (typeof inputStr !== 'string') {
     throw new Error('Parameter [inputStr] must be a string.')
   }

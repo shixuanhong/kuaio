@@ -1,11 +1,11 @@
-import { babel } from '@rollup/plugin-babel'
+import typescript from '@rollup/plugin-typescript'
 import terser from '@rollup/plugin-terser'
 
 const libFileName = 'kuaio'
 
 export default [
   {
-    input: 'src/index.js',
+    input: 'src/index.ts',
     output: [
       {
         file: `dist/${libFileName}.cjs`,
@@ -21,10 +21,10 @@ export default [
         name: 'Kuaio'
       }
     ],
-    plugins: [babel({ babelHelpers: 'bundled' })]
+    plugins: [typescript()]
   },
   {
-    input: 'src/index.js',
+    input: 'src/index.ts',
     output: [
       {
         file: `dist/${libFileName}.umd.min.js`,
@@ -32,6 +32,6 @@ export default [
         name: 'Kuaio'
       }
     ],
-    plugins: [babel({ babelHelpers: 'bundled' }), terser()]
+    plugins: [typescript(), terser()]
   }
 ]

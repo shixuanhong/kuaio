@@ -61,7 +61,7 @@ Kuaio.create()
   })
 
 Kuaio.create()
-  .prventDefault()
+  .preventDefault()
   .Ctrl()
   .K()
   .after()

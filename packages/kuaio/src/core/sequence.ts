@@ -12,12 +12,12 @@
  */
 
 export class KuaioCombination {
-  modifiers = []
-  key
-  timeout
-  preventDefault
-  stopPropagation
-  stopImmediatePropagation
+  modifiers: string[] = []
+  key: string | undefined
+  timeout: number | undefined
+  preventDefault: boolean | undefined
+  stopPropagation: boolean | undefined
+  stopImmediatePropagation: boolean | undefined
 }
 
 /**
@@ -27,9 +27,9 @@ export class KuaioCombination {
  * @extends {Array<KuaioCombination>}
  */
 
-export class KuaioSequence extends Array {
-  getAllModifiers() {
-    const result = new Set()
+export class KuaioSequence extends Array<KuaioCombination> {
+  getAllModifiers(): Set<string> {
+    const result = new Set<string>()
     this.forEach((item) => {
       item.modifiers.forEach((modifier) => result.add(modifier))
     })

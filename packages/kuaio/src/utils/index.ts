@@ -6,16 +6,14 @@ import {
   VirtualKeys
 } from '../constants/index'
 
-export function keyEqualTo(key1, key2) {
+export function keyEqualTo(key1: string, key2: string): boolean {
   return key1 === key2
 }
 
 /**
  * Check if a modifier key is pressed from a keyboard event
- * @param {string} modifier
- * @param {KeyboardEvent} e
  */
-export function getModifierKeyPressed(modifier, e) {
+export function getModifierKeyPressed(modifier: string, e: KeyboardEvent): boolean {
   if (keyEqualTo(modifier, ModifierKeys.Alt)) {
     return e.altKey
   } else if (keyEqualTo(modifier, ModifierKeys.Control)) {
@@ -31,29 +29,21 @@ export function getModifierKeyPressed(modifier, e) {
 
 /**
  * Returns true if the key in modifiers is pressed and the other combination modifier keys are not pressed.
- * @param {string[]} modifiers
- * @param {KeyboardEvent} e
- * @returns {boolean}
  */
-export function getCombinationModifierKeyMatched(modifiers, e) {
+export function getCombinationModifierKeyMatched(modifiers: string[], e: KeyboardEvent): boolean {
   return Object.values(CombinationModifierKeys).every(
     (key) => getModifierKeyPressed(key, e) === modifiers.indexOf(key) > -1
   )
 }
 
-/**
- * @param {string} key
- * @returns {boolean}
- */
-export function isCombinationModifierKey(key) {
-  return Boolean(CombinationModifierKeys[key])
+export function isCombinationModifierKey(key: string): boolean {
+  return (Object.values(CombinationModifierKeys) as string[]).includes(key)
 }
 
 /**
  * Get the state of the modifier keys that can be used to generate the glyph.
- * @param {KeyboardEvent} e
  */
-export function getGlyphModifierKeyState(e) {
+export function getGlyphModifierKeyState(e: KeyboardEvent): Record<string, boolean> {
   return {
     [ModifierKeys.Shift]: e.shiftKey,
     [ModifierKeys.CapsLock]: e.getModifierState(ModifierKeys.CapsLock),
@@ -68,12 +58,11 @@ export function getGlyphModifierKeyState(e) {
 
 /**
  * Get the operating system of the current user agent
- * @returns {string}
  * @see https://developer.mozilla.org/en-US/docs/Web/API/NavigatorUAData/platform
  */
-export function getPlatform() {
-  if (navigator.userAgentData) {
-    return navigator.userAgentData.platform
+export function getPlatform(): string {
+  if ((navigator as any).userAgentData) {
+    return (navigator as any).userAgentData.platform
   } else {
     // The judgment here is still not completely accurate.
     if (navigator.userAgent.indexOf('Windows') > -1) {
@@ -96,12 +85,7 @@ export function getPlatform() {
   }
 }
 
-/**
- *
- * @export string
- * @param {string} key
- */
-export function getRealKey(key) {
+export function getRealKey(key: string): string {
   if (CombinationModifierKeyAlias[key]) {
     return CombinationModifierKeyAlias[key]
   } else if (VirtualKeys[key]) {

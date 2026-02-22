@@ -1,15 +1,23 @@
 import { KeyboardLayout } from '../../constants/index'
 
-const keyboardLayoutMap = new Map()
+export interface KuaioLayoutHandlers {
+  validator: (layoutMap: Map<string, string> | null, langTag: string) => boolean
+  glyphHandler: (key: string, glyphModifierState: Record<string, boolean>) => string
+}
 
-let cachedLayout = null
+interface LayoutEntry {
+  name: string
+  handlers: KuaioLayoutHandlers
+}
+
+const keyboardLayoutMap = new Map<string, LayoutEntry>()
+
+let cachedLayout: LayoutEntry | null = null
 
 /**
  * Register a keyboard layout related handler.
- * @param {string} name
- * @param {import('../../../index').KuaioLayoutHandlers} handlers
  */
-export function registryLayout(name, handlers) {
+export function registryLayout(name: string, handlers: KuaioLayoutHandlers): void {
   if (typeof name !== 'string') {
     throw new Error('Parameter [name] must be a string.')
   }
@@ -26,26 +34,23 @@ export function registryLayout(name, handlers) {
 
 /**
  * Unregister a keyboard layout.
- * @param {string} name
  */
-export function unregistryLayout(name) {
+export function unregistryLayout(name: string): void {
   keyboardLayoutMap.delete(name)
 }
 
 /**
  * Get the registered keyboard layout.
- * @param {string} name
  */
-export function getLayout(name) {
+export function getLayout(name: string): LayoutEntry | undefined {
   return keyboardLayoutMap.get(name)
 }
 
 /**
  * Get user current keyboard layout.
- * @returns {Promise<string | undefined>}
  */
-export async function getCurrentLayout() {
-  let layoutMap = null
+export async function getCurrentLayout(): Promise<LayoutEntry | undefined> {
+  let layoutMap: Map<string, string> | null = null
   if (navigator.keyboard) {
     layoutMap = await navigator.keyboard.getLayoutMap()
   }
@@ -59,13 +64,16 @@ export async function getCurrentLayout() {
   return getLayout(KeyboardLayout.QWERTY)
 }
 
-export function setCachedLayout(layout) {
+export function setCachedLayout(layout: LayoutEntry): void {
   cachedLayout = layout
 }
 
-export async function getCachedLayout() {
+export async function getCachedLayout(): Promise<LayoutEntry> {
   if (!cachedLayout) {
-    setCachedLayout(await getCurrentLayout())
+    const layout = await getCurrentLayout()
+    if (layout) {
+      setCachedLayout(layout)
+    }
   }
-  return cachedLayout
+  return cachedLayout!
 }

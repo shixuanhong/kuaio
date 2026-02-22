@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "target": "ESNext"
-  },
-  "include": [
-    "src/**/*",
-    "index.d.ts"
-  ]
-}

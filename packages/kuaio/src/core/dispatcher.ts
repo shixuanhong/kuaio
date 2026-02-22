@@ -1,10 +1,18 @@
 import { CombinationModifierKeys, ModifierKeys } from '../constants/index'
+import { KuaioSequence } from './sequence'
 
-/**
- * @param {string[]} modifiers
- * @returns {Object}
- */
-const getModifierState = (modifiers) => {
+interface ModifierState {
+  ctrlKey: boolean
+  shiftKey: boolean
+  altKey: boolean
+  metaKey: boolean
+  modifierCapsLock: boolean
+  modifierAltGraph: boolean
+  modifierNumLock: boolean
+  modifierScrollLock: boolean
+}
+
+const getModifierState = (modifiers: string[]): ModifierState => {
   return {
     ctrlKey: modifiers.includes(CombinationModifierKeys.Control),
     shiftKey: modifiers.includes(CombinationModifierKeys.Shift),
@@ -17,13 +25,7 @@ const getModifierState = (modifiers) => {
   }
 }
 
-/**
- * @param {EventTarget} target
- * @param {string} type
- * @param {string} key
- * @param {Object} modifierState
- */
-const dispatchEvent = (target, type, key, modifierState) => {
+const dispatchEvent = (target: EventTarget, type: string, key: string, modifierState: ModifierState): void => {
   const event = new KeyboardEvent(type, {
     key,
     bubbles: true,
@@ -34,13 +36,19 @@ const dispatchEvent = (target, type, key, modifierState) => {
   target.dispatchEvent(event)
 }
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms))
+
+export interface DispatchSequenceOptions {
+  target: EventTarget
+  sequence: KuaioSequence
+  baseTimeout?: number
+}
 
 export async function dispatchSequence({
   target,
   sequence,
   baseTimeout = 200
-}) {
+}: DispatchSequenceOptions): Promise<void> {
   if (!target || typeof target.dispatchEvent !== 'function') {
     throw new Error(
       'Parameter [target] must be an EventTarget (e.g. DOM Element).'

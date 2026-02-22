@@ -10,11 +10,11 @@ const qwertyLangTagSet = new Set(['zh-CN', 'en-US', 'zh', 'en'])
 
 /**
  * Verify that the current keyboard layout is QWERTY.
- * @param {?Map<string, string>} layoutMap A mapping of physical key codes to key strings. \
+ * @param layoutMap A mapping of physical key codes to key strings. \
  * If your browser does not support `navigator.keyboard`, then it will be `null`.
- * @param {string} langTag e.g., zh-CN, en-US and fr-FR.
+ * @param langTag e.g., zh-CN, en-US and fr-FR.
  */
-function qwertyValidator(layoutMap, langTag) {
+function qwertyValidator(layoutMap: Map<string, string> | null, langTag: string): boolean {
   if (layoutMap) {
     return (
       layoutMap.get(WritingSystemCodes.KeyQ) === GeneralKeys.Q &&
@@ -29,11 +29,8 @@ function qwertyValidator(layoutMap, langTag) {
 /**
  * Handle glyph changes brought about by glyph modifier keys: `Shift`, `CapsLock`, `AltGr`. \
  * The return value will be used as a new key to participate in the subsequent matching process of the shortcut.
- * @param {string} key
- * @param {object} glyphModifierState The state of the glyph modifier key(whether it is pressed or locked).
- * @returns {string}
  */
-function qwertyGlyphHandler(key, glyphModifierState) {
+function qwertyGlyphHandler(key: string, glyphModifierState: Record<string, boolean>): string {
   if (
     /^[A-Z]$/.test(key) &&
     (glyphModifierState[ModifierKeys.CapsLock] ||

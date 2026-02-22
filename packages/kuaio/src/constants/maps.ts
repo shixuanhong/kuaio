@@ -1,6 +1,6 @@
 import { GeneralKeys } from './keys'
 
-export const qwertyShiftMap = {
+export const qwertyShiftMap: Record<string, string> = {
   [GeneralKeys.Tilde]: GeneralKeys.Backquote,
   [GeneralKeys.ExclamationMark]: GeneralKeys.Digit1,
   [GeneralKeys.At]: GeneralKeys.Digit2,
