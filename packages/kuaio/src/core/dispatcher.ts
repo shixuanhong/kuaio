@@ -1,4 +1,5 @@
 import { CombinationModifierKeys, ModifierKeys } from '../enums'
+import { sleep } from '../utils'
 import { KuaioSequence } from './sequence'
 
 interface ModifierState {
@@ -25,18 +26,20 @@ const getModifierState = (modifiers: string[]): ModifierState => {
   }
 }
 
-const dispatchEvent = (target: EventTarget, type: string, key: string, modifierState: ModifierState): void => {
+const dispatchEvent = (
+  target: EventTarget,
+  type: string,
+  key: string,
+  modifierState: ModifierState
+): void => {
   const event = new KeyboardEvent(type, {
     key,
     bubbles: true,
     cancelable: true,
-    view: window,
     ...modifierState
   })
   target.dispatchEvent(event)
 }
-
-const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms))
 
 export interface DispatchSequenceOptions {
   target: EventTarget
