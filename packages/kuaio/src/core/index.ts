@@ -438,8 +438,8 @@ class Kuaio {
    * @example
    * ```typescript
    * Kuaio.createSync(document).define('Control+A').on(callback)
+   * Kuaio.createSync(document).define('Ctrl+K, Ctrl+C').on(callback)
    * Kuaio.createSync(document).define('Control+A', 'Meta+A').on(callback)
-   * Kuaio.createSync(document).define('Control+A B').on(callback)
    * ```
    */
   define(...strs: string[]): this {

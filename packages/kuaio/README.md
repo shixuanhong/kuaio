@@ -10,11 +10,36 @@
   <a href="https://npmjs.com/package/kuaio"><img src="https://img.shields.io/npm/v/kuaio" alt="npm package"></a>
 </p>
 
+## Features
+
+### 🟦 Basic Features
+
+- **⚡ Chain API** - Intuitive and fluent method chaining
+- **📝 String Definition** - Simple string-based shortcut definitions  
+- **🔄 Sequence Support** - Trigger events only when all defined keys or combinations are pressed in sequence (e.g., `Ctrl+K, Ctrl+C`)
+- **⌨️ Modifier Detection** - Full support for modifier keys such as `Alt`, `Ctrl`, `Meta`, `Shift`
+- **🎯 Event Control** - Support for event controls such as `preventDefault`, `stopPropagation`
+- **🔧 Flexible Binding** - Support for any EventTarget
+
+### 🟨 Advanced Features
+
+- **🎹 Auto Layout Check** - Automatic keyboard layout detection
+
+## Browser Support
+
+| Browser | Minimum Version | Basic Features | Auto Layout Check | Status |
+|---------|-----------------|----------------|-------------------|--------|
+| **Chrome** | 69+ | ✅ Full Support | ✅ Full Support | 🟢 Recommended |
+| **Edge** | 79+ | ✅ Full Support | ✅ Full Support | 🟢 Recommended |
+| **Firefox** | 51+ | ✅ Full Support | ❌ Not Supported | 🟡 Compatible |
+| **Opera** | 56+ | ✅ Full Support | ✅ Full Support | 🟢 Recommended |
+| **Safari** | 10.1+ | ✅ Full Support | ❌ Not Supported | 🟡 Compatible |
+
+> **💡 Usage Recommendations**: 
+> - 🟢 Recommended versions: Support all features
+> - 🟡 Compatible versions: Support basic features, layout check falls back to default QWERTY or manually register and specify other layouts
+
 ## Getting Started
-
-### Browser Support
-
-TODO
 
 ### Installation
 

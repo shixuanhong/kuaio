@@ -8,7 +8,13 @@
   "keywords": [
     "kuaio",
     "shortcut",
-    "keyboard"
+    "keyboard",
+    "hotkey",
+    "keybinding",
+    "dom",
+    "browser",
+    "electron",
+    "mousetrap"
   ],
   "license": "MIT",
   "homepage": "https://github.com/shixuanhong/kuaio#readme",
@@ -23,8 +29,6 @@
   "scripts": {
     "dev": "rollup -c --watch",
     "build": "rimraf dist && rollup -c",
-    "build:types": "tsc --emitDeclarationOnly",
-    "typecheck": "tsc --noEmit",
     "publish:lib": "pnpm build && npm publish",
     "test": "vitest"
   },
