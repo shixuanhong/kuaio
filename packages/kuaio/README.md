@@ -39,18 +39,18 @@ pnpm add kuaio
 ```javascript
 import Kuaio from 'kuaio'
 
-// Chain call
-Kuaio.create()
-  .Ctrl()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + a', e)
-  })
-
-// Use string definition
-Kuaio.on('Ctrl + a', (e) => {
-  console.log('Ctrl + a', e)
+// Chain call - recommended approach
+Kuaio.createSync().Control().A().on((event) => {
+  console.log('Ctrl+A pressed!', event)
 })
+
+// String-based definition
+Kuaio.createSync().define('Control+A').on((event) => {
+  console.log('Ctrl+A pressed!', event)
+})
+
+// Dispatch events programmatically
+Kuaio.createSync().define('Escape').dispatchFirst()
 ```
 
 ## Usage
@@ -59,208 +59,173 @@ Kuaio.on('Ctrl + a', (e) => {
 
 There are two ways to create an instance:
 
-1\. **[Recommend] Create via the `create` method.**
+1\. **[Recommended] Create via factory methods**
 
 ```javascript
-// 1. Create a global instance.
-const instance = Kuaio.create()
+// Async creation with automatic layout detection
+const kuaio = await Kuaio.create()
+
+// Sync creation with default layout (qwerty)
+const kuaio = Kuaio.createSync()
+
+// Set default layout for all new instances
+// Kuaio.setDefaultLayout(myLayout)
+
+// Sync creation with specific layout
+const kuaio = Kuaio.createSync(document, {}, myLayout)
+
+// Create with specific target
+const kuaio = await Kuaio.create(document.body)
+
+// Create with configuration
+const config = { preventDefault: true }
+const kuaio = await Kuaio.create(config)
+
+// Create with target and configuration
+const kuaio = await Kuaio.create(document.body, config)
 ```
+
+2\. **Create via the `new` operator**
+
+> Note: Direct constructor usage is not recommended. Use factory methods {@link Kuaio.create} and {@link Kuaio.createSync} instead.
 
 ```javascript
-// 2. Create a instance on the specified element.
-const target = document.querySelector('#input')
-const instance = Kuaio.create(target)
+// Required parameters
+const target = document // EventTarget that receives the keyboard listeners
+const config = {} // Instance-level configuration that overrides global defaults
+
+// Optional parameter
+const layout = myLayout // Optional keyboard layout. Falls back to default layout if omitted
+
+// Direct constructor usage (not recommended)
+const kuaio = new Kuaio(target, config, layout)
+
+// Constructor signature
+new Kuaio(target: EventTarget, config: Partial<KuaioConfig>, layout?: KuaioLayout)
 ```
 
-```javascript
-// 3. Use configuration.
-const config = {
-  preventDefault: true,
-  stopPropagation: true
-}
-const instance = Kuaio.create(config)
-// const instance = Kuaio.create(target, config)
-```
+### Create Listeners
 
-2\. **Create via the `new` operator.**
-
-```javascript
-const target = document
-const config = {}
-const instance = new Kuaio(target, config)
-```
-
-### Create Listener
-
-There are two ways to create an listener:
+There are two ways to create listeners:
 
 1\. **Chain Call**
 
 ```javascript
-Kuaio.create()
-  .Ctrl()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + a', e)
-  })
+Kuaio.createSync().Control().A().on((event) => {
+  console.log('Ctrl+A pressed!', event)
+})
 ```
 
 2\. **String Definition**
 
-Created through the static method `Kuaio.on`.
-
 ```javascript
-Kuaio.on('Ctrl + a', (e) => {
-  console.log('Ctrl + a', e)
+Kuaio.createSync().define('Control+A').on((event) => {
+  console.log('Ctrl+A pressed!', event)
+})
+
+// Multiple alternative sequences
+Kuaio.createSync().define('Control+A', 'Meta+A').on((event) => {
+  console.log('Ctrl+A or Cmd+A pressed!', event)
 })
 ```
-
-> NOTE: `Kuaio.on('Ctrl + A')` will not work, you may need to read [TODO](#TODO).
 
 ### Trigger
 
 #### Single Key
 
-Kuaio provides built-in methods for efficient key selection from the standard US keyboard. When these methods are called, the specified key, excluding modifier keys, will serve as the trigger.
+Kuaio provides built-in methods for efficient key selection. When these methods are called, the specified key will serve as the trigger.
 
 ```javascript
-// General keys
-Kuaio.create()
-  .A()
-  .on((e) => {})
+// Logical keys (A-Z)
+Kuaio.createSync().A().on((event) => console.log('A pressed!', event))
+
+// Physical key codes
+Kuaio.createSync().KeyA().on((event) => console.log('KeyA pressed!', event))
+
 // Function keys
-Kuaio.create()
-  .F1()
-  .on((e) => {})
-// Whitespace keys
-Kuaio.create()
-  .Enter()
-  .on((e) => {})
-// Navigation keys
-Kuaio.create()
-  .PageDown()
-  .on((e) => {})
-// Editing keys
-Kuaio.create()
-  .Backspace()
-  .on((e) => {})
-// UI keys
-Kuaio.create()
-  .Escape()
-  .on((e) => {})
+Kuaio.createSync().F1().on((event) => console.log('F1 pressed!', event))
+
+// Special keys
+Kuaio.createSync().Enter().on((event) => console.log('Enter pressed!', event))
+Kuaio.createSync().Escape().on((event) => console.log('Escape pressed!', event))
+Kuaio.createSync().Backspace().on((event) => console.log('Backspace pressed!', event))
 ```
 
-In addition, you can also use the `key` method to specify the trigger key, but it must be a valid value of [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key).
-
-You can easily get it with [JavaScript Key Code Event Tool](https://www.toptal.com/developers/keycode).
+You can also use the generic `key` method:
 
 ```javascript
-Kuaio.create()
-  .key('a')
-  .on((e) => {})
+Kuaio.createSync().key('A').on((event) => console.log('A pressed!', event))
+Kuaio.createSync().key({ code: 'Enter', matchMode: 'code' }).on((event) => console.log('Enter pressed!', event))
 ```
-
-> NOTE: You can use this method to set a modifier key as a trigger key, but this is not recommended.
 
 #### Key Combination
 
-Use a combination of modifier keys (`Ctrl`, `Shift`, etc.) with other trigger keys as triggers.
+Use a combination of modifier keys with other trigger keys:
 
 1\. **Chain Call**
 
 ```javascript
-// 1. Use built-in modifier methods.
-Kuaio.create()
-  .Ctrl()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + a', e)
-  })
+// Basic combination
+Kuaio.createSync().Control().A().on((event) => {
+  console.log('Ctrl+A pressed!', event)
+})
 
-Kuaio.create()
-  .Ctrl()
-  .Alt()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + Alt + a', e)
-  })
+// Multiple modifiers
+Kuaio.createSync().Control().Shift().A().on((event) => {
+  console.log('Ctrl+Shift+A pressed!', event)
+})
+
+// Using generic modifier method
+Kuaio.createSync().modifier('Alt').A().on((event) => {
+  console.log('Alt+A pressed!', event)
+})
 ```
-
-```javascript
-// 2. Use the method `modifier` to specify modifiers.
-Kuaio.create()
-  .modifier('Shift')
-  .A()
-  .on((e) => {
-    console.log('Shift + a', e)
-  })
-```
-
-> NOTE: You can use this method to set a trigger key as a modifier key, but this is not recommended.
 
 2\. **String Definition**
 
 ```javascript
-Kuaio.on('Ctrl + a', (e) => {
-  console.log('Ctrl + a', e)
+Kuaio.createSync().define('Control+A').on((event) => {
+  console.log('Ctrl+A pressed!', event)
 })
-Kuaio.on('Ctrl + Alt + a', (e) => {
-  console.log('Ctrl + Alt + a', e)
+
+Kuaio.createSync().define('Control+Alt+A').on((event) => {
+  console.log('Ctrl+Alt+A pressed!', event)
 })
 ```
 
 #### Sequence
 
-You can define an sequence containing `Single Key` or `Key Combination` as a trigger, which will be triggered when the keyboard is pressed in a specified order. In fact this can also be called a key combination, but it is more powerful.
+Define sequences of key combinations that trigger when pressed in order:
 
 1\. **Chain Call**
 
 ```javascript
-Kuaio.create()
-  .Q()
-  // Set timeout. Pressing the next key within this time will continue listening to the sequence, otherwise it will stop.
-  .after(1000)
-  .W()
-  .after()
-  .E()
-  .after()
-  .R()
-  .on((e) => {
-    console.log('q, w, e, r', e)
-  })
+// Simple sequence
+Kuaio.createSync().Q().after(1000).W().after().E().after().R().on((event) => {
+  console.log('Q, W, E, R sequence pressed!', event)
+})
 
-Kuaio.create()
-  .preventDefault()
-  .Ctrl()
-  .K()
-  .after()
-  .Ctrl()
-  .C()
-  .on((e) => {
-    console.log('Ctrl + k, Ctrl + c', e)
-  })
+// Complex sequence with combinations
+Kuaio.createSync().preventDefault().Control().K().after().Control().C().on((event) => {
+  console.log('Ctrl+K, Ctrl+C sequence pressed!', event)
+})
 ```
 
 2\. **String Definition**
 
 ```javascript
-Kuaio.on('q, w, e, r', (e) => {
-  console.log('q, w, e, r', e)
+// Simple sequence
+Kuaio.createSync().define('Q,W,E,R').on((event) => {
+  console.log('Q, W, E, R sequence pressed!', event)
 })
 
-Kuaio.on(
-  'Ctrl + k, Ctrl + c',
-  (e) => {
-    console.log('Ctrl + k, Ctrl + c', e)
-  },
-  {
-    preventDefault: true
-  }
-)
+// Complex sequence
+Kuaio.createSync().define('Control+K,Control+C').on((event) => {
+  console.log('Ctrl+K, Ctrl+C sequence pressed!', event)
+})
+
+// With configuration
+Kuaio.createSync({ preventDefault: true }).define('Control+Shift+A').on((event) => {
+  console.log('Ctrl+Shift+A pressed!', event)
+})
 ```
-
-### Keyboard Layout and Glyph Modifiers
-
-TODO
-
-![US Layout](https://www.w3.org/TR/uievents-code/images/keyboard-101-us.svg)

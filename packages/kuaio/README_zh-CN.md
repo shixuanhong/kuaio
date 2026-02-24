@@ -39,18 +39,18 @@ pnpm add kuaio
 ```javascript
 import Kuaio from 'kuaio'
 
-// 链式调用
-Kuaio.create()
-  .Ctrl()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + a', e)
-  })
-
-// 使用字符串定义
-Kuaio.on('Ctrl + a', (e) => {
-  console.log('Ctrl + a', e)
+// 链式调用 - 推荐方式
+Kuaio.createSync().Control().A().on((event) => {
+  console.log('Ctrl+A 按下!', event)
 })
+
+// 字符串定义
+Kuaio.createSync().define('Control+A').on((event) => {
+  console.log('Ctrl+A 按下!', event)
+})
+
+// 程序化派发事件
+Kuaio.createSync().define('Escape').dispatchFirst()
 ```
 
 ## 使用方法
@@ -59,35 +59,49 @@ Kuaio.on('Ctrl + a', (e) => {
 
 有两种方式可以用于创建实例:
 
-1\. **[推荐] 通过`create` 方法创建**
+1\. **[推荐] 通过工厂方法创建**
 
 ```javascript
-// 1. Create a global instance.
-const instance = Kuaio.create()
-```
+// 异步创建，自动检测键盘布局
+const kuaio = await Kuaio.create()
 
-```javascript
-// 2. Create a instance on the specified element.
-const target = document.querySelector('#input')
-const instance = Kuaio.create(target)
-```
+// 同步创建，使用默认布局 (qwerty)
+const kuaio = Kuaio.createSync()
 
-```javascript
-// 3. Use configuration.
-const config = {
-  preventDefault: true,
-  stopPropagation: true
-}
-const instance = Kuaio.create(config)
-// const instance = Kuaio.create(target, config)
+// 为所有新实例设置默认布局
+// Kuaio.setDefaultLayout(myLayout)
+
+// 同步创建，指定布局
+const kuaio = Kuaio.createSync(document, {}, myLayout)
+
+// 为指定目标创建
+const kuaio = await Kuaio.create(document.body)
+
+// 使用配置创建
+const config = { preventDefault: true }
+const kuaio = await Kuaio.create(config)
+
+// 为指定目标和配置创建
+const kuaio = await Kuaio.create(document.body, config)
 ```
 
 2\. **通过 `new` 操作符创建**
 
+> 注意：不推荐直接使用构造函数。请使用工厂方法 {@link Kuaio.create} 和 {@link Kuaio.createSync}。
+
 ```javascript
-const target = document
-const config = {}
-const instance = new Kuaio(target, config)
+// 必需参数
+const target = document // 接收键盘监听器的事件目标
+const config = {} // 覆盖全局默认值的实例级配置
+
+// 可选参数
+const layout = myLayout // 可选的键盘布局。如果省略则回退到默认布局
+
+// 直接构造函数使用（不推荐）
+const kuaio = new Kuaio(target, config, layout)
+
+// 构造函数签名
+new Kuaio(target: EventTarget, config: Partial<KuaioConfig>, layout?: KuaioLayout)
 ```
 
 ### 创建侦听器
@@ -97,170 +111,121 @@ const instance = new Kuaio(target, config)
 1\. **链式调用**
 
 ```javascript
-Kuaio.create()
-  .Ctrl()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + a', e)
-  })
+Kuaio.createSync().Control().A().on((event) => {
+  console.log('Ctrl+A 按下!', event)
+})
 ```
 
 2\. **字符串定义**
 
-通过静态方法 `Kuaio.on` 创建。
-
 ```javascript
-Kuaio.on('Ctrl + a', (e) => {
-  console.log('Ctrl + a', e)
+Kuaio.createSync().define('Control+A').on((event) => {
+  console.log('Ctrl+A 按下!', event)
+})
+
+// 多个替代序列
+Kuaio.createSync().define('Control+A', 'Meta+A').on((event) => {
+  console.log('Ctrl+A 或 Cmd+A 按下!', event)
 })
 ```
-
-> 注意: `Kuaio.on('Ctrl + A')` 不会生效, 你可能需要阅读 [TODO](#TODO).
 
 ### 触发器
 
 #### 单键触发
 
-Kuaio 提供了内置方法，可以从标准美式键盘中进行高效的按键选择。 当调用这些方法时，指定的键（不包括修饰键）将作为触发器。
+Kuaio 提供了内置方法，可以高效地选择按键。当调用这些方法时，指定的键将作为触发器。
 
 ```javascript
-// General keys
-Kuaio.create()
-  .A()
-  .on((e) => {})
-// Function keys
-Kuaio.create()
-  .F1()
-  .on((e) => {})
-// Whitespace keys
-Kuaio.create()
-  .Enter()
-  .on((e) => {})
-// Navigation keys
-Kuaio.create()
-  .PageDown()
-  .on((e) => {})
-// Editing keys
-Kuaio.create()
-  .Backspace()
-  .on((e) => {})
-// UI keys
-Kuaio.create()
-  .Escape()
-  .on((e) => {})
+// 逻辑键 (A-Z)
+Kuaio.createSync().A().on((event) => console.log('A 按下!', event))
+
+// 物理键码
+Kuaio.createSync().KeyA().on((event) => console.log('KeyA 按下!', event))
+
+// 功能键
+Kuaio.createSync().F1().on((event) => console.log('F1 按下!', event))
+
+// 特殊键
+Kuaio.createSync().Enter().on((event) => console.log('Enter 按下!', event))
+Kuaio.createSync().Escape().on((event) => console.log('Escape 按下!', event))
+Kuaio.createSync().Backspace().on((event) => console.log('Backspace 按下!', event))
 ```
 
-另外，你还可以使用`key`方法指定触发键，但必须是 [KeyboardEvent.key](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key) 的一个有效值.
-
-你可以很轻松的通过这个工具来获取这些值：[JavaScript Key Code Event Tool](https://www.toptal.com/developers/keycode).
+你也可以使用通用的 `key` 方法:
 
 ```javascript
-Kuaio.create()
-  .key('a')
-  .on((e) => {})
+Kuaio.createSync().key('A').on((event) => console.log('A 按下!', event))
+Kuaio.createSync().key({ code: 'Enter', matchMode: 'code' }).on((event) => console.log('Enter 按下!', event))
 ```
-
-> 注意: 你可以使用这个方法将一个修饰键指定为一个触发键，但这并不推荐。
 
 #### 组合键
 
-你可以使用修饰键和其它触发键的组合来作为触发器
+使用修饰键与其他触发键的组合:
 
 1\. **链式调用**
 
 ```javascript
-// 1. Use built-in modifier methods.
-Kuaio.create()
-  .Ctrl()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + a', e)
-  })
+// 基础组合
+Kuaio.createSync().Control().A().on((event) => {
+  console.log('Ctrl+A 按下!', event)
+})
 
-Kuaio.create()
-  .Ctrl()
-  .Alt()
-  .A()
-  .on((e) => {
-    console.log('Ctrl + Alt + a', e)
-  })
+// 多个修饰键
+Kuaio.createSync().Control().Shift().A().on((event) => {
+  console.log('Ctrl+Shift+A 按下!', event)
+})
+
+// 使用通用修饰键方法
+Kuaio.createSync().modifier('Alt').A().on((event) => {
+  console.log('Alt+A 按下!', event)
+})
 ```
-
-```javascript
-// 2. Use the method `modifier` to specify modifiers.
-Kuaio.create()
-  .modifier('Shift')
-  .A()
-  .on((e) => {
-    console.log('Shift + a', e)
-  })
-```
-
-> 注意: 你可以使用这个方法将一个触发键指定为一个修饰键，但这并不推荐。
 
 2\. **字符串定义**
 
 ```javascript
-Kuaio.on('Ctrl + a', (e) => {
-  console.log('Ctrl + a', e)
+Kuaio.createSync().define('Control+A').on((event) => {
+  console.log('Ctrl+A 按下!', event)
 })
-Kuaio.on('Ctrl + Alt + a', (e) => {
-  console.log('Ctrl + Alt + a', e)
+
+Kuaio.createSync().define('Control+Alt+A').on((event) => {
+  console.log('Ctrl+Alt+A 按下!', event)
 })
 ```
 
 #### 序列
 
-你可以定义一个包含`单键`或`组合键`的序列来作为触发器，当按指定顺序按下键盘时将触发该序列。其实这也是一种组合键，但是功能更强大。
+定义按顺序按下时触发的键组合序列:
 
 1\. **链式调用**
 
 ```javascript
-Kuaio.create()
-  .Q()
-  // Set timeout. Pressing the next key within this time will continue listening to the sequence, otherwise it will stop.
-  .after(1000)
-  .W()
-  .after()
-  .E()
-  .after()
-  .R()
-  .on((e) => {
-    console.log('q, w, e, r', e)
-  })
+// 简单序列
+Kuaio.createSync().Q().after(1000).W().after().E().after().R().on((event) => {
+  console.log('Q, W, E, R 序列按下!', event)
+})
 
-Kuaio.create()
-  .preventDefault()
-  .Ctrl()
-  .K()
-  .after()
-  .Ctrl()
-  .C()
-  .on((e) => {
-    console.log('Ctrl + k, Ctrl + c', e)
-  })
+// 复杂序列与组合键
+Kuaio.createSync().preventDefault().Control().K().after().Control().C().on((event) => {
+  console.log('Ctrl+K, Ctrl+C 序列按下!', event)
+})
 ```
 
 2\. **字符串定义**
 
 ```javascript
-Kuaio.on('q, w, e, r', (e) => {
-  console.log('q, w, e, r', e)
+// 简单序列
+Kuaio.createSync().define('Q,W,E,R').on((event) => {
+  console.log('Q, W, E, R 序列按下!', event)
 })
 
-Kuaio.on(
-  'Ctrl + k, Ctrl + c',
-  (e) => {
-    console.log('Ctrl + k, Ctrl + c', e)
-  },
-  {
-    preventDefault: true
-  }
-)
+// 复杂序列
+Kuaio.createSync().define('Control+K,Control+C').on((event) => {
+  console.log('Ctrl+K, Ctrl+C 序列按下!', event)
+})
+
+// 带配置
+Kuaio.createSync({ preventDefault: true }).define('Control+Shift+A').on((event) => {
+  console.log('Ctrl+Shift+A 按下!', event)
+})
 ```
-
-### 键盘布局和字形修饰符
-
-TODO
-
-![US Layout](https://www.w3.org/TR/uievents-code/images/keyboard-101-us.svg)
