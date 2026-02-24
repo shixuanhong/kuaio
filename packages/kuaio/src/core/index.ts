@@ -202,7 +202,7 @@ class Kuaio {
   _sequenceList: KuaioSequence[]
   /** Currently building combination within the sequence */
   _curSequenceItem: KuaioCombination | null
-  /** Native event listeners added via {@link Kuaio.on} */
+ /** Native event listeners added via {@link on} */
   _listeners: EventListener[] | undefined
   // #endregion
 
@@ -314,8 +314,8 @@ class Kuaio {
   /**
    * Use the `keydown` event for keyboard event listening
    * @returns This instance for chaining
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event
-   * @see {@link Kuaio.keyup} to use keyup events instead
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event|MDN keydown event documentation}
+   * @see {@link keyup} to use keyup events instead
    */
   keydown(): this {
     this._eventType = KeyboardEventType.KeyDown
@@ -324,8 +324,8 @@ class Kuaio {
   /**
    * Use the `keyup` event for keyboard event listening
    * @returns This instance for chaining
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event
-   * @see {@link Kuaio.keydown} to use keydown events instead
+   * @see {@link https://developer.mozilla.org/en-US/docs/Web/API/Element/keyup_event|MDN keyup event documentation}
+   * @see {@link keydown} to use keydown events instead
    */
   keyup(): this {
     this._eventType = KeyboardEventType.KeyUp
@@ -376,8 +376,8 @@ class Kuaio {
   /**
    * Prevent the browser's default behavior when the sequence executes for the current combination
    * @returns This instance for chaining
-   * @see {@link Kuaio.stopPropagation} to stop event propagation
-   * @see {@link Kuaio.stopImmediatePropagation} to stop immediate propagation
+   * @see {@link stopPropagation} to stop event propagation
+   * @see {@link stopImmediatePropagation} to stop immediate propagation
    */
   preventDefault(): this {
     this._getCurSequenceItem().preventDefault = true
@@ -386,8 +386,8 @@ class Kuaio {
   /**
    * Prevent the event from propagating further when the sequence executes for the current combination
    * @returns This instance for chaining
-   * @see {@link Kuaio.preventDefault} to prevent default behavior
-   * @see {@link Kuaio.stopImmediatePropagation} to stop immediate propagation
+   * @see {@link preventDefault} to prevent default behavior
+   * @see {@link stopImmediatePropagation} to stop immediate propagation
    */
   stopPropagation(): this {
     this._getCurSequenceItem().stopPropagation = true
@@ -396,8 +396,8 @@ class Kuaio {
   /**
    * Prevent other event listeners on the event target listening to the same event from being called when the sequence executes for the current combination
    * @returns This instance for chaining
-   * @see {@link Kuaio.preventDefault} to prevent default behavior
-   * @see {@link Kuaio.stopPropagation} to stop event propagation
+   * @see {@link preventDefault} to prevent default behavior
+   * @see {@link stopPropagation} to stop event propagation
    */
   stopImmediatePropagation(): this {
     this._getCurSequenceItem().stopImmediatePropagation = true
@@ -407,7 +407,7 @@ class Kuaio {
    * Create the next combination in the sequence
    * @param timeout - The timeout for the current combination in the sequence, which is the max time to wait for the next combination in the sequence to be pressed (in milliseconds)
    * @returns This instance for chaining
-   * @see {@link Kuaio.or} to create alternative sequences
+   * @see {@link or} to create alternative sequences
    * @example
    * ```typescript
    * kuaio.Control().A().after(1000).B() // Press Ctrl+A, then press B within 1s.
@@ -684,7 +684,7 @@ interface Kuaio {
    * Set `A` logical key as the trigger key for the current combination.
    * Unlike {@link KeyA} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.A() // equivalent to kuaio.key('A')
@@ -696,7 +696,7 @@ interface Kuaio {
    * Set `B` logical key as the trigger key for the current combination.
    * Unlike {@link KeyB} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.B() // equivalent to kuaio.key('B')
@@ -707,7 +707,7 @@ interface Kuaio {
    * Set `C` logical key as the trigger key for the current combination.
    * Unlike {@link KeyC} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.C() // equivalent to kuaio.key('C')
@@ -718,7 +718,7 @@ interface Kuaio {
    * Set `D` logical key as the trigger key for the current combination.
    * Unlike {@link KeyD} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.D() // equivalent to kuaio.key('D')
@@ -729,7 +729,7 @@ interface Kuaio {
    * Set `E` logical key as the trigger key for the current combination.
    * Unlike {@link KeyE} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.E() // equivalent to kuaio.key('E')
@@ -740,7 +740,7 @@ interface Kuaio {
    * Set `F` logical key as the trigger key for the current combination.
    * Unlike {@link KeyF} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F() // equivalent to kuaio.key('F')
@@ -751,7 +751,7 @@ interface Kuaio {
    * Set `G` logical key as the trigger key for the current combination.
    * Unlike {@link KeyG} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.G() // equivalent to kuaio.key('G')
@@ -762,7 +762,7 @@ interface Kuaio {
    * Set `H` logical key as the trigger key for the current combination.
    * Unlike {@link KeyH} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.H() // equivalent to kuaio.key('H')
@@ -773,7 +773,7 @@ interface Kuaio {
    * Set `I` logical key as the trigger key for the current combination.
    * Unlike {@link KeyI} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.I() // equivalent to kuaio.key('I')
@@ -784,7 +784,7 @@ interface Kuaio {
    * Set `J` logical key as the trigger key for the current combination.
    * Unlike {@link KeyJ} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.J() // equivalent to kuaio.key('J')
@@ -795,7 +795,7 @@ interface Kuaio {
    * Set `K` logical key as the trigger key for the current combination.
    * Unlike {@link KeyK} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.K() // equivalent to kuaio.key('K')
@@ -806,7 +806,7 @@ interface Kuaio {
    * Set `L` logical key as the trigger key for the current combination.
    * Unlike {@link KeyL} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.L() // equivalent to kuaio.key('L')
@@ -817,7 +817,7 @@ interface Kuaio {
    * Set `M` logical key as the trigger key for the current combination.
    * Unlike {@link KeyM} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.M() // equivalent to kuaio.key('M')
@@ -828,7 +828,7 @@ interface Kuaio {
    * Set `N` logical key as the trigger key for the current combination.
    * Unlike {@link KeyN} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.N() // equivalent to kuaio.key('N')
@@ -839,7 +839,7 @@ interface Kuaio {
    * Set `O` logical key as the trigger key for the current combination.
    * Unlike {@link KeyO} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.O() // equivalent to kuaio.key('O')
@@ -850,7 +850,7 @@ interface Kuaio {
    * Set `P` logical key as the trigger key for the current combination.
    * Unlike {@link KeyP} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.P() // equivalent to kuaio.key('P')
@@ -861,7 +861,7 @@ interface Kuaio {
    * Set `Q` logical key as the trigger key for the current combination.
    * Unlike {@link KeyQ} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Q() // equivalent to kuaio.key('Q')
@@ -872,7 +872,7 @@ interface Kuaio {
    * Set `R` logical key as the trigger key for the current combination.
    * Unlike {@link KeyR} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.R() // equivalent to kuaio.key('R')
@@ -883,7 +883,7 @@ interface Kuaio {
    * Set `S` logical key as the trigger key for the current combination.
    * Unlike {@link KeyS} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.S() // equivalent to kuaio.key('S')
@@ -894,7 +894,7 @@ interface Kuaio {
    * Set `T` logical key as the trigger key for the current combination.
    * Unlike {@link KeyT} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.T() // equivalent to kuaio.key('T')
@@ -905,7 +905,7 @@ interface Kuaio {
    * Set `U` logical key as the trigger key for the current combination.
    * Unlike {@link KeyU} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.U() // equivalent to kuaio.key('U')
@@ -916,7 +916,7 @@ interface Kuaio {
    * Set `V` logical key as the trigger key for the current combination.
    * Unlike {@link KeyV} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.V() // equivalent to kuaio.key('V')
@@ -927,7 +927,7 @@ interface Kuaio {
    * Set `W` logical key as the trigger key for the current combination.
    * Unlike {@link KeyW} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.W() // equivalent to kuaio.key('W')
@@ -938,7 +938,7 @@ interface Kuaio {
    * Set `X` logical key as the trigger key for the current combination.
    * Unlike {@link KeyX} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.X() // equivalent to kuaio.key('X')
@@ -949,7 +949,7 @@ interface Kuaio {
    * Set `Y` logical key as the trigger key for the current combination.
    * Unlike {@link KeyY} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Y() // equivalent to kuaio.key('Y')
@@ -960,7 +960,7 @@ interface Kuaio {
    * Set `Z` logical key as the trigger key for the current combination.
    * Unlike {@link KeyZ} which uses physical code
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Z() // equivalent to kuaio.key('Z')
@@ -973,7 +973,7 @@ interface Kuaio {
    * Set `KeyA` physical code as the trigger key for the current combination.
    * Unlike {@link A} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyA() // equivalent to kuaio.key({ code: 'KeyA', matchMode: 'code' })
@@ -984,7 +984,7 @@ interface Kuaio {
    * Set `KeyB` physical code as the trigger key for the current combination.
    * Unlike {@link B} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyB() // equivalent to kuaio.key({ code: 'KeyB', matchMode: 'code' })
@@ -995,7 +995,7 @@ interface Kuaio {
    * Set `KeyC` physical code as the trigger key for the current combination.
    * Unlike {@link C} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyC() // equivalent to kuaio.key({ code: 'KeyC', matchMode: 'code' })
@@ -1006,7 +1006,7 @@ interface Kuaio {
    * Set `KeyD` physical code as the trigger key for the current combination.
    * Unlike {@link D} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyD() // equivalent to kuaio.key({ code: 'KeyD', matchMode: 'code' })
@@ -1017,7 +1017,7 @@ interface Kuaio {
    * Set `KeyE` physical code as the trigger key for the current combination.
    * Unlike {@link E} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyE() // equivalent to kuaio.key({ code: 'KeyE', matchMode: 'code' })
@@ -1028,7 +1028,7 @@ interface Kuaio {
    * Set `KeyF` physical code as the trigger key for the current combination.
    * Unlike {@link F} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyF() // equivalent to kuaio.key({ code: 'KeyF', matchMode: 'code' })
@@ -1039,7 +1039,7 @@ interface Kuaio {
    * Set `KeyG` physical code as the trigger key for the current combination.
    * Unlike {@link G} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyG() // equivalent to kuaio.key({ code: 'KeyG', matchMode: 'code' })
@@ -1050,7 +1050,7 @@ interface Kuaio {
    * Set `KeyH` physical code as the trigger key for the current combination.
    * Unlike {@link H} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyH() // equivalent to kuaio.key({ code: 'KeyH', matchMode: 'code' })
@@ -1061,7 +1061,7 @@ interface Kuaio {
    * Set `KeyI` physical code as the trigger key for the current combination.
    * Unlike {@link I} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyI() // equivalent to kuaio.key({ code: 'KeyI', matchMode: 'code' })
@@ -1072,7 +1072,7 @@ interface Kuaio {
    * Set `KeyJ` physical code as the trigger key for the current combination.
    * Unlike {@link J} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyJ() // equivalent to kuaio.key({ code: 'KeyJ', matchMode: 'code' })
@@ -1083,7 +1083,7 @@ interface Kuaio {
    * Set `KeyK` physical code as the trigger key for the current combination.
    * Unlike {@link K} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyK() // equivalent to kuaio.key({ code: 'KeyK', matchMode: 'code' })
@@ -1094,7 +1094,7 @@ interface Kuaio {
    * Set `KeyL` physical code as the trigger key for the current combination.
    * Unlike {@link L} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyL() // equivalent to kuaio.key({ code: 'KeyL', matchMode: 'code' })
@@ -1105,7 +1105,7 @@ interface Kuaio {
    * Set `KeyM` physical code as the trigger key for the current combination.
    * Unlike {@link M} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyM() // equivalent to kuaio.key({ code: 'KeyM', matchMode: 'code' })
@@ -1116,7 +1116,7 @@ interface Kuaio {
    * Set `KeyN` physical code as the trigger key for the current combination.
    * Unlike {@link N} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyN() // equivalent to kuaio.key({ code: 'KeyN', matchMode: 'code' })
@@ -1127,7 +1127,7 @@ interface Kuaio {
    * Set `KeyO` physical code as the trigger key for the current combination.
    * Unlike {@link O} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyO() // equivalent to kuaio.key({ code: 'KeyO', matchMode: 'code' })
@@ -1138,7 +1138,7 @@ interface Kuaio {
    * Set `KeyP` physical code as the trigger key for the current combination.
    * Unlike {@link P} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyP() // equivalent to kuaio.key({ code: 'KeyP', matchMode: 'code' })
@@ -1149,7 +1149,7 @@ interface Kuaio {
    * Set `KeyQ` physical code as the trigger key for the current combination.
    * Unlike {@link Q} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyQ() // equivalent to kuaio.key({ code: 'KeyQ', matchMode: 'code' })
@@ -1160,7 +1160,7 @@ interface Kuaio {
    * Set `KeyR` physical code as the trigger key for the current combination.
    * Unlike {@link R} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyR() // equivalent to kuaio.key({ code: 'KeyR', matchMode: 'code' })
@@ -1171,7 +1171,7 @@ interface Kuaio {
    * Set `KeyS` physical code as the trigger key for the current combination.
    * Unlike {@link S} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyS() // equivalent to kuaio.key({ code: 'KeyS', matchMode: 'code' })
@@ -1182,7 +1182,7 @@ interface Kuaio {
    * Set `KeyT` physical code as the trigger key for the current combination.
    * Unlike {@link T} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyT() // equivalent to kuaio.key({ code: 'KeyT', matchMode: 'code' })
@@ -1193,7 +1193,7 @@ interface Kuaio {
    * Set `KeyU` physical code as the trigger key for the current combination.
    * Unlike {@link U} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyU() // equivalent to kuaio.key({ code: 'KeyU', matchMode: 'code' })
@@ -1204,7 +1204,7 @@ interface Kuaio {
    * Set `KeyV` physical code as the trigger key for the current combination.
    * Unlike {@link V} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyV() // equivalent to kuaio.key({ code: 'KeyV', matchMode: 'code' })
@@ -1215,7 +1215,7 @@ interface Kuaio {
    * Set `KeyW` physical code as the trigger key for the current combination.
    * Unlike {@link W} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyW() // equivalent to kuaio.key({ code: 'KeyW', matchMode: 'code' })
@@ -1226,7 +1226,7 @@ interface Kuaio {
    * Set `KeyX` physical code as the trigger key for the current combination.
    * Unlike {@link X} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyX() // equivalent to kuaio.key({ code: 'KeyX', matchMode: 'code' })
@@ -1237,7 +1237,7 @@ interface Kuaio {
    * Set `KeyY` physical code as the trigger key for the current combination.
    * Unlike {@link Y} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyY() // equivalent to kuaio.key({ code: 'KeyY', matchMode: 'code' })
@@ -1248,7 +1248,7 @@ interface Kuaio {
    * Set `KeyZ` physical code as the trigger key for the current combination.
    * Unlike {@link Z} which uses logical key
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.KeyZ() // equivalent to kuaio.key({ code: 'KeyZ', matchMode: 'code' })
@@ -1258,7 +1258,7 @@ interface Kuaio {
   /**
    * Set `Digit0` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit0() // equivalent to kuaio.key({ code: 'Digit0', matchMode: 'code' })
@@ -1268,7 +1268,7 @@ interface Kuaio {
   /**
    * Set `Digit1` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit1() // equivalent to kuaio.key({ code: 'Digit1', matchMode: 'code' })
@@ -1278,7 +1278,7 @@ interface Kuaio {
   /**
    * Set `Digit2` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit2() // equivalent to kuaio.key({ code: 'Digit2', matchMode: 'code' })
@@ -1288,7 +1288,7 @@ interface Kuaio {
   /**
    * Set `Digit3` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit3() // equivalent to kuaio.key({ code: 'Digit3', matchMode: 'code' })
@@ -1298,7 +1298,7 @@ interface Kuaio {
   /**
    * Set `Digit4` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit4() // equivalent to kuaio.key({ code: 'Digit4', matchMode: 'code' })
@@ -1308,7 +1308,7 @@ interface Kuaio {
   /**
    * Set `Digit5` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit5() // equivalent to kuaio.key({ code: 'Digit5', matchMode: 'code' })
@@ -1318,7 +1318,7 @@ interface Kuaio {
   /**
    * Set `Digit6` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit6() // equivalent to kuaio.key({ code: 'Digit6', matchMode: 'code' })
@@ -1328,7 +1328,7 @@ interface Kuaio {
   /**
    * Set `Digit7` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit7() // equivalent to kuaio.key({ code: 'Digit7', matchMode: 'code' })
@@ -1338,7 +1338,7 @@ interface Kuaio {
   /**
    * Set `Digit8` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit8() // equivalent to kuaio.key({ code: 'Digit8', matchMode: 'code' })
@@ -1348,7 +1348,7 @@ interface Kuaio {
   /**
    * Set `Digit9` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Digit9() // equivalent to kuaio.key({ code: 'Digit9', matchMode: 'code' })
@@ -1358,7 +1358,7 @@ interface Kuaio {
   /**
    * Set `Numpad0` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad0() // equivalent to kuaio.key({ code: 'Numpad0', matchMode: 'code' })
@@ -1368,7 +1368,7 @@ interface Kuaio {
   /**
    * Set `Numpad1` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad1() // equivalent to kuaio.key({ code: 'Numpad1', matchMode: 'code' })
@@ -1378,7 +1378,7 @@ interface Kuaio {
   /**
    * Set `Numpad2` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad2() // equivalent to kuaio.key({ code: 'Numpad2', matchMode: 'code' })
@@ -1388,7 +1388,7 @@ interface Kuaio {
   /**
    * Set `Numpad3` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad3() // equivalent to kuaio.key({ code: 'Numpad3', matchMode: 'code' })
@@ -1398,7 +1398,7 @@ interface Kuaio {
   /**
    * Set `Numpad4` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad4() // equivalent to kuaio.key({ code: 'Numpad4', matchMode: 'code' })
@@ -1408,7 +1408,7 @@ interface Kuaio {
   /**
    * Set `Numpad5` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad5() // equivalent to kuaio.key({ code: 'Numpad5', matchMode: 'code' })
@@ -1418,7 +1418,7 @@ interface Kuaio {
   /**
    * Set `Numpad6` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad6() // equivalent to kuaio.key({ code: 'Numpad6', matchMode: 'code' })
@@ -1428,7 +1428,7 @@ interface Kuaio {
   /**
    * Set `Numpad7` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad7() // equivalent to kuaio.key({ code: 'Numpad7', matchMode: 'code' })
@@ -1438,7 +1438,7 @@ interface Kuaio {
   /**
    * Set `Numpad8` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad8() // equivalent to kuaio.key({ code: 'Numpad8', matchMode: 'code' })
@@ -1448,7 +1448,7 @@ interface Kuaio {
   /**
    * Set `Numpad9` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Numpad9() // equivalent to kuaio.key({ code: 'Numpad9', matchMode: 'code' })
@@ -1458,7 +1458,7 @@ interface Kuaio {
   /**
    * Set `NumpadAdd` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumpadAdd() // equivalent to kuaio.key({ code: 'NumpadAdd', matchMode: 'code' })
@@ -1468,7 +1468,7 @@ interface Kuaio {
   /**
    * Set `NumpadSubtract` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumpadSubtract() // equivalent to kuaio.key({ code: 'NumpadSubtract', matchMode: 'code' })
@@ -1478,7 +1478,7 @@ interface Kuaio {
   /**
    * Set `NumpadMultiply` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumpadMultiply() // equivalent to kuaio.key({ code: 'NumpadMultiply', matchMode: 'code' })
@@ -1488,7 +1488,7 @@ interface Kuaio {
   /**
    * Set `NumpadDivide` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumpadDivide() // equivalent to kuaio.key({ code: 'NumpadDivide', matchMode: 'code' })
@@ -1498,7 +1498,7 @@ interface Kuaio {
   /**
    * Set `NumpadDecimal` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumpadDecimal() // equivalent to kuaio.key({ code: 'NumpadDecimal', matchMode: 'code' })
@@ -1508,7 +1508,7 @@ interface Kuaio {
   /**
    * Set `NumpadEnter` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumpadEnter() // equivalent to kuaio.key({ code: 'NumpadEnter', matchMode: 'code' })
@@ -1518,7 +1518,7 @@ interface Kuaio {
   /**
    * Set `NumpadEqual` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumpadEqual() // equivalent to kuaio.key({ code: 'NumpadEqual', matchMode: 'code' })
@@ -1528,7 +1528,7 @@ interface Kuaio {
   /**
    * Set `NumLock` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.NumLock() // equivalent to kuaio.key({ code: 'NumLock', matchMode: 'code' })
@@ -1538,7 +1538,7 @@ interface Kuaio {
   /**
    * Set `F1` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F1() // equivalent to kuaio.key({ code: 'F1', matchMode: 'code' })
@@ -1548,7 +1548,7 @@ interface Kuaio {
   /**
    * Set `F2` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F2() // equivalent to kuaio.key({ code: 'F2', matchMode: 'code' })
@@ -1558,7 +1558,7 @@ interface Kuaio {
   /**
    * Set `F3` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F3() // equivalent to kuaio.key({ code: 'F3', matchMode: 'code' })
@@ -1568,7 +1568,7 @@ interface Kuaio {
   /**
    * Set `F4` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F4() // equivalent to kuaio.key({ code: 'F4', matchMode: 'code' })
@@ -1578,7 +1578,7 @@ interface Kuaio {
   /**
    * Set `F5` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F5() // equivalent to kuaio.key({ code: 'F5', matchMode: 'code' })
@@ -1588,7 +1588,7 @@ interface Kuaio {
   /**
    * Set `F6` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F6() // equivalent to kuaio.key({ code: 'F6', matchMode: 'code' })
@@ -1598,7 +1598,7 @@ interface Kuaio {
   /**
    * Set `F7` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F7() // equivalent to kuaio.key({ code: 'F7', matchMode: 'code' })
@@ -1608,7 +1608,7 @@ interface Kuaio {
   /**
    * Set `F8` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F8() // equivalent to kuaio.key({ code: 'F8', matchMode: 'code' })
@@ -1618,7 +1618,7 @@ interface Kuaio {
   /**
    * Set `F9` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F9() // equivalent to kuaio.key({ code: 'F9', matchMode: 'code' })
@@ -1628,7 +1628,7 @@ interface Kuaio {
   /**
    * Set `F10` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F10() // equivalent to kuaio.key({ code: 'F10', matchMode: 'code' })
@@ -1638,7 +1638,7 @@ interface Kuaio {
   /**
    * Set `F11` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F11() // equivalent to kuaio.key({ code: 'F11', matchMode: 'code' })
@@ -1648,7 +1648,7 @@ interface Kuaio {
   /**
    * Set `F12` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.F12() // equivalent to kuaio.key({ code: 'F12', matchMode: 'code' })
@@ -1658,7 +1658,7 @@ interface Kuaio {
   /**
    * Set `Escape` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Escape() // equivalent to kuaio.key({ code: 'Escape', matchMode: 'code' })
@@ -1668,7 +1668,7 @@ interface Kuaio {
   /**
    * Set `Backquote` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Backquote() // equivalent to kuaio.key({ code: 'Backquote', matchMode: 'code' })
@@ -1678,7 +1678,7 @@ interface Kuaio {
   /**
    * Set `Minus` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Minus() // equivalent to kuaio.key({ code: 'Minus', matchMode: 'code' })
@@ -1688,7 +1688,7 @@ interface Kuaio {
   /**
    * Set `Equal` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Equal() // equivalent to kuaio.key({ code: 'Equal', matchMode: 'code' })
@@ -1698,7 +1698,7 @@ interface Kuaio {
   /**
    * Set `Backspace` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Backspace() // equivalent to kuaio.key({ code: 'Backspace', matchMode: 'code' })
@@ -1708,7 +1708,7 @@ interface Kuaio {
   /**
    * Set `Tab` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Tab() // equivalent to kuaio.key({ code: 'Tab', matchMode: 'code' })
@@ -1718,7 +1718,7 @@ interface Kuaio {
   /**
    * Set `BracketLeft` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.BracketLeft() // equivalent to kuaio.key({ code: 'BracketLeft', matchMode: 'code' })
@@ -1728,7 +1728,7 @@ interface Kuaio {
   /**
    * Set `BracketRight` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.BracketRight() // equivalent to kuaio.key({ code: 'BracketRight', matchMode: 'code' })
@@ -1738,7 +1738,7 @@ interface Kuaio {
   /**
    * Set `Backslash` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Backslash() // equivalent to kuaio.key({ code: 'Backslash', matchMode: 'code' })
@@ -1748,7 +1748,7 @@ interface Kuaio {
   /**
    * Set `CapsLock` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.CapsLock() // equivalent to kuaio.key({ code: 'CapsLock', matchMode: 'code' })
@@ -1758,7 +1758,7 @@ interface Kuaio {
   /**
    * Set `Semicolon` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Semicolon() // equivalent to kuaio.key({ code: 'Semicolon', matchMode: 'code' })
@@ -1768,7 +1768,7 @@ interface Kuaio {
   /**
    * Set `Quote` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Quote() // equivalent to kuaio.key({ code: 'Quote', matchMode: 'code' })
@@ -1778,7 +1778,7 @@ interface Kuaio {
   /**
    * Set `Enter` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Enter() // equivalent to kuaio.key({ code: 'Enter', matchMode: 'code' })
@@ -1788,7 +1788,7 @@ interface Kuaio {
   /**
    * Set `Comma` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Comma() // equivalent to kuaio.key({ code: 'Comma', matchMode: 'code' })
@@ -1798,7 +1798,7 @@ interface Kuaio {
   /**
    * Set `Period` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Period() // equivalent to kuaio.key({ code: 'Period', matchMode: 'code' })
@@ -1808,7 +1808,7 @@ interface Kuaio {
   /**
    * Set `Slash` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Slash() // equivalent to kuaio.key({ code: 'Slash', matchMode: 'code' })
@@ -1818,7 +1818,7 @@ interface Kuaio {
   /**
    * Set `Space` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Space() // equivalent to kuaio.key({ code: 'Space', matchMode: 'code' })
@@ -1828,7 +1828,7 @@ interface Kuaio {
   /**
    * Set `ContextMenu` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.ContextMenu() // equivalent to kuaio.key({ code: 'ContextMenu', matchMode: 'code' })
@@ -1838,7 +1838,7 @@ interface Kuaio {
   /**
    * Set `Insert` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Insert() // equivalent to kuaio.key({ code: 'Insert', matchMode: 'code' })
@@ -1848,7 +1848,7 @@ interface Kuaio {
   /**
    * Set `Delete` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Delete() // equivalent to kuaio.key({ code: 'Delete', matchMode: 'code' })
@@ -1858,7 +1858,7 @@ interface Kuaio {
   /**
    * Set `Home` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Home() // equivalent to kuaio.key({ code: 'Home', matchMode: 'code' })
@@ -1868,7 +1868,7 @@ interface Kuaio {
   /**
    * Set `End` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.End() // equivalent to kuaio.key({ code: 'End', matchMode: 'code' })
@@ -1878,7 +1878,7 @@ interface Kuaio {
   /**
    * Set `PageUp` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.PageUp() // equivalent to kuaio.key({ code: 'PageUp', matchMode: 'code' })
@@ -1888,7 +1888,7 @@ interface Kuaio {
   /**
    * Set `PageDown` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.PageDown() // equivalent to kuaio.key({ code: 'PageDown', matchMode: 'code' })
@@ -1898,7 +1898,7 @@ interface Kuaio {
   /**
    * Set `ArrowUp` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.ArrowUp() // equivalent to kuaio.key({ code: 'ArrowUp', matchMode: 'code' })
@@ -1908,7 +1908,7 @@ interface Kuaio {
   /**
    * Set `ArrowDown` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.ArrowDown() // equivalent to kuaio.key({ code: 'ArrowDown', matchMode: 'code' })
@@ -1918,7 +1918,7 @@ interface Kuaio {
   /**
    * Set `ArrowLeft` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.ArrowLeft() // equivalent to kuaio.key({ code: 'ArrowLeft', matchMode: 'code' })
@@ -1928,7 +1928,7 @@ interface Kuaio {
   /**
    * Set `ArrowRight` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.ArrowRight() // equivalent to kuaio.key({ code: 'ArrowRight', matchMode: 'code' })
@@ -1938,7 +1938,7 @@ interface Kuaio {
   /**
    * Set `PrintScreen` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.PrintScreen() // equivalent to kuaio.key({ code: 'PrintScreen', matchMode: 'code' })
@@ -1948,7 +1948,7 @@ interface Kuaio {
   /**
    * Set `ScrollLock` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.ScrollLock() // equivalent to kuaio.key({ code: 'ScrollLock', matchMode: 'code' })
@@ -1958,7 +1958,7 @@ interface Kuaio {
   /**
    * Set `Pause` physical code as the trigger key for the current combination.
    * @returns This instance for chaining
-   * @see {@link Kuaio.key} for generic key method
+   * @see {@link key} for generic key method
    * @example
    * ```typescript
    * kuaio.Pause() // equivalent to kuaio.key({ code: 'Pause', matchMode: 'code' })
