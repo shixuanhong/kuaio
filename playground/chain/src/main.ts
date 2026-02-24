@@ -34,19 +34,21 @@ Kuaio.createSync()
 Kuaio.createSync()
   .Ctrl()
   .A()
+  .preventDefault()
   .on((e) => {
     console.log('Ctrl + A', e)
   })
 
 Kuaio.createSync()
-  .preventDefault()
   .Ctrl()
   .Shift()
   .A()
+  .preventDefault()
   .on((e) => {
     console.log('Ctrl + Shift + A', e)
   })
 
+// Sequence
 Kuaio.createSync()
   .Q()
   // Set timeout. Pressing the next key within this time will continue listening to the sequence, otherwise it will stop.
@@ -60,7 +62,7 @@ Kuaio.createSync()
     console.log('Q, W, E, R', e)
   })
 
-Kuaio.createSync()
+Kuaio.createSync({ preventDefault: true })
   .Ctrl()
   .K()
   .after()

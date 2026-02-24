@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kuaio CDN Example - Modern Keyboard Shortcuts Library</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Kuaio</h1>
+        <p class="subtitle">Modern Keyboard Shortcuts Library - CDN Example</p>
+      </header>
+
+      <div class="demo-grid">
+        <div class="card">
+          <div class="card-title">
+            <div class="card-icon">⌨️</div>
+            Keyboard Shortcuts
+          </div>
+
+          <div class="instructions">
+            <h3>Try these keyboard combinations:</h3>
+            <ul>
+              <li>
+                <span class="key-combo">A</span>
+                <span>Single key press</span>
+              </li>
+              <li>
+                <span class="key-combo">Ctrl</span>
+                <span class="key-separator">+</span>
+                <span class="key-combo">A</span>
+                <span>Key combination with default prevention</span>
+              </li>
+              <li>
+                <span class="key-combo">Ctrl</span>
+                <span class="key-separator">+</span>
+                <span class="key-combo">Shift</span>
+                <span class="key-separator">+</span>
+                <span class="key-combo">A</span>
+                <span>Complex combination with default prevention</span>
+              </li>
+              <li>
+                <span class="key-combo">Q</span>
+                <span class="key-separator">→</span>
+                <span class="key-combo">W</span>
+                <span class="key-separator">→</span>
+                <span class="key-combo">E</span>
+                <span class="key-separator">→</span>
+                <span class="key-combo">R</span>
+                <span>Key sequence</span>
+              </li>
+              <li>
+                <span class="key-combo">Ctrl</span>
+                <span class="key-separator">+</span>
+                <span class="key-combo">K</span>
+                <span class="key-separator">→</span>
+                <span class="key-combo">Ctrl</span>
+                <span class="key-separator">+</span>
+                <span class="key-combo">C</span>
+                <span>Complex sequence</span>
+              </li>
+            </ul>
+            <div class="instructions-note">
+              <strong>Note:</strong> Combinations with
+              <code>preventDefault()</code> will block browser default behavior
+              (like Ctrl+A for select all).
+            </div>
+          </div>
+
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-value" id="totalEvents">0</div>
+              <div class="stat-label">Total Events</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="singleKeys">0</div>
+              <div class="stat-label">Single Keys</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="combinations">0</div>
+              <div class="stat-label">Combinations</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-value" id="sequences">0</div>
+              <div class="stat-label">Sequences</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">
+            <div class="card-icon">📊</div>
+            Event Log
+          </div>
+
+          <div class="log-container">
+            <div id="log" class="log">
+              <div class="log-entry info">
+                <span class="log-timestamp">[Ready]</span>
+                Kuaio CDN loaded! Try the keyboard shortcuts above...
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <p>
+          Powered by
+          <a href="https://github.com/shixuanhong/kuaio" target="_blank"
+            >Kuaio</a
+          >
+          • Modern JavaScript Keyboard Shortcuts Library
+        </p>
+      </footer>
+    </div>
+
+    <!-- Load Kuaio from CDN -->
+    <script src="https://unpkg.com/kuaio@latest/dist/kuaio.umd.prod.js"></script>
+    <!-- <script src="../../packages/kuaio/dist/kuaio.umd.prod.js"></script> -->
+
+    <script>
+      // Access Kuaio from the global scope
+      const { Kuaio } = window.KuaioJS
+
+      // Statistics tracking
+      const stats = {
+        total: 0,
+        singleKeys: 0,
+        combinations: 0,
+        sequences: 0
+      }
+
+      // Update statistics display
+      function updateStats() {
+        document.getElementById('totalEvents').textContent = stats.total
+        document.getElementById('singleKeys').textContent = stats.singleKeys
+        document.getElementById('combinations').textContent = stats.combinations
+        document.getElementById('sequences').textContent = stats.sequences
+      }
+
+      // Helper function to log events
+      function log(message, type = 'info') {
+        const logElement = document.getElementById('log')
+        const entry = document.createElement('div')
+        entry.className = `log-entry ${type}`
+
+        const timestamp = new Date().toLocaleTimeString()
+        entry.innerHTML = `<span class="log-timestamp">[${timestamp}]</span>${message}`
+
+        logElement.appendChild(entry)
+        logElement.scrollTop = logElement.scrollHeight
+
+        // Update stats
+        stats.total++
+        updateStats()
+      }
+
+      // Single Key
+      Kuaio.createSync()
+        .A()
+        .on((e) => {
+          stats.singleKeys++
+          log('Single key: A pressed', 'success')
+        })
+
+      // Key Combination
+      Kuaio.createSync()
+        .Ctrl()
+        .A()
+        .preventDefault()
+        .on((e) => {
+          stats.combinations++
+          log(
+            'Key combination: Ctrl + A pressed (default prevented)',
+            'success'
+          )
+        })
+
+      Kuaio.createSync()
+        .Ctrl()
+        .Shift()
+        .A()
+        .preventDefault()
+        .on((e) => {
+          stats.combinations++
+          log(
+            'Complex combination: Ctrl + Shift + A pressed (default prevented)',
+            'warning'
+          )
+        })
+
+      // Sequence
+      Kuaio.createSync()
+        .Q()
+        // Set timeout. Pressing the next key within this time will continue listening to the sequence, otherwise it will stop.
+        .after(1000)
+        .W()
+        .after()
+        .E()
+        .after()
+        .R()
+        .on((e) => {
+          stats.sequences++
+          log('Key sequence: Q → W → E → R pressed (default prevented)', 'info')
+        })
+
+      Kuaio.createSync({ preventDefault: true })
+        .Ctrl()
+        .K()
+        .after()
+        .Ctrl()
+        .C()
+        .on((e) => {
+          stats.sequences++
+          log('Complex sequence: Ctrl + K → Ctrl + C pressed', 'info')
+        })
+
+      // Initial log
+      log(
+        'Kuaio CDN loaded successfully! All keyboard shortcuts are now active.',
+        'success'
+      )
+    </script>
+  </body>
+</html>

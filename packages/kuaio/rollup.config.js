@@ -4,32 +4,32 @@ import terser from '@rollup/plugin-terser'
 const libFileName = 'kuaio'
 
 export default [
+  // Development builds
   {
     input: 'src/index.ts',
     output: [
-      {
-        file: `dist/${libFileName}.cjs`,
-        format: 'cjs'
-      },
-      {
-        file: `dist/${libFileName}.mjs`,
-        format: 'esm'
-      },
-      {
-        file: `dist/${libFileName}.umd.js`,
-        format: 'umd',
-        name: 'Kuaio'
+      { file: `dist/${libFileName}.cjs.js`, format: 'cjs' },
+      { file: `dist/${libFileName}.esm.js`, format: 'esm' },
+      { 
+        file: `dist/${libFileName}.umd.js`, 
+        format: 'umd', 
+        name: 'KuaioJS',
+        exports: 'named'
       }
     ],
     plugins: [typescript()]
   },
+  // Production builds
   {
     input: 'src/index.ts',
     output: [
-      {
-        file: `dist/${libFileName}.umd.min.js`,
-        format: 'umd',
-        name: 'Kuaio'
+      { file: `dist/${libFileName}.cjs.prod.js`, format: 'cjs' },
+      { file: `dist/${libFileName}.esm.prod.js`, format: 'esm' },
+      { 
+        file: `dist/${libFileName}.umd.prod.js`, 
+        format: 'umd', 
+        name: 'KuaioJS',
+        exports: 'named'
       }
     ],
     plugins: [typescript(), terser()]

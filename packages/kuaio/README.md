@@ -42,21 +42,64 @@
 
 ## Getting Started
 
+### CDN Usage
+
+You can also use Kuaio via CDN without installing any packages:
+
+#### jsDelivr
+
+```html
+<!-- Development version -->
+<script src="https://cdn.jsdelivr.net/npm/kuaio@latest/dist/kuaio.umd.js"></script>
+
+<!-- Production version (minified) -->
+<script src="https://cdn.jsdelivr.net/npm/kuaio@latest/dist/kuaio.umd.prod.js"></script>
+```
+
+#### UNPKG
+
+```html
+<!-- Development version -->
+<script src="https://unpkg.com/kuaio@latest/dist/kuaio.umd.js"></script>
+
+<!-- Production version (minified) -->
+<script src="https://unpkg.com/kuaio@latest/dist/kuaio.umd.prod.js"></script>
+```
+
+#### Usage with CDN
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kuaio CDN Example</title>
+    <!-- Load Kuaio from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/kuaio@latest/dist/kuaio.umd.prod.js"></script>
+</head>
+<body>
+    <script>
+        const { Kuaio } = window.KuaioJS
+        Kuaio.createSync()
+            .Control()
+            .A()
+            .on((event) => {
+                console.log('Ctrl+A pressed!', event)
+            })
+    </script>
+</body>
+</html>
+```
+
 ### Installation
 
 ```shell
+# Using npm
 npm install kuaio
-```
 
-or
-
-```shell
+# Using yarn
 yarn add kuaio
-```
 
-or
-
-```shell
+# Using pnpm
 pnpm add kuaio
 ```
 

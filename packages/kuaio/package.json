@@ -37,13 +37,15 @@
   ],
   "exports": {
     ".": {
-      "import": "./dist/kuaio.mjs",
-      "require": "./dist/kuaio.cjs",
-      "types": "./dist/index.d.ts"
-    }
+      "types": "./dist/index.d.ts",
+      "import": "./dist/kuaio.esm.js",
+      "require": "./dist/kuaio.cjs.js",
+      "default": "./dist/kuaio.esm.js"
+    },
+    "./package.json": "./package.json"
   },
-  "main": "./dist/kuaio.cjs",
-  "module": "./dist/kuaio.mjs",
+  "main": "./dist/kuaio.cjs.js",
+  "module": "./dist/kuaio.esm.js",
   "types": "./dist/index.d.ts",
   "devDependencies": {
     "@rollup/plugin-terser": "^0.4.3",

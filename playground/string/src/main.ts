@@ -32,22 +32,26 @@ Kuaio.createSync()
   })
 
 // Key Combination
-Kuaio.createSync()
+Kuaio.createSync({ preventDefault: true })
   .define('Ctrl + A')
   .on((e) => {
     console.log('Ctrl + A', e)
   })
+
 Kuaio.createSync({ preventDefault: true })
   .define('Ctrl + Shift + A')
   .on((e) => {
     console.log('Ctrl + Shift + A', e)
   })
+
+// Sequence
 Kuaio.createSync()
   .define('Q, W, E, R')
   .on((e) => {
     console.log('Q, W, E, R', e)
   })
-Kuaio.createSync()
+
+Kuaio.createSync({ preventDefault: true })
   .define('Ctrl + K, Ctrl + C')
   .on((e) => {
     console.log('Ctrl + K, Ctrl + C', e)

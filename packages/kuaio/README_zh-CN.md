@@ -42,21 +42,64 @@
 
 ## 入门
 
+### CDN 使用
+
+你也可以通过 CDN 使用 Kuaio，无需安装任何包：
+
+#### jsDelivr
+
+```html
+<!-- 开发版本 -->
+<script src="https://cdn.jsdelivr.net/npm/kuaio@latest/dist/kuaio.umd.js"></script>
+
+<!-- 生产版本（压缩版） -->
+<script src="https://cdn.jsdelivr.net/npm/kuaio@latest/dist/kuaio.umd.prod.js"></script>
+```
+
+#### UNPKG
+
+```html
+<!-- 开发版本 -->
+<script src="https://unpkg.com/kuaio@latest/dist/kuaio.umd.js"></script>
+
+<!-- 生产版本（压缩版） -->
+<script src="https://unpkg.com/kuaio@latest/dist/kuaio.umd.prod.js"></script>
+```
+
+#### CDN 使用示例
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kuaio CDN 示例</title>
+    <!-- 从 CDN 加载 Kuaio -->
+    <script src="https://cdn.jsdelivr.net/npm/kuaio@latest/dist/kuaio.umd.prod.js"></script>
+</head>
+<body>
+    <script>
+        const { Kuaio } = window.KuaioJS
+        Kuaio.createSync()
+            .Control()
+            .A()
+            .on((event) => {
+                console.log('Ctrl+A 按下!', event)
+            })
+    </script>
+</body>
+</html>
+```
+
 ### 安装
 
 ```shell
+# 使用 npm
 npm install kuaio
-```
 
-or
-
-```shell
+# 使用 yarn
 yarn add kuaio
-```
 
-or
-
-```shell
+# 使用 pnpm
 pnpm add kuaio
 ```
 
