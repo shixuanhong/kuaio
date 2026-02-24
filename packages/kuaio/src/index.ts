@@ -1,5 +1,4 @@
-import Kuaio from './core/index'
-export { VirtualKeys } from './constants/index'
+export { VirtualKeys } from './constants'
 
 export {
   EditingKeys,
@@ -9,13 +8,22 @@ export {
   ModifierKeys,
   NavigationKeys,
   WhitespaceKeys,
+  DeviceKeys,
   GeneralKeys,
-  KeyboardEventType
+  KeyboardEventType,
+  KeyboardCodes
 } from './enums'
 
-export * from './core/classes'
-export type { KuaioConfig, KuaioLayout, KuaioCallback } from './core/index'
+export {
+  KuaioKey,
+  type KuaioKeyInit,
+  type KuaioKeyMatchMode
+} from './core/classes'
+export {
+  Kuaio,
+  type KuaioConfig,
+  type KuaioLayout,
+  type KuaioCallback
+} from './core'
 
-export * from './core/layout/index'
-
-export default Kuaio
+export * from './core/layout'

@@ -1,13 +1,12 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { dispatchSequence } from '../../src/core/dispatcher'
-import { KuaioCombination, KuaioSequence } from '../../src/core/sequence'
+import { KuaioCombination, KuaioSequence } from '../../src/core/classes'
 import {
   CombinationModifierKeys,
-  ModifierKeys,
   KeyboardCodes,
   GeneralKeys
 } from '../../src/enums'
-import Kuaio from '../../src/core/index'
+import { Kuaio } from '../../src/core/index'
 import qwerty from '../../src/core/layout/presets/qwerty/index'
 import { normalizeToKuaioKey, sleep } from '../../src/utils'
 
@@ -277,7 +276,11 @@ describe('dispatchSequence', () => {
         { key: GeneralKeys.A },
         { key: GeneralKeys.B }
       ])
-      const promise = dispatchSequence({ target, sequence: seq, baseTimeout: 0 })
+      const promise = dispatchSequence({
+        target,
+        sequence: seq,
+        baseTimeout: 0
+      })
 
       await vi.advanceTimersByTimeAsync(1)
       expect(events).toHaveLength(4)

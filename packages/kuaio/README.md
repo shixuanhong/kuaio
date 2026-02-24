@@ -15,7 +15,7 @@
 ### 🟦 Basic Features
 
 - **⚡ Chain API** - Intuitive and fluent method chaining
-- **📝 String Definition** - Simple string-based shortcut definitions  
+- **📝 String Definition** - Simple string-based shortcut definitions
 - **🔄 Sequence Support** - Trigger events only when all defined keys or combinations are pressed in sequence (e.g., `Ctrl+K, Ctrl+C`)
 - **⌨️ Modifier Detection** - Full support for modifier keys such as `Alt`, `Ctrl`, `Meta`, `Shift`
 - **🎯 Event Control** - Support for event controls such as `preventDefault`, `stopPropagation`
@@ -27,15 +27,16 @@
 
 ## Browser Support
 
-| Browser | Minimum Version | Basic Features | Auto Layout Check | Status |
-|---------|-----------------|----------------|-------------------|--------|
-| **Chrome** | 69+ | ✅ Full Support | ✅ Full Support | 🟢 Recommended |
-| **Edge** | 79+ | ✅ Full Support | ✅ Full Support | 🟢 Recommended |
-| **Firefox** | 51+ | ✅ Full Support | ❌ Not Supported | 🟡 Compatible |
-| **Opera** | 56+ | ✅ Full Support | ✅ Full Support | 🟢 Recommended |
-| **Safari** | 10.1+ | ✅ Full Support | ❌ Not Supported | 🟡 Compatible |
+| Browser     | Minimum Version | Basic Features  | Auto Layout Check | Status         |
+| ----------- | --------------- | --------------- | ----------------- | -------------- |
+| **Chrome**  | 69+             | ✅ Full Support | ✅ Full Support   | 🟢 Recommended |
+| **Edge**    | 79+             | ✅ Full Support | ✅ Full Support   | 🟢 Recommended |
+| **Firefox** | 51+             | ✅ Full Support | ❌ Not Supported  | 🟡 Compatible  |
+| **Opera**   | 56+             | ✅ Full Support | ✅ Full Support   | 🟢 Recommended |
+| **Safari**  | 10.1+           | ✅ Full Support | ❌ Not Supported  | 🟡 Compatible  |
 
-> **💡 Usage Recommendations**: 
+> **💡 Usage Recommendations**:
+>
 > - 🟢 Recommended versions: Support all features
 > - 🟡 Compatible versions: Support basic features, layout check falls back to default QWERTY or manually register and specify other layouts
 
@@ -62,17 +63,22 @@ pnpm add kuaio
 ### Quick Start
 
 ```javascript
-import Kuaio from 'kuaio'
+import { Kuaio } from 'kuaio'
 
 // Chain call - recommended approach
-Kuaio.createSync().Control().A().on((event) => {
-  console.log('Ctrl+A pressed!', event)
-})
+Kuaio.createSync()
+  .Control()
+  .A()
+  .on((event) => {
+    console.log('Ctrl+A pressed!', event)
+  })
 
 // String-based definition
-Kuaio.createSync().define('Control+A').on((event) => {
-  console.log('Ctrl+A pressed!', event)
-})
+Kuaio.createSync()
+  .define('Control+A')
+  .on((event) => {
+    console.log('Ctrl+A pressed!', event)
+  })
 
 // Dispatch events programmatically
 Kuaio.createSync().define('Escape').dispatchFirst()
@@ -136,22 +142,29 @@ There are two ways to create listeners:
 1\. **Chain Call**
 
 ```javascript
-Kuaio.createSync().Control().A().on((event) => {
-  console.log('Ctrl+A pressed!', event)
-})
+Kuaio.createSync()
+  .Control()
+  .A()
+  .on((event) => {
+    console.log('Ctrl+A pressed!', event)
+  })
 ```
 
 2\. **String Definition**
 
 ```javascript
-Kuaio.createSync().define('Control+A').on((event) => {
-  console.log('Ctrl+A pressed!', event)
-})
+Kuaio.createSync()
+  .define('Control+A')
+  .on((event) => {
+    console.log('Ctrl+A pressed!', event)
+  })
 
 // Multiple alternative sequences
-Kuaio.createSync().define('Control+A', 'Meta+A').on((event) => {
-  console.log('Ctrl+A or Cmd+A pressed!', event)
-})
+Kuaio.createSync()
+  .define('Control+A', 'Meta+A')
+  .on((event) => {
+    console.log('Ctrl+A or Cmd+A pressed!', event)
+  })
 ```
 
 ### Trigger
@@ -162,25 +175,41 @@ Kuaio provides built-in methods for efficient key selection. When these methods 
 
 ```javascript
 // Logical keys (A-Z)
-Kuaio.createSync().A().on((event) => console.log('A pressed!', event))
+Kuaio.createSync()
+  .A()
+  .on((event) => console.log('A pressed!', event))
 
 // Physical key codes
-Kuaio.createSync().KeyA().on((event) => console.log('KeyA pressed!', event))
+Kuaio.createSync()
+  .KeyA()
+  .on((event) => console.log('KeyA pressed!', event))
 
 // Function keys
-Kuaio.createSync().F1().on((event) => console.log('F1 pressed!', event))
+Kuaio.createSync()
+  .F1()
+  .on((event) => console.log('F1 pressed!', event))
 
 // Special keys
-Kuaio.createSync().Enter().on((event) => console.log('Enter pressed!', event))
-Kuaio.createSync().Escape().on((event) => console.log('Escape pressed!', event))
-Kuaio.createSync().Backspace().on((event) => console.log('Backspace pressed!', event))
+Kuaio.createSync()
+  .Enter()
+  .on((event) => console.log('Enter pressed!', event))
+Kuaio.createSync()
+  .Escape()
+  .on((event) => console.log('Escape pressed!', event))
+Kuaio.createSync()
+  .Backspace()
+  .on((event) => console.log('Backspace pressed!', event))
 ```
 
 You can also use the generic `key` method:
 
 ```javascript
-Kuaio.createSync().key('A').on((event) => console.log('A pressed!', event))
-Kuaio.createSync().key({ code: 'Enter', matchMode: 'code' }).on((event) => console.log('Enter pressed!', event))
+Kuaio.createSync()
+  .key('A')
+  .on((event) => console.log('A pressed!', event))
+Kuaio.createSync()
+  .key({ code: 'Enter', matchMode: 'code' })
+  .on((event) => console.log('Enter pressed!', event))
 ```
 
 #### Key Combination
@@ -191,31 +220,45 @@ Use a combination of modifier keys with other trigger keys:
 
 ```javascript
 // Basic combination
-Kuaio.createSync().Control().A().on((event) => {
-  console.log('Ctrl+A pressed!', event)
-})
+Kuaio.createSync()
+  .Control()
+  .A()
+  .on((event) => {
+    console.log('Ctrl+A pressed!', event)
+  })
 
 // Multiple modifiers
-Kuaio.createSync().Control().Shift().A().on((event) => {
-  console.log('Ctrl+Shift+A pressed!', event)
-})
+Kuaio.createSync()
+  .Control()
+  .Shift()
+  .A()
+  .on((event) => {
+    console.log('Ctrl+Shift+A pressed!', event)
+  })
 
 // Using generic modifier method
-Kuaio.createSync().modifier('Alt').A().on((event) => {
-  console.log('Alt+A pressed!', event)
-})
+Kuaio.createSync()
+  .modifier('Alt')
+  .A()
+  .on((event) => {
+    console.log('Alt+A pressed!', event)
+  })
 ```
 
 2\. **String Definition**
 
 ```javascript
-Kuaio.createSync().define('Control+A').on((event) => {
-  console.log('Ctrl+A pressed!', event)
-})
+Kuaio.createSync()
+  .define('Control+A')
+  .on((event) => {
+    console.log('Ctrl+A pressed!', event)
+  })
 
-Kuaio.createSync().define('Control+Alt+A').on((event) => {
-  console.log('Ctrl+Alt+A pressed!', event)
-})
+Kuaio.createSync()
+  .define('Control+Alt+A')
+  .on((event) => {
+    console.log('Ctrl+Alt+A pressed!', event)
+  })
 ```
 
 #### Sequence
@@ -226,31 +269,52 @@ Define sequences of key combinations that trigger when pressed in order:
 
 ```javascript
 // Simple sequence
-Kuaio.createSync().Q().after(1000).W().after().E().after().R().on((event) => {
-  console.log('Q, W, E, R sequence pressed!', event)
-})
+Kuaio.createSync()
+  .Q()
+  .after(1000)
+  .W()
+  .after()
+  .E()
+  .after()
+  .R()
+  .on((event) => {
+    console.log('Q, W, E, R sequence pressed!', event)
+  })
 
 // Complex sequence with combinations
-Kuaio.createSync().preventDefault().Control().K().after().Control().C().on((event) => {
-  console.log('Ctrl+K, Ctrl+C sequence pressed!', event)
-})
+Kuaio.createSync()
+  .preventDefault()
+  .Control()
+  .K()
+  .after()
+  .Control()
+  .C()
+  .on((event) => {
+    console.log('Ctrl+K, Ctrl+C sequence pressed!', event)
+  })
 ```
 
 2\. **String Definition**
 
 ```javascript
 // Simple sequence
-Kuaio.createSync().define('Q,W,E,R').on((event) => {
-  console.log('Q, W, E, R sequence pressed!', event)
-})
+Kuaio.createSync()
+  .define('Q,W,E,R')
+  .on((event) => {
+    console.log('Q, W, E, R sequence pressed!', event)
+  })
 
 // Complex sequence
-Kuaio.createSync().define('Control+K,Control+C').on((event) => {
-  console.log('Ctrl+K, Ctrl+C sequence pressed!', event)
-})
+Kuaio.createSync()
+  .define('Control+K,Control+C')
+  .on((event) => {
+    console.log('Ctrl+K, Ctrl+C sequence pressed!', event)
+  })
 
 // With configuration
-Kuaio.createSync({ preventDefault: true }).define('Control+Shift+A').on((event) => {
-  console.log('Ctrl+Shift+A pressed!', event)
-})
+Kuaio.createSync({ preventDefault: true })
+  .define('Control+Shift+A')
+  .on((event) => {
+    console.log('Ctrl+Shift+A pressed!', event)
+  })
 ```

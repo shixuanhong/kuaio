@@ -7,7 +7,12 @@ import {
   CombinationModifierCodes,
   CombinationModifierKeys
 } from '../enums'
-import { KuaioKey, KuaioKeyInit, KuaioCombination, KuaioSequence } from './classes'
+import {
+  KuaioKey,
+  KuaioKeyInit,
+  KuaioCombination,
+  KuaioSequence
+} from './classes'
 import { createNativeEventListeners, KuaioCallback } from './listener'
 import {
   registerLayout,
@@ -202,7 +207,7 @@ class Kuaio {
   _sequenceList: KuaioSequence[]
   /** Currently building combination within the sequence */
   _curSequenceItem: KuaioCombination | null
- /** Native event listeners added via {@link on} */
+  /** Native event listeners added via {@link on} */
   _listeners: EventListener[] | undefined
   // #endregion
 
@@ -2006,5 +2011,5 @@ interface Kuaio {
 
 Kuaio.registerLayout(qwerty)
 
-export default Kuaio
+export { Kuaio }
 export type { KuaioConfig, KuaioLayout, KuaioCallback }
