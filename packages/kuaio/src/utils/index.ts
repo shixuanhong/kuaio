@@ -19,6 +19,9 @@ export function normalizeToKuaioKey(
   input: string | KuaioKeyInit | KuaioKey,
   layout: KuaioLayout
 ): KuaioKey {
+  if (!input) {
+    throw new Error('Input key cannot be empty.')
+  }
   if (input instanceof KuaioKey) {
     return input
   } else if (typeof input === 'string') {

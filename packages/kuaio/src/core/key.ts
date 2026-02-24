@@ -25,7 +25,6 @@ export interface KuaioKeyInit {
  * For example:
  * - By code: `new KuaioKey({ code: 'KeyA', matchMode: 'code' })`
  * - By key:  `new KuaioKey({ key: 'a', matchMode: 'key' })`
- * - Both:    `new KuaioKey({ code: 'KeyA', key: 'a', matchMode: 'code' })`
  */
 export class KuaioKey {
   isModifier: boolean

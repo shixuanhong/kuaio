@@ -567,5 +567,7 @@ interface Kuaio {
   Windows(): this
 }
 
+Kuaio.registryLayout(qwerty)
+
 export default Kuaio
 export type { KuaioConfig, KuaioLayout, KuaioCallback }

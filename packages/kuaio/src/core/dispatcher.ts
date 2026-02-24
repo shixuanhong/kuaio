@@ -14,6 +14,9 @@ interface ModifierState {
   modifierScrollLock: boolean
 }
 
+// Normalize the modifier list on each combination into the KeyboardEvent shape.
+// This ensures `KeyboardEvent` receives the canonical ctrl/alt/meta/shift flags
+// while also exposing less common modifier toggles via `getModifierState`.
 const getModifierState = (modifiers: string[]): ModifierState => ({
   ctrlKey: modifiers.includes(CombinationModifierKeys.Control),
   shiftKey: modifiers.includes(CombinationModifierKeys.Shift),
@@ -25,6 +28,7 @@ const getModifierState = (modifiers: string[]): ModifierState => ({
   modifierScrollLock: modifiers.includes(ModifierKeys.ScrollLock)
 })
 
+// Dispatch a single synthetic keyboard event with the provided key metadata.
 const dispatchEvent = (
   target: EventTarget,
   type: string,
@@ -58,6 +62,9 @@ export async function dispatchSequence({
     )
   }
 
+  // Dispatch every combination sequentially, emitting a keydown/keyup pair
+  // (if a trigger key exists) and then honoring either the per-combo timeout
+  // or the provided base timeout before moving to the next item.
   for (const item of sequence) {
     const { key, modifiers, timeout } = item
     const modifierKeys = modifiers
