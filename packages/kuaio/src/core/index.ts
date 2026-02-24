@@ -7,8 +7,7 @@ import {
   CombinationModifierCodes,
   CombinationModifierKeys
 } from '../enums'
-import { KuaioKey, KuaioKeyInit } from './key'
-import { KuaioCombination, KuaioSequence } from './sequence'
+import { KuaioKey, KuaioKeyInit, KuaioCombination, KuaioSequence } from './classes'
 import { createNativeEventListeners, KuaioCallback } from './listener'
 import {
   registerLayout,

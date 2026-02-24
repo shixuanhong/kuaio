@@ -6,7 +6,7 @@ import {
   ModifierKeys,
   GeneralKeys
 } from '../enums'
-import { KuaioKey, KuaioKeyInit } from '../core/key'
+import { KuaioKey, KuaioKeyInit } from '../core/classes'
 import { KuaioLayout } from '../core/layout/index'
 
 /**

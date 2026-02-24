@@ -1,7 +1,6 @@
 import { CombinationModifierKeys, ModifierKeys } from '../enums'
 import { sleep } from '../utils'
-import { KuaioKey } from './key'
-import { KuaioSequence } from './sequence'
+import { KuaioKey, KuaioSequence } from './classes'
 
 interface ModifierState {
   ctrlKey: boolean

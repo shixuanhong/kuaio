@@ -3,7 +3,7 @@ import {
   isCombinationModifierKey
 } from '../utils/index'
 import { KuaioConfig, getGlobalConfig } from './config/index'
-import { KuaioSequence } from './sequence'
+import { KuaioSequence } from './classes'
 
 const assertSequenceValid = (sequence: KuaioSequence): void => {
   if (sequence.length === 0) {

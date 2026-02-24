@@ -3,8 +3,7 @@ import {
   isCombinationModifierKey,
   normalizeToKuaioKey
 } from '../../utils/index'
-import { KuaioKey } from '../key'
-import { KuaioCombination, KuaioSequence } from '../sequence'
+import { KuaioKey, KuaioCombination, KuaioSequence } from '../classes'
 import { KuaioLayout } from '../layout/index'
 
 const COMBINATION_SEPARATOR = ','

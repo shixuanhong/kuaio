@@ -1,4 +1,4 @@
-import { KuaioKey } from './key'
+import { KuaioKey } from './KuaioKey'
 
 /**
  * Represents a keyboard shortcut combination.
@@ -11,7 +11,6 @@ import { KuaioKey } from './key'
  * @property {boolean} [stopPropagation] - Whether to stop event propagation
  * @property {boolean} [stopImmediatePropagation] - Whether to stop immediate propagation
  */
-
 export class KuaioCombination {
   modifiers: KuaioKey[] = []
   key: KuaioKey | undefined
@@ -19,15 +18,4 @@ export class KuaioCombination {
   preventDefault: boolean | undefined
   stopPropagation: boolean | undefined
   stopImmediatePropagation: boolean | undefined
-}
-
-/**
- * Represents a sequence of keyboard shortcut combinations.
- * A sequence is an ordered array of combinations that must be pressed in order.
- * @class KuaioSequence
- * @extends {Array<KuaioCombination>}
- */
-
-export class KuaioSequence extends Array<KuaioCombination> {
-
 }
