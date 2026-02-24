@@ -321,7 +321,7 @@ describe('Kuaio dispatch API', () => {
   let events
 
   beforeEach(() => {
-    Kuaio.registryLayout(qwerty)
+    Kuaio.registerLayout(qwerty)
     target = document.createElement('div')
     events = collectEvents(target)
     vi.useFakeTimers()
@@ -465,7 +465,7 @@ describe('Kuaio dispatch API', () => {
 // ============================================================
 describe('dispatch triggers listener callback', () => {
   beforeEach(() => {
-    Kuaio.registryLayout(qwerty)
+    Kuaio.registerLayout(qwerty)
   })
 
   // --- 15. 派发匹配的单键触发回调 ---

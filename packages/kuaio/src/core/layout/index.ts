@@ -11,14 +11,14 @@ const keyboardLayoutMap = new Map<string, KuaioLayout>()
 /**
  * Register a keyboard layout related handler.
  */
-export function registryLayout(layout: KuaioLayout): void {
+export function registerLayout(layout: KuaioLayout): void {
   keyboardLayoutMap.set(layout.name, layout)
 }
 
 /**
  * Unregister a keyboard layout.
  */
-export function unregistryLayout(name: string): void {
+export function unregisterLayout(name: string): void {
   keyboardLayoutMap.delete(name)
 }
 

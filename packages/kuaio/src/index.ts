@@ -18,4 +18,6 @@ export type { KuaioKeyInit, KuaioKeyMatchMode } from './core/key'
 export { KuaioCombination, KuaioSequence } from './core/sequence'
 export type { KuaioConfig, KuaioLayout, KuaioCallback } from './core/index'
 
+export * from './core/layout/index'
+
 export default Kuaio
