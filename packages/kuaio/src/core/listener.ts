@@ -1,10 +1,8 @@
 import {
-  getGlyphModifierKeyState,
   getCombinationModifierKeyMatched,
-  keyEqualTo
+  isCombinationModifierKey
 } from '../utils/index'
-import { KuaioConfig, getDefaultConfig } from './config/index'
-import { getCachedLayout } from './layout/index'
+import { KuaioConfig, getGlobalConfig } from './config/index'
 import { KuaioSequence } from './sequence'
 
 const assertSequenceValid = (sequence: KuaioSequence): void => {
@@ -13,9 +11,9 @@ const assertSequenceValid = (sequence: KuaioSequence): void => {
   }
 
   sequence.forEach((sequenceItem, index) => {
-    if (!sequenceItem?.key) {
+    if (!sequenceItem.key) {
       throw new Error(
-        `The sequenceItem at position ${index} in the sequence does not specify the property: [key].`
+        `The sequenceItem at position ${index} in the sequence does not specify a trigger key.`
       )
     }
   })
@@ -58,32 +56,42 @@ export function createNativeEventListener(
 
   return (async (event: Event) => {
     const keyboardEvent = event as KeyboardEvent
-    const defaultConfig = getDefaultConfig()
+    const globalConfig = getGlobalConfig()
     const {
       preventDefault,
       stopPropagation,
       stopImmediatePropagation,
-      sequenceTimeout,
-      disableGlyphHandler
-    } = { ...defaultConfig, ...config }
+      sequenceTimeout
+    } = { ...globalConfig, ...config }
 
     const sequenceItem = sequence[sequenceIndex]
     let triggerKey = keyboardEvent.key
     /** Skip if the current key is one of the modifiers of the current sequenceItem. */
-    if (sequenceItem.modifiers.indexOf(triggerKey) > -1) return
-
+    if (
+      sequenceItem.modifiers.findIndex((item) => item.key === triggerKey) > -1
+    )
+      return
+    const modifiers = [...sequenceItem.modifiers]
+    /** Check trigger key match. */
+    let triggerMatched = false
+    if (sequenceItem.key) {
+      triggerMatched = sequenceItem.key.match(keyboardEvent)
+      // When a modifier key is used as the trigger key, add it to the modifiers list for proper matching
+      if (
+        sequenceItem.key.matchMode === 'key' &&
+        sequenceItem.key.key &&
+        isCombinationModifierKey(sequenceItem.key.key)
+      ) {
+        modifiers.push(sequenceItem.key)
+      }
+    }
     const modifiersMatched = getCombinationModifierKeyMatched(
-      sequenceItem.modifiers,
+      modifiers,
       keyboardEvent
     )
 
-    const layout = await getCachedLayout()
-    if (!disableGlyphHandler) {
-      const { glyphHandler } = layout
-      triggerKey = glyphHandler(keyboardEvent.key, getGlyphModifierKeyState(keyboardEvent))
-    }
-
-    if (keyEqualTo(triggerKey, sequenceItem.key!) && modifiersMatched) {
+    const matched = triggerMatched && modifiersMatched
+    if (matched) {
       /**
        * After the conditions of the current sequence element are met, prevent the browser's default behavior,
        * prevent event propagation, and prevent other event listeners on the current event target listening to the same event from being called.
@@ -125,11 +133,7 @@ export function createNativeEventListeners(
 ): EventListener[] {
   const { target, config, eventType, sequenceList } = options
   const listeners = sequenceList.map((sequence) => {
-    const listener = createNativeEventListener(
-      callback,
-      sequence,
-      config
-    )
+    const listener = createNativeEventListener(callback, sequence, config)
     target.addEventListener(eventType, listener)
     return listener
   })

@@ -1,10 +1,11 @@
+import { KuaioKey } from './key'
+
 /**
  * Represents a keyboard shortcut combination.
- * A combination consists of optional modifier keys (e.g., Ctrl, Shift, Alt)
- * and a trigger key that must be pressed together.
+ * A combination consists of optional modifier keys and a trigger key that must be pressed together.
  * @class KuaioCombination
- * @property {string[]} modifiers - Array of modifier keys (e.g., Control, Shift, Alt)
- * @property {string} key - The trigger key for the combination
+ * @property {KuaioKey[]} modifiers - Array of modifier keys, each represented as a KuaioKey with one or more codes
+ * @property {KuaioKey} [key] - The trigger key for the combination, matched via event.code
  * @property {number} [timeout] - Optional timeout in milliseconds for sequence combinations
  * @property {boolean} [preventDefault] - Whether to prevent the browser's default behavior
  * @property {boolean} [stopPropagation] - Whether to stop event propagation
@@ -12,8 +13,8 @@
  */
 
 export class KuaioCombination {
-  modifiers: string[] = []
-  key: string | undefined
+  modifiers: KuaioKey[] = []
+  key: KuaioKey | undefined
   timeout: number | undefined
   preventDefault: boolean | undefined
   stopPropagation: boolean | undefined
@@ -28,11 +29,5 @@ export class KuaioCombination {
  */
 
 export class KuaioSequence extends Array<KuaioCombination> {
-  getAllModifiers(): Set<string> {
-    const result = new Set<string>()
-    this.forEach((item) => {
-      item.modifiers.forEach((modifier) => result.add(modifier))
-    })
-    return result
-  }
+
 }

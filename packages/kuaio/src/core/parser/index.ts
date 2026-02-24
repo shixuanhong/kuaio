@@ -1,10 +1,19 @@
-import { getRealKey, isCombinationModifierKey } from '../../utils/index'
+import {
+  getRealKey,
+  isCombinationModifierKey,
+  normalizeToKuaioKey
+} from '../../utils/index'
+import { KuaioKey } from '../key'
 import { KuaioCombination, KuaioSequence } from '../sequence'
+import { KuaioLayout } from '../layout/index'
 
 const COMBINATION_SEPARATOR = ','
 const COMBINATION_JOIN = '+'
 
-export function stringDefinitionParser(inputStr: string): KuaioSequence {
+export function stringDefinitionParser(
+  inputStr: string,
+  layout: KuaioLayout
+): KuaioSequence {
   if (typeof inputStr !== 'string') {
     throw new Error('Parameter [inputStr] must be a string.')
   }
@@ -19,11 +28,16 @@ export function stringDefinitionParser(inputStr: string): KuaioSequence {
     }
     const combination = new KuaioCombination()
     combinationStr.split(COMBINATION_JOIN).forEach((key) => {
-      const realKey = getRealKey(key)
-      if (isCombinationModifierKey(realKey)) {
-        combination.modifiers.push(realKey)
+      const kuaioKey = normalizeToKuaioKey(key, layout)
+      if (
+        kuaioKey.matchMode === 'key' &&
+        kuaioKey.key &&
+        isCombinationModifierKey(kuaioKey.key)
+      ) {
+        kuaioKey.isModifier = true
+        combination.modifiers.push(kuaioKey)
       } else {
-        combination.key = realKey
+        combination.key = kuaioKey
       }
     })
     sequence.push(combination)

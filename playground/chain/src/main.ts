@@ -23,31 +23,31 @@ document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
 `
 
 setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
-
 // Single Key
-Kuaio.create()
+Kuaio.createSync()
   .A()
   .on((e) => {
-    console.log('a', e)
+    console.log('A', e)
   })
 
 // Key Combination
-Kuaio.create()
+Kuaio.createSync()
   .Ctrl()
   .A()
   .on((e) => {
-    console.log('Ctrl + a', e)
+    console.log('Ctrl + A', e)
   })
 
-Kuaio.create()
+Kuaio.createSync()
+  .preventDefault()
   .Ctrl()
-  .Alt()
+  .Shift()
   .A()
   .on((e) => {
-    console.log('Ctrl + Alt + a', e)
+    console.log('Ctrl + Shift + A', e)
   })
 
-Kuaio.create()
+Kuaio.createSync()
   .Q()
   // Set timeout. Pressing the next key within this time will continue listening to the sequence, otherwise it will stop.
   .after(1000)
@@ -57,16 +57,15 @@ Kuaio.create()
   .after()
   .R()
   .on((e) => {
-    console.log('q, w, e, r', e)
+    console.log('Q, W, E, R', e)
   })
 
-Kuaio.create()
-  .preventDefault()
+Kuaio.createSync()
   .Ctrl()
   .K()
   .after()
   .Ctrl()
   .C()
   .on((e) => {
-    console.log('Ctrl + k, Ctrl + c', e)
+    console.log('Ctrl + K, Ctrl + C', e)
   })

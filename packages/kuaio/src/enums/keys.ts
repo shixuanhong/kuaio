@@ -78,6 +78,22 @@ export enum UIKeys {
 }
 
 /**
+ * @see https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#device_keys
+ */
+export enum DeviceKeys {
+  BrightnessDown = 'BrightnessDown',
+  BrightnessUp = 'BrightnessUp',
+  Eject = 'Eject',
+  LogOff = 'LogOff',
+  Power = 'Power',
+  PowerOff = 'PowerOff',
+  PrintScreen = 'PrintScreen',
+  Hibernate = 'Hibernate',
+  Standby = 'Standby',
+  WakeUp = 'WakeUp'
+}
+
+/**
  * @see https://developer.mozilla.org/en-US/docs/Web/API/UI_Events/Keyboard_event_key_values#function_keys
  */
 export enum FunctionKeys {
@@ -91,6 +107,7 @@ export enum FunctionKeys {
   F8 = 'F8',
   F9 = 'F9',
   F10 = 'F10',
+  F11 = 'F11',
   F12 = 'F12',
   F13 = 'F13',
   F14 = 'F14',
@@ -103,32 +120,32 @@ export enum FunctionKeys {
 }
 
 export enum GeneralKeys {
-  A = 'a',
-  B = 'b',
-  C = 'c',
-  D = 'd',
-  E = 'e',
-  F = 'f',
-  G = 'g',
-  H = 'h',
-  I = 'i',
-  J = 'j',
-  K = 'k',
-  L = 'l',
-  M = 'm',
-  N = 'n',
-  O = 'o',
-  P = 'p',
-  Q = 'q',
-  R = 'r',
-  S = 's',
-  T = 't',
-  U = 'u',
-  V = 'v',
-  W = 'w',
-  X = 'x',
-  Y = 'y',
-  Z = 'z',
+  A = 'A',
+  B = 'B',
+  C = 'C',
+  D = 'D',
+  E = 'E',
+  F = 'F',
+  G = 'G',
+  H = 'H',
+  I = 'I',
+  J = 'J',
+  K = 'K',
+  L = 'L',
+  M = 'M',
+  N = 'N',
+  O = 'O',
+  P = 'P',
+  Q = 'Q',
+  R = 'R',
+  S = 'S',
+  T = 'T',
+  U = 'U',
+  V = 'V',
+  W = 'W',
+  X = 'X',
+  Y = 'Y',
+  Z = 'Z',
   Digit0 = '0',
   Digit1 = '1',
   Digit2 = '2',

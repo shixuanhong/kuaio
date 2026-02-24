@@ -2,9 +2,36 @@ import { VirtualKeys } from '../constants/index'
 import {
   CombinationModifierKeys,
   CombinationModifierKeyAlias,
+  PlatformBrand,
   ModifierKeys,
-  PlatformBrand
+  GeneralKeys
 } from '../enums'
+import { KuaioKey, KuaioKeyInit } from '../core/key'
+import { KuaioLayout } from '../core/layout/index'
+
+/**
+ * Normalize a flexible input into a `KuaioKey` instance.
+ * - `KuaioKey`: returned as-is
+ * - `string`: resolved to physical code via layout's `keyToCodeHandler`
+ * - `KuaioKeyInit`: used to construct a new `KuaioKey`
+ */
+export function normalizeToKuaioKey(
+  input: string | KuaioKeyInit | KuaioKey,
+  layout: KuaioLayout
+): KuaioKey {
+  if (input instanceof KuaioKey) {
+    return input
+  } else if (typeof input === 'string') {
+    const realKey = getRealKey(input)
+    if (isCombinationModifierKey(realKey)) {
+      return new KuaioKey({ key: realKey, matchMode: 'key' })
+    }
+    const code = layout.keyToCodeHandler(realKey)
+    return new KuaioKey({ code, matchMode: 'code' })
+  } else {
+    return new KuaioKey(input)
+  }
+}
 
 export function keyEqualTo(key1: string, key2: string): boolean {
   return key1 === key2
@@ -30,38 +57,19 @@ export function getModifierKeyPressed(
   }
 }
 
-/**
- * Returns true if the key in modifiers is pressed and the other combination modifier keys are not pressed.
- */
 export function getCombinationModifierKeyMatched(
-  modifiers: string[],
+  modifiers: KuaioKey[],
   e: KeyboardEvent
-): boolean {
+) {
   return Object.values(CombinationModifierKeys).every(
-    (key) => getModifierKeyPressed(key, e) === modifiers.indexOf(key) > -1
+    (key) =>
+      getModifierKeyPressed(key, e) ===
+      modifiers.findIndex((item) => item.key === key) > -1
   )
 }
 
 export function isCombinationModifierKey(key: string): boolean {
   return (Object.values(CombinationModifierKeys) as string[]).includes(key)
-}
-
-/**
- * Get the state of the modifier keys that can be used to generate the glyph.
- */
-export function getGlyphModifierKeyState(
-  e: KeyboardEvent
-): Record<string, boolean> {
-  return {
-    [ModifierKeys.Shift]: e.shiftKey,
-    [ModifierKeys.CapsLock]: e.getModifierState(ModifierKeys.CapsLock),
-    [ModifierKeys.AltGraph]: e.getModifierState(ModifierKeys.AltGraph),
-    [ModifierKeys.NumLock]: e.getModifierState(ModifierKeys.NumLock),
-    // In macOS, the Option key also changes the glyph
-    [CombinationModifierKeyAlias.Option]: e.getModifierState(
-      CombinationModifierKeyAlias.Option
-    )
-  }
 }
 
 /**
@@ -93,11 +101,26 @@ export function getPlatform(): string {
   }
 }
 
+let upperCaseKeyMap: Map<string, string> | null = null
+
+export function getUpperCaseKeyMap() {
+  if (!upperCaseKeyMap) {
+    const upperCasekeyEntries = [
+      ...Object.entries(GeneralKeys).map((entry) => [entry[1], entry[0]]),
+      ...Object.entries(GeneralKeys).map((entry) => [entry[0], entry[0]]),
+      ...Object.entries(CombinationModifierKeyAlias),
+      ...Object.entries(VirtualKeys)
+    ].map((entry) => [entry[0].toUpperCase(), entry[1]] as [string, string])
+    upperCaseKeyMap = new Map(upperCasekeyEntries)
+  }
+  return upperCaseKeyMap
+}
+
 export function getRealKey(key: string): string {
-  if (key in CombinationModifierKeyAlias) {
-    return CombinationModifierKeyAlias[key as keyof typeof CombinationModifierKeyAlias]
-  } else if (key in VirtualKeys) {
-    return VirtualKeys[key as keyof typeof VirtualKeys]
+  const _upperCaseKeyMap = getUpperCaseKeyMap()
+  const upperCaseKey = key.toLocaleUpperCase()
+  if (_upperCaseKeyMap.has(upperCaseKey)) {
+    return _upperCaseKeyMap.get(upperCaseKey) as string
   } else {
     return key
   }

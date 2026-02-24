@@ -1,11 +1,10 @@
 import { KuaioLayout } from '../../index'
 import {
-  WritingSystemCodes,
+  KeyboardCodes,
   KeyboardLayout,
-  GeneralKeys,
-  ModifierKeys
+  GeneralKeys
 } from '../../../../enums'
-import { QwertyShiftKey, qwertyShiftMap } from './maps'
+import { qwertyKeyToCodeMap } from './maps'
 
 const qwertyLangTagSet = new Set(['zh-CN', 'en-US', 'zh', 'en'])
 
@@ -21,8 +20,8 @@ function qwertyValidator(
 ): boolean {
   if (layoutMap) {
     return (
-      layoutMap.get(WritingSystemCodes.KeyQ) === GeneralKeys.Q &&
-      layoutMap.get(WritingSystemCodes.KeyY) === GeneralKeys.Y
+      layoutMap.get(KeyboardCodes.KeyQ) === GeneralKeys.Q &&
+      layoutMap.get(KeyboardCodes.KeyY) === GeneralKeys.Y
     )
   } else {
     const [language] = langTag.split('-')
@@ -31,28 +30,14 @@ function qwertyValidator(
 }
 
 /**
- * Handle glyph changes brought about by glyph modifier keys: `Shift`, `CapsLock`, `AltGr`. \
- * The return value will be used as a new key to participate in the subsequent matching process of the shortcut.
+ * Resolve a key value to its corresponding physical key code in the QWERTY layout.
  */
-function qwertyGlyphHandler(
-  key: string,
-  glyphModifierState: Record<string, boolean>
-): string {
-  if (
-    /^[A-Z]$/.test(key) &&
-    (glyphModifierState[ModifierKeys.CapsLock] ||
-      glyphModifierState[ModifierKeys.Shift])
-  ) {
-    return key.toLocaleLowerCase()
-  } else if (glyphModifierState[ModifierKeys.Shift] && key in qwertyShiftMap) {
-    return qwertyShiftMap[key as QwertyShiftKey]
-  } else {
-    return key
-  }
+function qwertyKeyToCodeHandler(key: string) {
+  return qwertyKeyToCodeMap[key] ?? key
 }
 
 export default {
   name: KeyboardLayout.QWERTY,
   validator: qwertyValidator,
-  glyphHandler: qwertyGlyphHandler
+  keyToCodeHandler: qwertyKeyToCodeHandler
 } as KuaioLayout
